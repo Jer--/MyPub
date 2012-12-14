@@ -1,0 +1,4 @@
+MyPub
+=====
+
+Design and developpment of a social network that allows users to easily find the nearest bars corresponding to them (with interest centers). This research will be done thank the database of this social network. It will be expanded by the users themselves. They add (among others), the pubs they visited, their mood, their comments, and full others innovative criteria.  French : Conception et developpment d'un reseau social permettant à ses utilisateurs de trouver facilement les bars les plus proches leur correspondant (selon des centres interets). Cette recherche se fera grace a la base de donnee du reseau qui sera etoffee par les utilisateurs eux-memes. Ils y ajouteront (entre autre), les bars qu'ils ont visite, leur ambiance, leurs commentaires, et pleins dautres criteres innovants.  Designer and developer :  Bonnet Jonathan Brion Benjamin Coquin Jeremie Heuillet Valerie
