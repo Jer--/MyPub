@@ -11,7 +11,7 @@ class Pub {
 	
 	Picture presentationPicture
 	
-	static hasMany = [pictures : Picture, myTypes : PubType]
+	static hasMany = [pictures : Picture, myTypes : PubType, coments : Coment, modifications : Modification]
 	
 	String toString () {return 'Pub : ' + name }
 	
@@ -20,5 +20,7 @@ class Pub {
 		presentationPicture nullable: true
 		
 		pictures nullable: true
+		coments nullable: true
+		modifiactions nullable: true
     }
 }
