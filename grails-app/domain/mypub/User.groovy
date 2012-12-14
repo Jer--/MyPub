@@ -15,7 +15,7 @@ class User {
 	Date ddn
 	Picture avatar
 	
-	static hasMany = [friends : User, pictures : Picture]
+	static hasMany = [friends : User, pictures : Picture, pubs : Pub]
 
 	static constraints = {
 		username blank: false, unique: true
@@ -30,6 +30,7 @@ class User {
 		
 		friends nullable:true
 		pictures nullable:true
+		pubs nullable:true
 	}
 
 	static mapping = {
