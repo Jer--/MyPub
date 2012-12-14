@@ -1,3 +1,6 @@
+/**
+ * TODO: licence.
+ */
 package mypub
 
 class Role {
