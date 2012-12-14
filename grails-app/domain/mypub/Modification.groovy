@@ -5,10 +5,10 @@ class Modification {
 	String username
 	Date proposalDate
 	
-	static hasMany = [usersOk : String]
 	static belongsTo = [pub : Pub]
+	static hasMany = [usersOk : String]
 
     static constraints = {
-		userOk nullable: true
+		usersOk nullable:true
     }
 }

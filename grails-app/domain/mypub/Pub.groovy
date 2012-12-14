@@ -21,6 +21,5 @@ class Pub {
 		
 		pictures nullable: true
 		coments nullable: true
-		modifiactions nullable: true
     }
 }
