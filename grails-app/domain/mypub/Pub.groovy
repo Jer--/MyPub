@@ -14,7 +14,9 @@ class Pub {
 	static belongsTo = User
 	static hasMany = [pictures : Picture, myTypes : PubType, coments : Coment, modifications : Modification, users : User]
 	
-	String toString () {return 'Pub : ' + name }
+	String toString () {return 'Pub : ' + name +
+								' address ' + address 
+	}
 	
     static constraints = {
 		address unique:true

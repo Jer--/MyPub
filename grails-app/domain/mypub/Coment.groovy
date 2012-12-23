@@ -8,6 +8,12 @@ class Coment {
 	
 	static belongsTo = [pub : Pub]
 
+	String toString () {return 'Comment by : ' + username + 
+								' date :' + postDate +
+								 ' / ' + text
+								 }
+	
+	
     static constraints = {
 		text size: 1..160
     }

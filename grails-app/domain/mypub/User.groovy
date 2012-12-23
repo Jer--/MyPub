@@ -17,6 +17,10 @@ class User {
 	
 	static hasMany = [friends : User, pictures : Picture, pubs : Pub]
 
+	String toString() {return 'User : ' + firstName + ' ' + lastName							
+							}
+	
+	
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
