@@ -5,8 +5,11 @@
 package mypub
 
 import org.springframework.dao.DataIntegrityViolationException
+import grails.plugins.springsecurity.Secured
 
 class PictureController {
+	
+	def springSecurityService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -14,6 +17,7 @@ class PictureController {
         redirect(action: "list", params: params)
     }
 
+	@Secured(['ROLE_ADMIN'])
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         [pictureInstanceList: Picture.list(params), pictureInstanceTotal: Picture.count()]
@@ -25,15 +29,19 @@ class PictureController {
 
     def save() {
         def pictureInstance = new Picture(params)
+		def courant = springSecurityService.currentUser
+		String username = courant.username
+		User.findByUsername(username).addToPictures(pictureInstance)
         if (!pictureInstance.save(flush: true)) {
             render(view: "create", model: [pictureInstance: pictureInstance])
             return
         }
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'picture.label', default: 'Picture'), pictureInstance.id])
-        redirect(action: "show", id: pictureInstance.id)
+        redirect(action: "showPerso", id: pictureInstance.id)
     }
 
+	@Secured(['ROLE_ADMIN'])
     def show(Long id) {
         def pictureInstance = Picture.get(id)
         if (!pictureInstance) {
@@ -103,4 +111,64 @@ class PictureController {
             redirect(action: "show", id: id)
         }
     }
+	
+	//// Non Generated methods /////////////////////////////////////////////////////////////////
+	
+	def showPerso() {
+		def pictureInstance = Picture.get(params.id)
+		if (!pictureInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'picture.label', default: 'Picture'), params.id])
+			//redirect(action: "delete")
+			redirect(action: "listPerso")
+			return
+		}
+
+		[pictureInstance: pictureInstance]
+	}
+	
+	def showImgAmi() {
+		def pictureInstance = Picture.get(params.id)
+		if (!pictureInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'picture.label', default: 'Picture'), params.id])
+			//redirect(action: "delete")
+			redirect(action: "listPerso")
+			return
+		}
+
+		[pictureInstance: pictureInstance]
+	}
+	
+	def listPerso() {
+		def courant = springSecurityService.currentUser
+		String username = courant.username
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		[pictureInstanceList: User.findByUsername(username).pictures, pictureInstanceTotal: User.findByUsername(username).pictures.size()]
+	}
+
+	def enleverList() {
+		def courant = springSecurityService.currentUser
+		def pictureP = Picture.get(params.id)
+		String username = courant.username
+		if(User.findByUsername(username).avatar.equals(pictureP))
+			User.findByUsername(username).avatar = null
+		else {
+			User.findByUsername(username).removeFromPictures(Picture.findById(pictureP.id))
+			Picture.findById(pictureP.id).delete(flush: true)
+		}
+		redirect(action: "listPerso")
+	}
+	
+	def viewImageId = {
+		def picture = User.get(params.id).avatar
+		byte[] pic = picture.data
+		response.contentType = "image/jpeg"
+		response.outputStream << pic
+	}
+	
+	def viewImage = {
+		def picture = Picture.get(params.id)
+		byte[] pic = picture.data
+		response.contentType = "image/jpeg"
+		response.outputStream << pic
+	}
 }

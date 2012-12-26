@@ -166,6 +166,10 @@ si l'utilisateur n'est pas connecté
 				<g:link controller='Pub' action='list'>Pubs</g:link>
 			</p>
 			<p align="center">
+			Voir Mes Images :<br />
+			<g:link controller='Picture' action='listPerso'>Mes Images</g:link>
+			</p>
+			<p align="center">
 				Se Déconnecter :<br />
 				<g:link controller='Logout'>Déconnexion</g:link>
 			</p>
