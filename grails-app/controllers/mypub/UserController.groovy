@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * Author : Group BBHC
+ * Licence : AGPL v3
+ ******************************************************************************/
 package mypub
 
 import grails.plugins.springsecurity.Secured
