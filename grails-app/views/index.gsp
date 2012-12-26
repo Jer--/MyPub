@@ -144,40 +144,40 @@ si l'utilisateur n'est pas connecté
 	<%--
 			si l'utilisateur est connecté
 			--%>
-	<sec:ifLoggedIn>
-		<div class="clear"></div>
-		<div id="controller-list" role="navigation">
-			<div align=left id="status" role="main">
-			<%--
-				menu principal : diverses redirections
-				--%>
-				<h1 align=center>Menu</h1>
-				<p align="center">
-					Voir votre Profil :<br />
-					<g:link controller='User' action='voir'>Mon Profil</g:link>
-				</p>
-				<p align="center">
-					Voir les Membres de MyPub :<br />
-					<g:link controller='User' action='list'>Membres</g:link>
-				</p>
-			
-				<p align="center">
-					Voir les Pubs :<br />
-					<g:link controller='Pub' action='list'>Pubs</g:link>
-				</p>
-				<p align="center">
-					Se Déconnecter :<br />
-					<g:link controller='Logout'>Déconnexion</g:link>
-				</p>
-			</div>
-			<div>
-				<h1 align="center">
-					Bienvenue sur votre page d'accueil
-					<sec:username />
-				</h1>
-			</div>
+<sec:ifLoggedIn>
+	<div class="clear"></div>
+	<div id="controller-list" role="navigation">
+		<div align=left id="status" role="main">
+		<%--
+			menu principal : diverses redirections
+			--%>
+			<h1 align=center>Menu</h1>
+			<p align="center">
+				Voir votre Profil :<br />
+				<g:link controller='User' action='voir'>Mon Profil</g:link>
+			</p>
+			<p align="center">
+				Voir les Membres de MyPub :<br />
+				<g:link controller='User' action='list'>Membres</g:link>
+			</p>
+		
+			<p align="center">
+				Voir les Pubs :<br />
+				<g:link controller='Pub' action='list'>Pubs</g:link>
+			</p>
+			<p align="center">
+				Se Déconnecter :<br />
+				<g:link controller='Logout'>Déconnexion</g:link>
+			</p>
 		</div>
-	</sec:ifLoggedIn>
+		<div>
+			<h1 align="center">
+				Bienvenue sur votre page d'accueil
+				<sec:username />
+			</h1>
+		</div>
+	</div>
+</sec:ifLoggedIn>
 	
 		<!--<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div id="status" role="complementary">
