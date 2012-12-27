@@ -12,7 +12,13 @@ class PubControllerTests {
     def populateValidParams(params) {
         assert params != null
         // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+        params["name"] = 'Pub1'
+		params["address"] = '118 route narbonne'
+		params["latitude"] = '1 1 1 nord'
+		params["longitude"] = '2 2 2 ouest'
+		params["myTypes"] = Pub.PubType.PUB
+		params["user"] = new User(username:'toto', password: 'aaaa', firstName: 'john', lastName: 'john', mail:'john@lol.fr')
+		
     }
 
     void testIndex() {
@@ -102,7 +108,8 @@ class PubControllerTests {
         // test invalid parameters in update
         params.id = pub.id
         //TODO: add invalid values to params object
-
+		params["name"] = null
+		
         controller.update()
 
         assert view == "/pub/edit"
