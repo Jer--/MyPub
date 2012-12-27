@@ -13,6 +13,11 @@ class ModificationControllerTests {
         assert params != null
         // TODO: Populate valid properties like...
         //params["name"] = 'someValidName'
+		params["username"]='toto'
+		params["proposalDate"] = new Date('2007/01/01')
+		params["pub"] = new Pub(name:'pub1', address:'123 av jj', latitude:'aze', longitude:'azeza')
+		
+
     }
 
     void testIndex() {
@@ -102,6 +107,7 @@ class ModificationControllerTests {
         // test invalid parameters in update
         params.id = modification.id
         //TODO: add invalid values to params object
+		params["proposalDate"]='text'
 
         controller.update()
 
