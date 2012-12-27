@@ -2,8 +2,9 @@ package mypub
 
 
 
-import org.junit.*
 import grails.test.mixin.*
+
+import org.junit.*
 
 @TestFor(ComentController)
 @Mock(Coment)
@@ -13,6 +14,10 @@ class ComentControllerTests {
         assert params != null
         // TODO: Populate valid properties like...
         //params["name"] = 'someValidName'
+		params["username"]='testName'
+		params["postDate"]= new Date ('2007/01/01')
+		params["text"]='coment test'
+		params["pub"] = new Pub(name:'pub1', address:'123 av jj', latitude:'aze', longitude:'azeza')
     }
 
     void testIndex() {
@@ -58,7 +63,7 @@ class ComentControllerTests {
 
         populateValidParams(params)
         def coment = new Coment(params)
-
+		
         assert coment.save() != null
 
         params.id = coment.id
@@ -102,6 +107,7 @@ class ComentControllerTests {
         // test invalid parameters in update
         params.id = coment.id
         //TODO: add invalid values to params object
+		params["text"]='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
 
         controller.update()
 
