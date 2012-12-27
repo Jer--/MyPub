@@ -6,7 +6,7 @@ package mypub
 
 class Pub {
 
-    enum PubType {PUB, RESTO, CLUB}
+    enum PubType {PUB , RESTO, CLUB}
 	
 	String name
 	String address
