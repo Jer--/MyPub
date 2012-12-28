@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * Author : Group BBHC
+ * Licence : AGPL v3
+ ******************************************************************************/
 grails.servlet.version = "2.5" // Change depending on target container compliance (2.5 or 3.0)
 grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
@@ -52,5 +56,7 @@ grails.project.dependency.resolution = {
         runtime ":database-migration:1.1"
 
         compile ':cache:1.0.0'
+		
+
     }
 }

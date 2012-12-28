@@ -1,8 +1,35 @@
+<%--#-------------------------------------------------------------------------------
+# Author : Group BBHC
+# Licence : AGPL v3
+#-------------------------------------------------------------------------------
+--%>
+
+<%@ page import="mypub.User"%>
+<%@ page
+	import="org.springframework.dao.DataIntegrityViolationException"%>
+<%@ page import="grails.plugins.springsecurity.Secured"%>
+<%@ page
+	import="org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils"%>
+<%@ page
+	import="org.springframework.security.authentication.AccountExpiredException"%>
+<%@ page
+	import="org.springframework.security.authentication.CredentialsExpiredException"%>
+<%@ page
+	import="org.springframework.security.authentication.DisabledException"%>
+<%@ page
+	import="org.springframework.security.authentication.LockedException"%>
+<%@ page
+	import="org.springframework.security.core.context.SecurityContextHolder as SCH"%>
+<%@ page import="org.springframework.security.web.WebAttributes"%>
+<%@ page
+	import="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter"%>
+
+
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main"/>
-		<title>Welcome to Grails</title>
+		<title>Bienvenue sur MyPub !</title>
 		<style type="text/css" media="screen">
 			#status {
 				background-color: #eee;
@@ -81,34 +108,99 @@
 		</style>
 	</head>
 	<body>
-		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+	
+		<%--
+si l'utilisateur n'est pas connecté
+	--%>
+	<sec:ifNotLoggedIn>
+		<a href="#page-body" class="skip"><g:message
+				code="default.link.skip.label" default="Skip to content&hellip;" /></a>
+		<div align=left id="status" role="main">
+			<h1 align=center>Menu</h1>
+			<p>
+				Pour vous connecter :<br />
+				<%--
+				redirection vers la connexion
+				--%>
+				<g:link controller='login' action='auth'>Connexion</g:link>
+			</p>
+			<p>
+			<%--
+				redirection vers l'inscription
+				--%>
+				Pour vous inscrire :<br />
+				<g:link controller='User' action='create'>Inscription</g:link>
+			</p>
+		</div>
+
+
+		<div id="page-body" role="explain">
+			<h1>Bienvenue sur MyPub</h1>
+			<br /> <br /> <br /> <br />
+			<p align=justify>Hey ! Welcome to MyPub ! Your e-community which that you can exchange your favorites pubs with your friends! Recommend, note, comment and share !</p>
+			<br /> <br /> <br /> <br />
+		</div>
+	</sec:ifNotLoggedIn>
+	<%--
+			si l'utilisateur est connecté
+			--%>
+<sec:ifLoggedIn>
+	<div class="clear"></div>
+	<div id="controller-list" role="navigation">
+		<div align=left id="status" role="main">
+		<%--
+			menu principal : diverses redirections
+			--%>
+			<h1 align=center>Menu</h1>
+			<p align="center">
+				Voir votre Profil :<br />
+				<g:link controller='User' action='voir'>Mon Profil</g:link>
+			</p>
+			<p align="center">
+				Voir les Membres de MyPub :<br />
+				<g:link controller='User' action='list'>Membres</g:link>
+			</p>
+		
+			<p align="center">
+				Voir les Pubs :<br />
+				<g:link controller='Pub' action='list'>Pubs</g:link>
+			</p>
+			<p align="center">
+			Voir Mes Images :<br />
+			<g:link controller='Picture' action='listPerso'>Mes Images</g:link>
+			</p>
+			<p align="center">
+				Se Déconnecter :<br />
+				<g:link controller='Logout'>Déconnexion</g:link>
+			</p>
+		</div>
+		<div>
+			<h1 align="center">
+				Bienvenue sur votre page d'accueil
+				<sec:username />
+			</h1>
+		</div>
+	</div>
+</sec:ifLoggedIn>
+	
+		<!--<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div id="status" role="complementary">
-			<h1>Application Status</h1>
+			
+			<h1>Menu :</h1>
 			<ul>
-				<li>App version: <g:meta name="app.version"/></li>
-				<li>Grails version: <g:meta name="app.grails.version"/></li>
-				<li>Groovy version: ${org.codehaus.groovy.runtime.InvokerHelper.getVersion()}</li>
-				<li>JVM version: ${System.getProperty('java.version')}</li>
-				<li>Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</li>
-				<li>Controllers: ${grailsApplication.controllerClasses.size()}</li>
-				<li>Domains: ${grailsApplication.domainClasses.size()}</li>
-				<li>Services: ${grailsApplication.serviceClasses.size()}</li>
-				<li>Tag Libraries: ${grailsApplication.tagLibClasses.size()}</li>
+				<li>bientot...</li>
+				<li>bientot...</li>
+				<li>bientot...</li>
+				<li>bientot...</li>
+				
 			</ul>
-			<h1>Installed Plugins</h1>
-			<ul>
+			<%--<ul>
 				<g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
 					<li>${plugin.name} - ${plugin.version}</li>
 				</g:each>
-			</ul>
+			</ul>--%>
 		</div>
 		<div id="page-body" role="main">
-			<h1>Welcome to Grails</h1>
-			<p>Congratulations, you have successfully started your first Grails application! At the moment
-			   this is the default page, feel free to modify it to either redirect to a controller or display whatever
-			   content you may choose. Below is a list of controllers that are currently deployed in this application,
-			   click on each to execute its default action:</p>
-
 			<div id="controller-list" role="navigation">
 				<h2>Available Controllers:</h2>
 				<ul>
@@ -117,6 +209,6 @@
 					</g:each>
 				</ul>
 			</div>
-		</div>
+		</div>-->
 	</body>
 </html>

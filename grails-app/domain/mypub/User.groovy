@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * Author : Group BBHC
+ * Licence : AGPL v3
+ ******************************************************************************/
 package mypub
 
 class User {
@@ -6,7 +10,7 @@ class User {
 
 	String username
 	String password
-	boolean enabled
+	boolean enabled = true
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
@@ -15,8 +19,12 @@ class User {
 	Date ddn
 	Picture avatar
 	
-	static hasMany = [friends : User, pictures : Picture]
+	static hasMany = [friends : User, pictures : Picture, pubs : Pub]
 
+	String toString() {return 'User : ' + firstName + ' ' + lastName							
+							}
+	
+	
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
@@ -30,6 +38,7 @@ class User {
 		
 		friends nullable:true
 		pictures nullable:true
+		pubs nullable:true
 	}
 
 	static mapping = {

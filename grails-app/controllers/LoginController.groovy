@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * Author : Group BBHC
+ * Licence : AGPL v3
+ ******************************************************************************/
 import grails.converters.JSON
 
 import javax.servlet.http.HttpServletResponse
