@@ -11,7 +11,7 @@ import org.junit.*
 @TestFor(Pub)
 class PubTests {
 
-    void testSomething() {
-       true
-    }
+	void testSomething() {
+		true
+	}
 }

@@ -11,7 +11,7 @@ import org.junit.*
 @TestFor(Modification)
 class ModificationTests {
 
-    void testSomething() {
-       true
-    }
+	void testSomething() {
+		true
+	}
 }
