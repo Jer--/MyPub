@@ -96,11 +96,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${pubInstance?.myTypes}">
+				<g:if test="${pubInstance?.type}">
 				<li class="fieldcontain">
-					<span id="myTypes-label" class="property-label"><g:message code="pub.myTypes.label" default="My Types" /></span>
+					<span id="type-label" class="property-label"><g:message code="pub.type.label" default="Type" /></span>
 					
-						<span class="property-value" aria-labelledby="myTypes-label"><g:fieldValue bean="${pubInstance}" field="myTypes"/></span>
+						<span class="property-value" aria-labelledby="type-label"><g:fieldValue bean="${pubInstance}" field="type"/></span>
 					
 				</li>
 				</g:if>

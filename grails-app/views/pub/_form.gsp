@@ -81,9 +81,9 @@
 	<g:textField name="longitude" value="${pubInstance?.longitude}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'myTypes', 'error')} ">
-	<label for="myTypes">
-		<g:message code="pub.myTypes.label" default="My Types" />
+<div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'type', 'error')} ">
+	<label for="type">
+		<g:message code="pub.type.label" default="Type" />
 		
 	</label>
 	

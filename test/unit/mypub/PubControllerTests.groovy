@@ -16,7 +16,7 @@ class PubControllerTests {
 		params["address"] = '118 route narbonne'
 		params["latitude"] = '1 1 1 nord'
 		params["longitude"] = '2 2 2 ouest'
-		params["myTypes"] = Pub.PubType.PUB
+		params["type"] = 'PUB'
 		params["user"] = new User(username:'toto', password: 'aaaa', firstName: 'john', lastName: 'john', mail:'john@lol.fr')
 		
     }
