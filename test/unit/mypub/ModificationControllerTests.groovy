@@ -9,153 +9,153 @@ import grails.test.mixin.*
 @Mock(Modification)
 class ModificationControllerTests {
 
-    def populateValidParams(params) {
-        assert params != null
-        // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+	def populateValidParams(params) {
+		assert params != null
+		// TODO: Populate valid properties like...
+		//params["name"] = 'someValidName'
 		params["username"]='toto'
 		params["proposalDate"] = new Date('2007/01/01')
 		params["pub"] = new Pub(name:'pub1', address:'123 av jj', latitude:'aze', longitude:'azeza')
-		
 
-    }
 
-    void testIndex() {
-        controller.index()
-        assert "/modification/list" == response.redirectedUrl
-    }
+	}
 
-    void testList() {
+	void testIndex() {
+		controller.index()
+		assert "/modification/list" == response.redirectedUrl
+	}
 
-        def model = controller.list()
+	void testList() {
 
-        assert model.modificationInstanceList.size() == 0
-        assert model.modificationInstanceTotal == 0
-    }
+		def model = controller.list()
 
-    void testCreate() {
-        def model = controller.create()
+		assert model.modificationInstanceList.size() == 0
+		assert model.modificationInstanceTotal == 0
+	}
 
-        assert model.modificationInstance != null
-    }
+	void testCreate() {
+		def model = controller.create()
 
-    void testSave() {
-        controller.save()
+		assert model.modificationInstance != null
+	}
 
-        assert model.modificationInstance != null
-        assert view == '/modification/create'
+	void testSave() {
+		controller.save()
 
-        response.reset()
+		assert model.modificationInstance != null
+		assert view == '/modification/create'
 
-        populateValidParams(params)
-        controller.save()
+		response.reset()
 
-        assert response.redirectedUrl == '/modification/show/1'
-        assert controller.flash.message != null
-        assert Modification.count() == 1
-    }
+		populateValidParams(params)
+		controller.save()
 
-    void testShow() {
-        controller.show()
+		assert response.redirectedUrl == '/modification/show/1'
+		assert controller.flash.message != null
+		assert Modification.count() == 1
+	}
 
-        assert flash.message != null
-        assert response.redirectedUrl == '/modification/list'
+	void testShow() {
+		controller.show()
 
-        populateValidParams(params)
-        def modification = new Modification(params)
+		assert flash.message != null
+		assert response.redirectedUrl == '/modification/list'
 
-        assert modification.save() != null
+		populateValidParams(params)
+		def modification = new Modification(params)
 
-        params.id = modification.id
+		assert modification.save() != null
 
-        def model = controller.show()
+		params.id = modification.id
 
-        assert model.modificationInstance == modification
-    }
+		def model = controller.show()
 
-    void testEdit() {
-        controller.edit()
+		assert model.modificationInstance == modification
+	}
 
-        assert flash.message != null
-        assert response.redirectedUrl == '/modification/list'
+	void testEdit() {
+		controller.edit()
 
-        populateValidParams(params)
-        def modification = new Modification(params)
+		assert flash.message != null
+		assert response.redirectedUrl == '/modification/list'
 
-        assert modification.save() != null
+		populateValidParams(params)
+		def modification = new Modification(params)
 
-        params.id = modification.id
+		assert modification.save() != null
 
-        def model = controller.edit()
+		params.id = modification.id
 
-        assert model.modificationInstance == modification
-    }
+		def model = controller.edit()
 
-    void testUpdate() {
-        controller.update()
+		assert model.modificationInstance == modification
+	}
 
-        assert flash.message != null
-        assert response.redirectedUrl == '/modification/list'
+	void testUpdate() {
+		controller.update()
 
-        response.reset()
+		assert flash.message != null
+		assert response.redirectedUrl == '/modification/list'
 
-        populateValidParams(params)
-        def modification = new Modification(params)
+		response.reset()
 
-        assert modification.save() != null
+		populateValidParams(params)
+		def modification = new Modification(params)
 
-        // test invalid parameters in update
-        params.id = modification.id
-        //TODO: add invalid values to params object
+		assert modification.save() != null
+
+		// test invalid parameters in update
+		params.id = modification.id
+		//TODO: add invalid values to params object
 		params["proposalDate"]='text'
 
-        controller.update()
+		controller.update()
 
-        assert view == "/modification/edit"
-        assert model.modificationInstance != null
+		assert view == "/modification/edit"
+		assert model.modificationInstance != null
 
-        modification.clearErrors()
+		modification.clearErrors()
 
-        populateValidParams(params)
-        controller.update()
+		populateValidParams(params)
+		controller.update()
 
-        assert response.redirectedUrl == "/modification/show/$modification.id"
-        assert flash.message != null
+		assert response.redirectedUrl == "/modification/show/$modification.id"
+		assert flash.message != null
 
-        //test outdated version number
-        response.reset()
-        modification.clearErrors()
+		//test outdated version number
+		response.reset()
+		modification.clearErrors()
 
-        populateValidParams(params)
-        params.id = modification.id
-        params.version = -1
-        controller.update()
+		populateValidParams(params)
+		params.id = modification.id
+		params.version = -1
+		controller.update()
 
-        assert view == "/modification/edit"
-        assert model.modificationInstance != null
-        assert model.modificationInstance.errors.getFieldError('version')
-        assert flash.message != null
-    }
+		assert view == "/modification/edit"
+		assert model.modificationInstance != null
+		assert model.modificationInstance.errors.getFieldError('version')
+		assert flash.message != null
+	}
 
-    void testDelete() {
-        controller.delete()
-        assert flash.message != null
-        assert response.redirectedUrl == '/modification/list'
+	void testDelete() {
+		controller.delete()
+		assert flash.message != null
+		assert response.redirectedUrl == '/modification/list'
 
-        response.reset()
+		response.reset()
 
-        populateValidParams(params)
-        def modification = new Modification(params)
+		populateValidParams(params)
+		def modification = new Modification(params)
 
-        assert modification.save() != null
-        assert Modification.count() == 1
+		assert modification.save() != null
+		assert Modification.count() == 1
 
-        params.id = modification.id
+		params.id = modification.id
 
-        controller.delete()
+		controller.delete()
 
-        assert Modification.count() == 0
-        assert Modification.get(modification.id) == null
-        assert response.redirectedUrl == '/modification/list'
-    }
+		assert Modification.count() == 0
+		assert Modification.get(modification.id) == null
+		assert response.redirectedUrl == '/modification/list'
+	}
 }

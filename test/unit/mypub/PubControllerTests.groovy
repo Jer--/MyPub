@@ -9,154 +9,154 @@ import grails.test.mixin.*
 @Mock(Pub)
 class PubControllerTests {
 
-    def populateValidParams(params) {
-        assert params != null
-        // TODO: Populate valid properties like...
-        params["name"] = 'Pub1'
+	def populateValidParams(params) {
+		assert params != null
+		// TODO: Populate valid properties like...
+		params["name"] = 'Pub1'
 		params["address"] = '118 route narbonne'
 		params["latitude"] = '1 1 1 nord'
 		params["longitude"] = '2 2 2 ouest'
 		params["type"] = 'PUB'
 		params["user"] = new User(username:'toto', password: 'aaaa', firstName: 'john', lastName: 'john', mail:'john@lol.fr')
-		
-    }
 
-    void testIndex() {
-        controller.index()
-        assert "/pub/list" == response.redirectedUrl
-    }
+	}
 
-    void testList() {
+	void testIndex() {
+		controller.index()
+		assert "/pub/list" == response.redirectedUrl
+	}
 
-        def model = controller.list()
+	void testList() {
 
-        assert model.pubInstanceList.size() == 0
-        assert model.pubInstanceTotal == 0
-    }
+		def model = controller.list()
 
-    void testCreate() {
-        def model = controller.create()
+		assert model.pubInstanceList.size() == 0
+		assert model.pubInstanceTotal == 0
+	}
 
-        assert model.pubInstance != null
-    }
+	void testCreate() {
+		def model = controller.create()
 
-    void testSave() {
-        controller.save()
+		assert model.pubInstance != null
+	}
 
-        assert model.pubInstance != null
-        assert view == '/pub/create'
+	void testSave() {
+		controller.save()
 
-        response.reset()
+		assert model.pubInstance != null
+		assert view == '/pub/create'
 
-        populateValidParams(params)
-        controller.save()
+		response.reset()
 
-        assert response.redirectedUrl == '/pub/show/1'
-        assert controller.flash.message != null
-        assert Pub.count() == 1
-    }
+		populateValidParams(params)
+		controller.save()
 
-    void testShow() {
-        controller.show()
+		assert response.redirectedUrl == '/pub/show/1'
+		assert controller.flash.message != null
+		assert Pub.count() == 1
+	}
 
-        assert flash.message != null
-        assert response.redirectedUrl == '/pub/list'
+	void testShow() {
+		controller.show()
 
-        populateValidParams(params)
-        def pub = new Pub(params)
+		assert flash.message != null
+		assert response.redirectedUrl == '/pub/list'
 
-        assert pub.save() != null
+		populateValidParams(params)
+		def pub = new Pub(params)
 
-        params.id = pub.id
+		assert pub.save() != null
 
-        def model = controller.show()
+		params.id = pub.id
 
-        assert model.pubInstance == pub
-    }
+		def model = controller.show()
 
-    void testEdit() {
-        controller.edit()
+		assert model.pubInstance == pub
+	}
 
-        assert flash.message != null
-        assert response.redirectedUrl == '/pub/list'
+	void testEdit() {
+		controller.edit()
 
-        populateValidParams(params)
-        def pub = new Pub(params)
+		assert flash.message != null
+		assert response.redirectedUrl == '/pub/list'
 
-        assert pub.save() != null
+		populateValidParams(params)
+		def pub = new Pub(params)
 
-        params.id = pub.id
+		assert pub.save() != null
 
-        def model = controller.edit()
+		params.id = pub.id
 
-        assert model.pubInstance == pub
-    }
+		def model = controller.edit()
 
-    void testUpdate() {
-        controller.update()
+		assert model.pubInstance == pub
+	}
 
-        assert flash.message != null
-        assert response.redirectedUrl == '/pub/list'
+	void testUpdate() {
+		controller.update()
 
-        response.reset()
+		assert flash.message != null
+		assert response.redirectedUrl == '/pub/list'
 
-        populateValidParams(params)
-        def pub = new Pub(params)
+		response.reset()
 
-        assert pub.save() != null
+		populateValidParams(params)
+		def pub = new Pub(params)
 
-        // test invalid parameters in update
-        params.id = pub.id
-        //TODO: add invalid values to params object
+		assert pub.save() != null
+
+		// test invalid parameters in update
+		params.id = pub.id
+		//TODO: add invalid values to params object
 		params["name"] = null
-		
-        controller.update()
 
-        assert view == "/pub/edit"
-        assert model.pubInstance != null
+		controller.update()
 
-        pub.clearErrors()
+		assert view == "/pub/edit"
+		assert model.pubInstance != null
 
-        populateValidParams(params)
-        controller.update()
+		pub.clearErrors()
 
-        assert response.redirectedUrl == "/pub/show/$pub.id"
-        assert flash.message != null
+		populateValidParams(params)
+		controller.update()
 
-        //test outdated version number
-        response.reset()
-        pub.clearErrors()
+		assert response.redirectedUrl == "/pub/show/$pub.id"
+		assert flash.message != null
 
-        populateValidParams(params)
-        params.id = pub.id
-        params.version = -1
-        controller.update()
+		//test outdated version number
+		response.reset()
+		pub.clearErrors()
 
-        assert view == "/pub/edit"
-        assert model.pubInstance != null
-        assert model.pubInstance.errors.getFieldError('version')
-        assert flash.message != null
-    }
+		populateValidParams(params)
+		params.id = pub.id
+		params.version = -1
+		controller.update()
 
-    void testDelete() {
-        controller.delete()
-        assert flash.message != null
-        assert response.redirectedUrl == '/pub/list'
+		assert view == "/pub/edit"
+		assert model.pubInstance != null
+		assert model.pubInstance.errors.getFieldError('version')
+		assert flash.message != null
+	}
 
-        response.reset()
+	void testDelete() {
+		controller.delete()
+		assert flash.message != null
+		assert response.redirectedUrl == '/pub/list'
 
-        populateValidParams(params)
-        def pub = new Pub(params)
+		response.reset()
 
-        assert pub.save() != null
-        assert Pub.count() == 1
+		populateValidParams(params)
+		def pub = new Pub(params)
 
-        params.id = pub.id
+		assert pub.save() != null
+		assert Pub.count() == 1
 
-        controller.delete()
+		params.id = pub.id
 
-        assert Pub.count() == 0
-        assert Pub.get(pub.id) == null
-        assert response.redirectedUrl == '/pub/list'
-    }
+		controller.delete()
+
+		assert Pub.count() == 0
+		assert Pub.get(pub.id) == null
+		assert response.redirectedUrl == '/pub/list'
+	}
 }

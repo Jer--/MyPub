@@ -11,8 +11,7 @@ import org.junit.*
 @TestFor(Coment)
 class ComentTests {
 
-    void testSomething() {
-       true
-    }
-    
+	void testSomething() {
+		true
+	}
 }

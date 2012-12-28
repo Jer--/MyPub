@@ -11,7 +11,7 @@ import org.junit.*
 @TestFor(Picture)
 class PictureTests {
 
-    void testSomething() {
+	void testSomething() {
 		true
-    }
+	}
 }

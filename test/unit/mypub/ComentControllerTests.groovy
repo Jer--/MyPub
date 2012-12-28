@@ -10,152 +10,152 @@ import org.junit.*
 @Mock(Coment)
 class ComentControllerTests {
 
-    def populateValidParams(params) {
-        assert params != null
-        // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+	def populateValidParams(params) {
+		assert params != null
+		// TODO: Populate valid properties like...
+		//params["name"] = 'someValidName'
 		params["username"]='testName'
 		params["postDate"]= new Date ('2007/01/01')
 		params["text"]='coment test'
 		params["pub"] = new Pub(name:'pub1', address:'123 av jj', latitude:'aze', longitude:'azeza')
-    }
+	}
 
-    void testIndex() {
-        controller.index()
-        assert "/coment/list" == response.redirectedUrl
-    }
+	void testIndex() {
+		controller.index()
+		assert "/coment/list" == response.redirectedUrl
+	}
 
-    void testList() {
+	void testList() {
 
-        def model = controller.list()
+		def model = controller.list()
 
-        assert model.comentInstanceList.size() == 0
-        assert model.comentInstanceTotal == 0
-    }
+		assert model.comentInstanceList.size() == 0
+		assert model.comentInstanceTotal == 0
+	}
 
-    void testCreate() {
-        def model = controller.create()
+	void testCreate() {
+		def model = controller.create()
 
-        assert model.comentInstance != null
-    }
+		assert model.comentInstance != null
+	}
 
-    void testSave() {
-        controller.save()
+	void testSave() {
+		controller.save()
 
-        assert model.comentInstance != null
-        assert view == '/coment/create'
+		assert model.comentInstance != null
+		assert view == '/coment/create'
 
-        response.reset()
+		response.reset()
 
-        populateValidParams(params)
-        controller.save()
+		populateValidParams(params)
+		controller.save()
 
-        assert response.redirectedUrl == '/coment/show/1'
-        assert controller.flash.message != null
-        assert Coment.count() == 1
-    }
+		assert response.redirectedUrl == '/coment/show/1'
+		assert controller.flash.message != null
+		assert Coment.count() == 1
+	}
 
-    void testShow() {
-        controller.show()
+	void testShow() {
+		controller.show()
 
-        assert flash.message != null
-        assert response.redirectedUrl == '/coment/list'
+		assert flash.message != null
+		assert response.redirectedUrl == '/coment/list'
 
-        populateValidParams(params)
-        def coment = new Coment(params)
-		
-        assert coment.save() != null
+		populateValidParams(params)
+		def coment = new Coment(params)
 
-        params.id = coment.id
+		assert coment.save() != null
 
-        def model = controller.show()
+		params.id = coment.id
 
-        assert model.comentInstance == coment
-    }
+		def model = controller.show()
 
-    void testEdit() {
-        controller.edit()
+		assert model.comentInstance == coment
+	}
 
-        assert flash.message != null
-        assert response.redirectedUrl == '/coment/list'
+	void testEdit() {
+		controller.edit()
 
-        populateValidParams(params)
-        def coment = new Coment(params)
+		assert flash.message != null
+		assert response.redirectedUrl == '/coment/list'
 
-        assert coment.save() != null
+		populateValidParams(params)
+		def coment = new Coment(params)
 
-        params.id = coment.id
+		assert coment.save() != null
 
-        def model = controller.edit()
+		params.id = coment.id
 
-        assert model.comentInstance == coment
-    }
+		def model = controller.edit()
 
-    void testUpdate() {
-        controller.update()
+		assert model.comentInstance == coment
+	}
 
-        assert flash.message != null
-        assert response.redirectedUrl == '/coment/list'
+	void testUpdate() {
+		controller.update()
 
-        response.reset()
+		assert flash.message != null
+		assert response.redirectedUrl == '/coment/list'
 
-        populateValidParams(params)
-        def coment = new Coment(params)
+		response.reset()
 
-        assert coment.save() != null
+		populateValidParams(params)
+		def coment = new Coment(params)
 
-        // test invalid parameters in update
-        params.id = coment.id
-        //TODO: add invalid values to params object
+		assert coment.save() != null
+
+		// test invalid parameters in update
+		params.id = coment.id
+		//TODO: add invalid values to params object
 		params["text"]='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
 
-        controller.update()
+		controller.update()
 
-        assert view == "/coment/edit"
-        assert model.comentInstance != null
+		assert view == "/coment/edit"
+		assert model.comentInstance != null
 
-        coment.clearErrors()
+		coment.clearErrors()
 
-        populateValidParams(params)
-        controller.update()
+		populateValidParams(params)
+		controller.update()
 
-        assert response.redirectedUrl == "/coment/show/$coment.id"
-        assert flash.message != null
+		assert response.redirectedUrl == "/coment/show/$coment.id"
+		assert flash.message != null
 
-        //test outdated version number
-        response.reset()
-        coment.clearErrors()
+		//test outdated version number
+		response.reset()
+		coment.clearErrors()
 
-        populateValidParams(params)
-        params.id = coment.id
-        params.version = -1
-        controller.update()
+		populateValidParams(params)
+		params.id = coment.id
+		params.version = -1
+		controller.update()
 
-        assert view == "/coment/edit"
-        assert model.comentInstance != null
-        assert model.comentInstance.errors.getFieldError('version')
-        assert flash.message != null
-    }
+		assert view == "/coment/edit"
+		assert model.comentInstance != null
+		assert model.comentInstance.errors.getFieldError('version')
+		assert flash.message != null
+	}
 
-    void testDelete() {
-        controller.delete()
-        assert flash.message != null
-        assert response.redirectedUrl == '/coment/list'
+	void testDelete() {
+		controller.delete()
+		assert flash.message != null
+		assert response.redirectedUrl == '/coment/list'
 
-        response.reset()
+		response.reset()
 
-        populateValidParams(params)
-        def coment = new Coment(params)
+		populateValidParams(params)
+		def coment = new Coment(params)
 
-        assert coment.save() != null
-        assert Coment.count() == 1
+		assert coment.save() != null
+		assert Coment.count() == 1
 
-        params.id = coment.id
+		params.id = coment.id
 
-        controller.delete()
+		controller.delete()
 
-        assert Coment.count() == 0
-        assert Coment.get(coment.id) == null
-        assert response.redirectedUrl == '/coment/list'
-    }
+		assert Coment.count() == 0
+		assert Coment.get(coment.id) == null
+		assert response.redirectedUrl == '/coment/list'
+	}
 }

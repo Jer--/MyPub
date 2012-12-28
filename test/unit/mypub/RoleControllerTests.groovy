@@ -9,148 +9,148 @@ import grails.test.mixin.*
 @Mock(Role)
 class RoleControllerTests {
 
-    def populateValidParams(params) {
-        assert params != null
-        // TODO: Populate valid properties like...
-        params["authority"] = 'roleTest'
-    }
+	def populateValidParams(params) {
+		assert params != null
+		// TODO: Populate valid properties like...
+		params["authority"] = 'roleTest'
+	}
 
-    void testIndex() {
-        controller.index()
-        assert "/role/list" == response.redirectedUrl
-    }
+	void testIndex() {
+		controller.index()
+		assert "/role/list" == response.redirectedUrl
+	}
 
-    void testList() {
+	void testList() {
 
-        def model = controller.list()
+		def model = controller.list()
 
-        assert model.roleInstanceList.size() == 0
-        assert model.roleInstanceTotal == 0
-    }
+		assert model.roleInstanceList.size() == 0
+		assert model.roleInstanceTotal == 0
+	}
 
-    void testCreate() {
-        def model = controller.create()
+	void testCreate() {
+		def model = controller.create()
 
-        assert model.roleInstance != null
-    }
+		assert model.roleInstance != null
+	}
 
-    void testSave() {
-        controller.save()
+	void testSave() {
+		controller.save()
 
-        assert model.roleInstance != null
-        assert view == '/role/create'
+		assert model.roleInstance != null
+		assert view == '/role/create'
 
-        response.reset()
+		response.reset()
 
-        populateValidParams(params)
-        controller.save()
+		populateValidParams(params)
+		controller.save()
 
-        assert response.redirectedUrl == '/role/show/1'
-        assert controller.flash.message != null
-        assert Role.count() == 1
-    }
+		assert response.redirectedUrl == '/role/show/1'
+		assert controller.flash.message != null
+		assert Role.count() == 1
+	}
 
-    void testShow() {
-        controller.show()
+	void testShow() {
+		controller.show()
 
-        assert flash.message != null
-        assert response.redirectedUrl == '/role/list'
+		assert flash.message != null
+		assert response.redirectedUrl == '/role/list'
 
-        populateValidParams(params)
-        def role = new Role(params)
+		populateValidParams(params)
+		def role = new Role(params)
 
-        assert role.save() != null
+		assert role.save() != null
 
-        params.id = role.id
+		params.id = role.id
 
-        def model = controller.show()
+		def model = controller.show()
 
-        assert model.roleInstance == role
-    }
+		assert model.roleInstance == role
+	}
 
-    void testEdit() {
-        controller.edit()
+	void testEdit() {
+		controller.edit()
 
-        assert flash.message != null
-        assert response.redirectedUrl == '/role/list'
+		assert flash.message != null
+		assert response.redirectedUrl == '/role/list'
 
-        populateValidParams(params)
-        def role = new Role(params)
+		populateValidParams(params)
+		def role = new Role(params)
 
-        assert role.save() != null
+		assert role.save() != null
 
-        params.id = role.id
+		params.id = role.id
 
-        def model = controller.edit()
+		def model = controller.edit()
 
-        assert model.roleInstance == role
-    }
+		assert model.roleInstance == role
+	}
 
-    void testUpdate() {
-        controller.update()
+	void testUpdate() {
+		controller.update()
 
-        assert flash.message != null
-        assert response.redirectedUrl == '/role/list'
+		assert flash.message != null
+		assert response.redirectedUrl == '/role/list'
 
-        response.reset()
+		response.reset()
 
-        populateValidParams(params)
-        def role = new Role(params)
+		populateValidParams(params)
+		def role = new Role(params)
 
-        assert role.save() != null
+		assert role.save() != null
 
-        // test invalid parameters in update
-        params.id = role.id
-        //TODO: add invalid values to params object
+		// test invalid parameters in update
+		params.id = role.id
+		//TODO: add invalid values to params object
 		params["authority"] = ''
-		
-        controller.update()
 
-        assert view == "/role/edit"
-        assert model.roleInstance != null
+		controller.update()
 
-        role.clearErrors()
+		assert view == "/role/edit"
+		assert model.roleInstance != null
 
-        populateValidParams(params)
-        controller.update()
+		role.clearErrors()
 
-        assert response.redirectedUrl == "/role/show/$role.id"
-        assert flash.message != null
+		populateValidParams(params)
+		controller.update()
 
-        //test outdated version number
-        response.reset()
-        role.clearErrors()
+		assert response.redirectedUrl == "/role/show/$role.id"
+		assert flash.message != null
 
-        populateValidParams(params)
-        params.id = role.id
-        params.version = -1
-        controller.update()
+		//test outdated version number
+		response.reset()
+		role.clearErrors()
 
-        assert view == "/role/edit"
-        assert model.roleInstance != null
-        assert model.roleInstance.errors.getFieldError('version')
-        assert flash.message != null
-    }
+		populateValidParams(params)
+		params.id = role.id
+		params.version = -1
+		controller.update()
 
-    void testDelete() {
-        controller.delete()
-        assert flash.message != null
-        assert response.redirectedUrl == '/role/list'
+		assert view == "/role/edit"
+		assert model.roleInstance != null
+		assert model.roleInstance.errors.getFieldError('version')
+		assert flash.message != null
+	}
 
-        response.reset()
+	void testDelete() {
+		controller.delete()
+		assert flash.message != null
+		assert response.redirectedUrl == '/role/list'
 
-        populateValidParams(params)
-        def role = new Role(params)
+		response.reset()
 
-        assert role.save() != null
-        assert Role.count() == 1
+		populateValidParams(params)
+		def role = new Role(params)
 
-        params.id = role.id
+		assert role.save() != null
+		assert Role.count() == 1
 
-        controller.delete()
+		params.id = role.id
 
-        assert Role.count() == 0
-        assert Role.get(role.id) == null
-        assert response.redirectedUrl == '/role/list'
-    }
+		controller.delete()
+
+		assert Role.count() == 0
+		assert Role.get(role.id) == null
+		assert response.redirectedUrl == '/role/list'
+	}
 }
