@@ -106,7 +106,7 @@ class PubControllerTests {
         // test invalid parameters in update
         params.id = pub.id
         //TODO: add invalid values to params object
-		param["name"] = null
+		params["name"] = null
 
         controller.update()
 
