@@ -17,7 +17,9 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+				<%-- 
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+			--%>
 			</ul>
 		</div>
 		<div id="show-user" class="content scaffold-show" role="main">
@@ -35,7 +37,7 @@
 					
 				</li>
 				</g:if>
-			
+			<%-- 
 				<g:if test="${userInstance?.password}">
 				<li class="fieldcontain">
 					<span id="password-label" class="property-label"><g:message code="user.password.label" default="Password" /></span>
@@ -44,7 +46,7 @@
 					
 				</li>
 				</g:if>
-			
+			--%>
 				<g:if test="${userInstance?.firstName}">
 				<li class="fieldcontain">
 					<span id="firstName-label" class="property-label"><g:message code="user.firstName.label" default="First Name" /></span>
@@ -131,7 +133,7 @@
 					
 				</li>
 				</g:if>
-			
+			<%-- 
 				<g:if test="${userInstance?.accountExpired}">
 				<li class="fieldcontain">
 					<span id="accountExpired-label" class="property-label"><g:message code="user.accountExpired.label" default="Account Expired" /></span>
@@ -167,7 +169,7 @@
 					
 				</li>
 				</g:if>
-			
+			--%>
 			</ol>
 			<g:form>
 				<fieldset class="buttons">

@@ -87,7 +87,7 @@
 	<g:select name="pubs" from="${mypub.Pub.list()}" multiple="multiple" optionKey="id" size="5" value="${userInstance?.pubs*.id}" class="many-to-many"/>
 </div>
 
-<!-- 
+<%-- 
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'accountExpired', 'error')} ">
 	<label for="accountExpired">
 		<g:message code="user.accountExpired.label" default="Account Expired" />
@@ -119,4 +119,4 @@
 	</label>
 	<g:checkBox name="passwordExpired" value="${userInstance?.passwordExpired}" />
 </div>
--->
+--%>
