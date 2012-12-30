@@ -25,6 +25,7 @@ class Pub {
 		address unique:true
 		presentationPicture nullable: true
 		//type in ['PUB','RESTO','CLUB']
+		type inList: ['PUB','RESTO','CLUB'] 
 		modifications nullable:true
 		pictures nullable: true
 		coments nullable: true

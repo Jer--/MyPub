@@ -23,6 +23,14 @@
 	<g:select id="presentationPicture" name="presentationPicture.id" from="${mypub.Picture.list()}" optionKey="id" value="${pubInstance?.presentationPicture?.id}" class="many-to-one" noSelection="['null': '']"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'type', 'error')} ">
+	<label for="type">
+		<g:message code="pub.type.label" default="Type" />
+		
+	</label>
+	<g:select name="type" from="${pubInstance.constraints.type.inList}" value="${pubInstance?.type}" valueMessagePrefix="pub.type" noSelection="['': '']"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'modifications', 'error')} ">
 	<label for="modifications">
 		<g:message code="pub.modifications.label" default="Modifications" />
@@ -79,14 +87,6 @@
 		
 	</label>
 	<g:textField name="longitude" value="${pubInstance?.longitude}"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'type', 'error')} ">
-	<label for="type">
-		<g:message code="pub.type.label" default="Type" />
-		
-	</label>
-	
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'name', 'error')} ">

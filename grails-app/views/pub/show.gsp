@@ -7,6 +7,20 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	    <script type="text/javascript">
+	      google.load("visualization", "1", {packages:["map"]});
+	      google.setOnLoadCallback(drawMap);
+	      function drawMap() {
+	        var data = google.visualization.arrayToDataTable([
+	          ['Lat', 'Lon', 'Name'],
+	          [43.6044, 1.44, 'pub toulouse']
+	        ]);
+	
+	        var map = new google.visualization.Map(document.getElementById('map_div'));
+	        map.draw(data, {showTip: true});
+	      }
+	    </script>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'pub.label', default: 'Pub')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
@@ -41,6 +55,15 @@
 					<span id="presentationPicture-label" class="property-label"><g:message code="pub.presentationPicture.label" default="Presentation Picture" /></span>
 					
 						<span class="property-value" aria-labelledby="presentationPicture-label"><g:link controller="picture" action="show" id="${pubInstance?.presentationPicture?.id}">${pubInstance?.presentationPicture?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${pubInstance?.type}">
+				<li class="fieldcontain">
+					<span id="type-label" class="property-label"><g:message code="pub.type.label" default="Type" /></span>
+					
+						<span class="property-value" aria-labelledby="type-label"><g:fieldValue bean="${pubInstance}" field="type"/></span>
 					
 				</li>
 				</g:if>
@@ -96,15 +119,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${pubInstance?.type}">
-				<li class="fieldcontain">
-					<span id="type-label" class="property-label"><g:message code="pub.type.label" default="Type" /></span>
-					
-						<span class="property-value" aria-labelledby="type-label"><g:fieldValue bean="${pubInstance}" field="type"/></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${pubInstance?.name}">
 				<li class="fieldcontain">
 					<span id="name-label" class="property-label"><g:message code="pub.name.label" default="Name" /></span>
@@ -134,5 +148,6 @@
 				</fieldset>
 			</g:form>
 		</div>
+		 <div id="map_div" style="width: 400px; height: 300px"></div>
 	</body>
 </html>

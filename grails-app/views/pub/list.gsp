@@ -32,6 +32,8 @@
 					
 						<th><g:message code="pub.presentationPicture.label" default="Presentation Picture" /></th>
 					
+						<g:sortableColumn property="type" title="${message(code: 'pub.type.label', default: 'Type')}" />
+					
 						<g:sortableColumn property="latitude" title="${message(code: 'pub.latitude.label', default: 'Latitude')}" />
 					
 						<g:sortableColumn property="longitude" title="${message(code: 'pub.longitude.label', default: 'Longitude')}" />
@@ -47,6 +49,8 @@
 						<td><g:link action="show" id="${pubInstance.id}">${fieldValue(bean: pubInstance, field: "address")}</g:link></td>
 					
 						<td>${fieldValue(bean: pubInstance, field: "presentationPicture")}</td>
+					
+						<td>${fieldValue(bean: pubInstance, field: "type")}</td>
 					
 						<td>${fieldValue(bean: pubInstance, field: "latitude")}</td>
 					
