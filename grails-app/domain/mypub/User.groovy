@@ -21,8 +21,7 @@ class User {
 	
 	static hasMany = [friends : User, pictures : Picture, pubs : Pub]
 
-	String toString() {return 'User : ' + firstName + ' ' + lastName							
-							}
+	String toString() {return firstName + ' ' + lastName}
 	
 	
 	static constraints = {

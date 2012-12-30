@@ -45,8 +45,7 @@ class UserController {
         }
 		UserRole.create userInstance, Role.findByAuthority('ROLE_USER'), true
 		
-        //flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
-        //redirect(action: "show", id: userInstance.id)
+        flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.username])
 		redirect(controller: "login", action: "auth")
     }
 
@@ -102,26 +101,79 @@ class UserController {
             return
         }
 
-        flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
-        redirect(action: "show", id: userInstance.id)
+        flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), userInstance.username])
+        redirect(action: "showProfil")
     }
 
     def delete(Long id) {
         def userInstance = User.get(id)
         if (!userInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), userInstance.username])
             redirect(action: "list")
             return
         }
 
         try {
+			userInstance.friends.each {
+				it.removeFromFriends(userInstance)
+			}
+			def userRoleInstances = UserRole.findAllByUser(userInstance)
+			userRoleInstances.each {
+				it.delete();
+			}
             userInstance.delete(flush: true)
-            flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), id])
-            redirect(action: "list")
+            flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), userInstance.username])
+            redirect(controller:"logout")
         }
         catch (DataIntegrityViolationException e) {
-            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'user.label', default: 'User'), id])
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'user.label', default: 'User'), userInstance.username])
             redirect(action: "show", id: id)
         }
     }
+	
+	// Non - Generated methos ////////////////////////////////////////
+	
+	def showProfil(){
+		def courant = springSecurityService.currentUser
+		String username = courant.username
+		def userInstance = User.findByUsername(username)
+		if (!userInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
+			redirect(uri: '/')
+			return
+		}
+
+		[userInstance: userInstance]
+	}
+	
+	def listFriends() {
+		def courant = springSecurityService.currentUser
+		String username = courant.username
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		[userInstanceList: User.findByUsername(username).friends, userInstanceTotal: User.findByUsername(username).friends.size()]
+	}
+	
+	def addFriend() {
+		def courant = springSecurityService.currentUser
+		String username = courant.username
+		def userI = User.get(params.id)
+		User.findByUsername(username).addToFriends(User.findByUsername(userI.username))
+		User.findByUsername(userI.username).addToFriends(User.findByUsername(username))
+		redirect(action: "listFriends")
+	}
+	
+	def removeFriend() {
+		def courant = springSecurityService.currentUser
+		String username = courant.username
+		def userI = User.get(params.id)
+		User.findByUsername(username).removeFromFriends(User.findByUsername(userI.username))
+		User.findByUsername(userI.username).removeFromFriends(User.findByUsername(username))
+		redirect(action: "listFriends")
+	}
+	
+	def searchUser() {
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		[userInstanceList: User.findByUsername(params.username), userInstanceTotal: User.findByUsername(params.username).count()]
+	}
+
 }

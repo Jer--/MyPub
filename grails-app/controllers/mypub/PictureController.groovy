@@ -41,7 +41,7 @@ class PictureController {
         redirect(action: "showPerso", id: pictureInstance.id)
     }
 
-	@Secured(['ROLE_ADMIN','ROLE_USER'])
+	@Secured(['ROLE_ADMIN'])
     def show(Long id) {
         def pictureInstance = Picture.get(id)
         if (!pictureInstance) {

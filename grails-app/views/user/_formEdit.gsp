@@ -84,7 +84,7 @@
 		<g:message code="user.friends.label" default="Friends" />
 		
 	</label>
-	<g:select name="friends" from="${mypub.User.list()}" multiple="multiple" optionKey="id" size="5" value="${userInstance?.friends*.id}" class="many-to-many"/>
+	<g:link controller='User' action='listFriends'>Manage my Friends</g:link>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'pubs', 'error')} ">
