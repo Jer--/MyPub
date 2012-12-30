@@ -45,8 +45,9 @@ class UserController {
         }
 		UserRole.create userInstance, Role.findByAuthority('ROLE_USER'), true
 		
-        flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
-        redirect(action: "show", id: userInstance.id)
+        //flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
+        //redirect(action: "show", id: userInstance.id)
+		redirect(controller: "login", action: "auth")
     }
 
 	def voir(){
