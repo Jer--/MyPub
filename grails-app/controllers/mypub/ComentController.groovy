@@ -5,6 +5,7 @@
 package mypub
 
 import org.springframework.dao.DataIntegrityViolationException
+import grails.plugins.springsecurity.Secured
 
 class ComentController {
 
@@ -14,6 +15,7 @@ class ComentController {
         redirect(action: "list", params: params)
     }
 
+	@Secured(['ROLE_ADMIN'])
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         [comentInstanceList: Coment.list(params), comentInstanceTotal: Coment.count()]

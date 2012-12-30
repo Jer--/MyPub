@@ -5,8 +5,11 @@
 package mypub
 
 import org.springframework.dao.DataIntegrityViolationException
+import grails.plugins.springsecurity.Secured
 
 class ModificationController {
+	
+	def springSecurityService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -14,6 +17,7 @@ class ModificationController {
         redirect(action: "list", params: params)
     }
 
+	@Secured(['ROLE_ADMIN'])
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         [modificationInstanceList: Modification.list(params), modificationInstanceTotal: Modification.count()]
