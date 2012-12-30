@@ -9,7 +9,7 @@ class Picture {
     String name
 	byte[] data
 	
-	String toString() {return 'Pic name : ' + name}
+	String toString() {return name}
 	
 	static constraints = {
 		name blank : false

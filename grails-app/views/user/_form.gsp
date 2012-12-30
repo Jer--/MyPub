@@ -52,7 +52,7 @@
 		<g:message code="user.avatar.label" default="Avatar" />
 		
 	</label>
-	<g:select id="avatar" name="avatar.id" from="${mypub.Picture.list()}" optionKey="id" value="${userInstance?.avatar?.id}" class="many-to-one" noSelection="['null': '']"/>
+	<g:select id="avatar" name="avatar.id" from="${userInstance.pictures}" optionKey="id" value="${userInstance?.avatar?.id}" class="many-to-one" noSelection="['null': '']"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'ddn', 'error')} ">
@@ -77,14 +77,6 @@
 		
 	</label>
 	<g:select name="friends" from="${mypub.User.list()}" multiple="multiple" optionKey="id" size="5" value="${userInstance?.friends*.id}" class="many-to-many"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'pictures', 'error')} ">
-	<label for="pictures">
-		<g:message code="user.pictures.label" default="Pictures" />
-		
-	</label>
-	<g:select name="pictures" from="${mypub.Picture.list()}" multiple="multiple" optionKey="id" size="5" value="${userInstance?.pictures*.id}" class="many-to-many"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'pubs', 'error')} ">
