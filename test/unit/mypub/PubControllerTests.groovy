@@ -10,12 +10,11 @@ import grails.test.mixin.*
 class PubControllerTests {
 
     def populateValidParams(params) {
-        assert params != null
+         assert params != null
         // TODO: Populate valid properties like...
         params["address"] = 'someValidName'
 		params["name"] = 'blabla'
-		params["latitude"] = 'blabla'
-		params["longitude"] = 'blabla'
+		params["city"] = 'blabla'
 		params["type"] = 'PUB'
     }
 

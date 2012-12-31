@@ -28,9 +28,11 @@
 				<thead>
 					<tr>
 					
+						<g:sortableColumn property="name" title="${message(code: 'pub.name.label', default: 'Name')}" />
+					
 						<g:sortableColumn property="address" title="${message(code: 'pub.address.label', default: 'Address')}" />
 					
-						<th><g:message code="pub.presentationPicture.label" default="Presentation Picture" /></th>
+						<g:sortableColumn property="city" title="${message(code: 'pub.city.label', default: 'City')}" />
 					
 						<g:sortableColumn property="type" title="${message(code: 'pub.type.label', default: 'Type')}" />
 					
@@ -38,25 +40,23 @@
 					
 						<g:sortableColumn property="longitude" title="${message(code: 'pub.longitude.label', default: 'Longitude')}" />
 					
-						<g:sortableColumn property="name" title="${message(code: 'pub.name.label', default: 'Name')}" />
-					
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${pubInstanceList}" status="i" var="pubInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${pubInstance.id}">${fieldValue(bean: pubInstance, field: "address")}</g:link></td>
+						<td><g:link action="show" id="${pubInstance.id}">${fieldValue(bean: pubInstance, field: "name")}</g:link></td>
 					
-						<td>${fieldValue(bean: pubInstance, field: "presentationPicture")}</td>
+						<td>${fieldValue(bean: pubInstance, field: "address")}</td>
+					
+						<td>${fieldValue(bean: pubInstance, field: "city")}</td>
 					
 						<td>${fieldValue(bean: pubInstance, field: "type")}</td>
 					
 						<td>${fieldValue(bean: pubInstance, field: "latitude")}</td>
 					
 						<td>${fieldValue(bean: pubInstance, field: "longitude")}</td>
-					
-						<td>${fieldValue(bean: pubInstance, field: "name")}</td>
 					
 					</tr>
 				</g:each>

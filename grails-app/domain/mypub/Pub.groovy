@@ -8,26 +8,31 @@ class Pub {
 	
 	String name
 	String address
+	String city
 	String type
 	
-	String latitude, longitude
+	float latitude, longitude
 	
 	Picture presentationPicture
 	
 	static belongsTo = User
-	static hasMany = [pictures : Picture, coments : Coment, modifications : Modification, users : User]
+	static hasMany =  [pictures : Picture, coments : Coment, modifications : Modification, users : User]
 	
-	String toString () {return 'Pub : ' + name +
-								' address ' + address 
-	}
+	String toString () {return name + ', ' + city }
 	
     static constraints = {
-		address unique:true
+		name nullable:false, blank:false
+		address nullable:false, blank:false
+		city nullable:false, blank:false
+		type nullable:false, inList: ['PUB','RESTO','CLUB'], blank:false
+		
+		latitude nullable:true
+		longitude nullable:true
 		presentationPicture nullable: true
-		//type in ['PUB','RESTO','CLUB']
-		type inList: ['PUB','RESTO','CLUB'] 
-		modifications nullable:true
+		
 		pictures nullable: true
+		modifications nullable:true
 		coments nullable: true
+		
     }
 }
