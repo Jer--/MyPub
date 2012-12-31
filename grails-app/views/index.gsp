@@ -113,7 +113,7 @@
 	<sec:ifLoggedIn>
 		<div id="status" role="complementary">
 			<h1 align=center>Menu</h1>
-			<g:link controller='User' action='showProfil'>My Profil</g:link><br/>
+			<g:link controller='User' action='showProfile'>My Profile</g:link><br/>
 			<g:link controller='Picture' action='listPerso'>My Pictures</g:link><br/>
 			<g:link controller='User' action='listFriends'>My Friends</g:link><br/>
 			<g:link controller='Pub' action='list'>My Pubs</g:link><br/>

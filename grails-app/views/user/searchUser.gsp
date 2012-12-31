@@ -16,7 +16,7 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link controller='User' action='showProfil'>My Profil</g:link></li>
+				<li><g:link controller='User' action='showProfile'>My Profile</g:link></li>
 				<li><g:link controller='User' action='listFriends'>My Friends</g:link></li>
 				<li>
 					<g:form action="searchUser" >
@@ -58,7 +58,7 @@
 						<g:else>
 							<td><img src="${resource(dir: 'images', file: 'defaultAvatar.jpg')}" width="100"/></td>
 						</g:else>
-						<td><g:link action="showProfil" id="${userInstance.id}">${fieldValue(bean: userInstance, field: "username")}</g:link></td>
+						<td><g:link action="showPublic" id="${userInstance.id}">${fieldValue(bean: userInstance, field: "username")}</g:link></td>
 
 						<td>${fieldValue(bean: userInstance, field: "firstName")}</td>
 					

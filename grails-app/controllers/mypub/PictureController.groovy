@@ -37,7 +37,7 @@ class PictureController {
             return
         }
 
-        flash.message = message(code: 'default.created.message', args: [message(code: 'picture.label', default: 'Picture'), pictureInstance.id])
+        flash.message = message(code: 'default.created.message', args: [message(code: 'picture.label', default: 'Picture'), pictureInstance.name])
         redirect(action: "showPerso", id: pictureInstance.id)
     }
 

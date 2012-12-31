@@ -102,7 +102,7 @@ class UserController {
         }
 
         flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), userInstance.username])
-        redirect(action: "showProfil")
+        redirect(action: "showProfile")
     }
 
     def delete(Long id) {
@@ -133,13 +133,35 @@ class UserController {
 	
 	// Non - Generated methos ////////////////////////////////////////
 	
-	def showProfil(){
+	def showProfile(){
 		def courant = springSecurityService.currentUser
 		String username = courant.username
 		def userInstance = User.findByUsername(username)
 		if (!userInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
 			redirect(uri: '/')
+			return
+		}
+
+		[userInstance: userInstance]
+	}
+	
+	def showFriend(Long id) {
+		def userInstance = User.get(id)
+		if (!userInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
+			redirect(action: "listFriends")
+			return
+		}
+
+		[userInstance: userInstance]
+	}
+	
+	def showPublic(Long id) {
+		def userInstance = User.get(id)
+		if (!userInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), userInstance.username])
+			redirect(action: "listFriends")
 			return
 		}
 

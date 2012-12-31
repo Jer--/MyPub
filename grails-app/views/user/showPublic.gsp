@@ -16,10 +16,12 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+				<li><g:link controller='User' action='showProfile'>My Profile</g:link></li>
+				<li><g:link controller='User' action='listFriends'>My Friends</g:link></li>
 			</ul>
 		</div>
 		<div id="show-user" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
+			<h1>Public Profil</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -86,48 +88,10 @@
 					
 				</li>
 				</g:if>
-			
-				<g:if test="${userInstance?.friends}">
-				<li class="fieldcontain">
-					<span id="friends-label" class="property-label"><g:message code="user.friends.label" default="Friends" /></span>
-					
-						<g:each in="${userInstance.friends}" var="f">
-						<span class="property-value" aria-labelledby="friends-label"><g:link controller="user" action="showProfil" >${f?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${userInstance?.pictures}">
-				<li class="fieldcontain">
-					<span id="pictures-label" class="property-label"><g:message code="user.pictures.label" default="Pictures" /></span>
-					
-						<g:each in="${userInstance.pictures}" var="p">
-						<span class="property-value" aria-labelledby="pictures-label"><g:link controller="picture" action="showPerso" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${userInstance?.pubs}">
-				<li class="fieldcontain">
-					<span id="pubs-label" class="property-label"><g:message code="user.pubs.label" default="Pubs" /></span>
-					
-						<g:each in="${userInstance.pubs}" var="p">
-						<span class="property-value" aria-labelledby="pubs-label"><g:link controller="pub" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
+				
+				<p align=right><g:link action="addFriend" id="${userInstance.id}">Add to my Friends</g:link></p>
+				
 			</ol>
-			<g:form>
-				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${userInstance?.id}" />
-					<g:link class="edit" action="edit" id="${userInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-			</g:form>
 		</div>
 	</body>
 </html>
