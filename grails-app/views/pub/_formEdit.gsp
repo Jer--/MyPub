@@ -23,6 +23,14 @@
 	<g:textField name="address" required="" value="${pubInstance?.address}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'addressOptionnal', 'error')} ">
+	<label for="addressOptionnal">
+		<g:message code="pub.addressOptionnal.label" default="Address Optionnal" />
+		
+	</label>
+	<g:textField name="addressOptionnal" value="${pubInstance?.addressOptionnal}"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'city', 'error')} required">
 	<label for="city">
 		<g:message code="pub.city.label" default="City" />
@@ -31,28 +39,28 @@
 	<g:textField name="city" required="" value="${pubInstance?.city}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'website', 'error')} ">
+	<label for="website">
+		<g:message code="pub.website.label" default="Website" />
+		
+	</label>
+	<g:textField name="website" value="${pubInstance?.website}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'zip', 'error')} ">
+	<label for="zip">
+		<g:message code="pub.zip.label" default="Zip" />
+		
+	</label>
+	<g:textField name="zip" value="${pubInstance?.zip}"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'type', 'error')} required">
 	<label for="type">
 		<g:message code="pub.type.label" default="Type" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select name="type" from="${pubInstance.constraints.type.inList}" required="" value="${pubInstance?.type}" valueMessagePrefix="pub.type"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'latitude', 'error')} required">
-	<label for="latitude">
-		<g:message code="pub.latitude.label" default="Latitude" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:field name="latitude" value="${fieldValue(bean: pubInstance, field: 'latitude')}" required=""/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'longitude', 'error')} required">
-	<label for="longitude">
-		<g:message code="pub.longitude.label" default="Longitude" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:field name="longitude" value="${fieldValue(bean: pubInstance, field: 'longitude')}" required=""/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'presentationPicture', 'error')} ">

@@ -35,8 +35,8 @@
 			<g:form method="post" >
 				<g:hiddenField name="id" value="${pubInstance?.id}" />
 				<g:hiddenField name="version" value="${pubInstance?.version}" />
-				<fieldset class="form">
-					<g:render template="form"/>
+				<fieldset class="formEdit">
+					<g:render template="formEdit"/>
 				</fieldset>
 				<fieldset class="buttons">
 					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />

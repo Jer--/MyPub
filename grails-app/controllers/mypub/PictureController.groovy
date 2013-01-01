@@ -118,7 +118,6 @@ class PictureController {
 		def pictureInstance = Picture.get(params.id)
 		if (!pictureInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'picture.label', default: 'Picture'), params.id])
-			//redirect(action: "delete")
 			redirect(action: "listPerso")
 			return
 		}
@@ -130,7 +129,6 @@ class PictureController {
 		def pictureInstance = Picture.get(params.id)
 		if (!pictureInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'picture.label', default: 'Picture'), params.id])
-			//redirect(action: "delete")
 			redirect(action: "listPerso")
 			return
 		}

@@ -159,4 +159,50 @@ class PictureControllerTests {
         assert Picture.get(picture.id) == null
         assert response.redirectedUrl == '/picture/list'
     }
+	
+	// Non - generated Tests ///////////////////////////////////////
+	
+//	void testListPerso() {
+//		
+//		def model = controller.listPerso()
+//
+//		assert model.pictureInstanceList.size() == 0
+//		assert model.pictureInstanceTotal == 0
+//	}
+	
+	void testShowPerso() {
+		controller.showPerso()
+
+		assert flash.message != null
+		assert response.redirectedUrl == '/picture/listPerso'
+
+		populateValidParams(params)
+		def picture = new Picture(params)
+
+		assert picture.save() != null
+
+		params.id = picture.id
+
+		def model = controller.showPerso()
+
+		assert model.pictureInstance == picture
+	}
+	
+	void testShowImgAmi() {
+		controller.showImgAmi()
+
+		assert flash.message != null
+		assert response.redirectedUrl == '/picture/listPerso'
+
+		populateValidParams(params)
+		def picture = new Picture(params)
+
+		assert picture.save() != null
+
+		params.id = picture.id
+
+		def model = controller.showImgAmi()
+
+		assert model.pictureInstance == picture
+	}
 }
