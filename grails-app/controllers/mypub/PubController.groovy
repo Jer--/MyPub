@@ -1,7 +1,3 @@
-/*******************************************************************************
- * Author : Group BBHC
- * Licence : AGPL v3
- ******************************************************************************/
 package mypub
 
 import org.springframework.dao.DataIntegrityViolationException

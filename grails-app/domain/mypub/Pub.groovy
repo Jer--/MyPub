@@ -8,10 +8,12 @@ class Pub {
 	
 	String name
 	String address
+	String addressOptionnal
 	String city
+	String zip
+	String website
 	String type
 	
-	float latitude, longitude
 	
 	Picture presentationPicture
 	
@@ -23,11 +25,15 @@ class Pub {
     static constraints = {
 		name nullable:false, blank:false
 		address nullable:false, blank:false
+		addressOptionnal nullable:true
 		city nullable:false, blank:false
+		
+		website nullable:true
+		zip nullable:true
+		
 		type nullable:false, inList: ['PUB','RESTO','CLUB'], blank:false
 		
-		latitude nullable:true
-		longitude nullable:true
+		
 		presentationPicture nullable: true
 		
 		pictures nullable: true

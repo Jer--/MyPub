@@ -32,13 +32,13 @@
 					
 						<g:sortableColumn property="address" title="${message(code: 'pub.address.label', default: 'Address')}" />
 					
+						<g:sortableColumn property="addressOptionnal" title="${message(code: 'pub.addressOptionnal.label', default: 'Address Optionnal')}" />
+					
 						<g:sortableColumn property="city" title="${message(code: 'pub.city.label', default: 'City')}" />
 					
-						<g:sortableColumn property="type" title="${message(code: 'pub.type.label', default: 'Type')}" />
+						<g:sortableColumn property="website" title="${message(code: 'pub.website.label', default: 'Website')}" />
 					
-						<g:sortableColumn property="latitude" title="${message(code: 'pub.latitude.label', default: 'Latitude')}" />
-					
-						<g:sortableColumn property="longitude" title="${message(code: 'pub.longitude.label', default: 'Longitude')}" />
+						<g:sortableColumn property="zip" title="${message(code: 'pub.zip.label', default: 'Zip')}" />
 					
 					</tr>
 				</thead>
@@ -50,13 +50,13 @@
 					
 						<td>${fieldValue(bean: pubInstance, field: "address")}</td>
 					
+						<td>${fieldValue(bean: pubInstance, field: "addressOptionnal")}</td>
+					
 						<td>${fieldValue(bean: pubInstance, field: "city")}</td>
 					
-						<td>${fieldValue(bean: pubInstance, field: "type")}</td>
+						<td>${fieldValue(bean: pubInstance, field: "website")}</td>
 					
-						<td>${fieldValue(bean: pubInstance, field: "latitude")}</td>
-					
-						<td>${fieldValue(bean: pubInstance, field: "longitude")}</td>
+						<td>${fieldValue(bean: pubInstance, field: "zip")}</td>
 					
 					</tr>
 				</g:each>

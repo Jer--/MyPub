@@ -1,3 +1,7 @@
+/*******************************************************************************
+ *  Author : Group BBHC
+ *  Licence : AGPL v3
+  ******************************************************************************/
 package mypub
 
 
@@ -10,12 +14,12 @@ import grails.test.mixin.*
 class PubControllerTests {
 
     def populateValidParams(params) {
-         assert params != null
+        assert params != null
         // TODO: Populate valid properties like...
-        params["address"] = 'someValidName'
-		params["name"] = 'blabla'
-		params["city"] = 'blabla'
+        params["name"] = 'someValidName'
+		params["address"] = '123 av jj'
 		params["type"] = 'PUB'
+		params["city"] = 'albi'
     }
 
     void testIndex() {
@@ -105,8 +109,7 @@ class PubControllerTests {
         // test invalid parameters in update
         params.id = pub.id
         //TODO: add invalid values to params object
-		params["name"] = null
-
+		params["address"] = null
         controller.update()
 
         assert view == "/pub/edit"
