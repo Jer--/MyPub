@@ -39,22 +39,22 @@ class PictureControllerTests {
         assert model.pictureInstance != null
     }
 
-   /* TODO : we can't test because there no current user
-    * void testSave() {
-        controller.save()
-
-        assert model.pictureInstance != null
-        assert view == '/picture/create'
-
-        response.reset()
-
-        populateValidParams(params)
-        controller.save()
-
-        assert response.redirectedUrl == '/picture/show/1'
-        assert controller.flash.message != null
-        assert Picture.count() == 1
-    }*/
+   // TODO : we can't test because there no current user
+//     void testSave() {
+//        controller.save()
+//
+//        assert model.pictureInstance != null
+//        assert view == '/picture/create'
+//
+//        response.reset()
+//
+//        populateValidParams(params)
+//        controller.save()
+//
+//        assert response.redirectedUrl == '/picture/show/1'
+//        assert controller.flash.message != null
+//        assert Picture.count() == 1
+//    }
 
     void testShow() {
         controller.show()
@@ -162,12 +162,17 @@ class PictureControllerTests {
 	
 	// Non - generated Tests ///////////////////////////////////////
 	
+//	TODO : we can't test because there no current user
 //	void testListPerso() {
 //		
 //		def model = controller.listPerso()
 //
 //		assert model.pictureInstanceList.size() == 0
 //		assert model.pictureInstanceTotal == 0
+//	}
+	
+//	void testEnleverList() {
+//		//no curent user
 //	}
 	
 	void testShowPerso() {
