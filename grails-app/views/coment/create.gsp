@@ -16,7 +16,8 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+				<li><g:link controller='User' action='showProfile'>My Profile</g:link></li>
+				<li><g:link controller='Pub' action='list'>My Pubs</g:link></li>
 			</ul>
 		</div>
 		<div id="create-coment" class="content scaffold-create" role="main">

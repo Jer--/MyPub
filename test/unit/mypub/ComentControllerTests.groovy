@@ -11,6 +11,7 @@ import grails.test.mixin.*
 import org.junit.*
 
 @TestFor(ComentController)
+@TestMixin(Pub)
 @Mock(Coment)
 class ComentControllerTests {
 
@@ -37,11 +38,12 @@ class ComentControllerTests {
 		assert model.comentInstanceTotal == 0
 	}
 
-	void testCreate() {
-		def model = controller.create()
-
-		assert model.comentInstance != null
-	}
+//	No Current User
+//	void testCreate() {
+//		def model = controller.create()
+//
+//		assert model.comentInstance != null
+//	}
 
 	void testSave() {
 		controller.save()
@@ -54,7 +56,7 @@ class ComentControllerTests {
 		populateValidParams(params)
 		controller.save()
 
-		assert response.redirectedUrl == '/coment/show/1'
+		assert response.redirectedUrl == '/coment/showComent/1'
 		assert controller.flash.message != null
 		assert Coment.count() == 1
 	}
@@ -144,7 +146,7 @@ class ComentControllerTests {
 	void testDelete() {
 		controller.delete()
 		assert flash.message != null
-		assert response.redirectedUrl == '/coment/list'
+		assert response.redirectedUrl == '/user/showProfile'
 
 		response.reset()
 
@@ -160,6 +162,65 @@ class ComentControllerTests {
 
 		assert Coment.count() == 0
 		assert Coment.get(coment.id) == null
-		assert response.redirectedUrl == '/coment/list'
+		assert response.redirectedUrl == '/pub/show'
+	}
+	
+	// Non - generated Test //////////////////////////////////////
+	
+//	No Current User
+//	void testShowComent() {
+//		
+//	}
+	
+	void testShowMyComent() {
+		controller.showMyComent()
+		
+		assert flash.message != null
+		assert response.redirectedUrl == '/user/showProfile'
+
+		populateValidParams(params)
+		def coment = new Coment(params)
+
+		assert coment.save() != null
+
+		params.id = coment.id
+
+		def model = controller.showMyComent()
+
+		assert model.comentInstance == coment
+	}
+	
+	void testSAComent() {
+		controller.showAComent()
+		
+		assert flash.message != null
+		assert response.redirectedUrl == '/user/showProfile'
+
+		populateValidParams(params)
+		def coment = new Coment(params)
+
+		assert coment.save() != null
+
+		params.id = coment.id
+
+		def model = controller.showAComent()
+
+		assert model.comentInstance == coment
+	}
+	
+	void testListForAPub() {
+		mockDomain(Pub)
+		def pub = new Pub(name: 'pub1', address: 'address', city: 'city', type: 'PUB').save()
+		pub.addToComents(new Coment(
+			username: 'user1',
+			postDate: new Date(),
+			text : 'a coment'
+			))
+		assert pub.validate()
+		
+		def model = controller.listForAPub(pub.id)
+		
+		assert model.comentInstanceList.size() == 1
+		assert model.comentInstanceTotal == 1
 	}
 }
