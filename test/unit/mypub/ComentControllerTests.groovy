@@ -22,7 +22,7 @@ class ComentControllerTests {
 		params["username"]='testName'
 		params["postDate"]= new Date ('2007/01/01')
 		params["text"]='coment test'
-		params["pub"] = new Pub(name:'pub1', address:'123 av jj', latitude:'aze', longitude:'azeza')
+		params["pub"] = new Pub(name:'pub1', address:'123 av jj', city:'Toulouse')
 	}
 
 	void testIndex() {

@@ -17,21 +17,21 @@ import org.junit.*
 class PubTests {
 	
 
-	void testSomething() {
+	void testconstraint() {
 		//setUp
 		mockDomain(Pub)
 		mockDomain(User)
-		def user1 =  new User(username:'john', password: 'aaaa', firstName: 'john', lastName: 'doe', mail:'john@test.fr')
+		def user1 =  new User(username:'john', password: 'aaaa', firstName: 'john', lastName: 'doe', mail:'john@test.fr').save()
 		assert user1.validate()
 		
-		/*
-		 * to do : add pub to user1
-		 * user1.addToPubs(new Coment(
-			username: 'user1',
-			postDate: new Date(),
-			text : 'a coment'
-			))
-		*/
+		user1.addToPubs(new Pub(name:'pub1', address:'123 av jj'))
+		
+		def pub = user1.pubs.find {p ->
+			p.name == "pub1"
+		}
+		
+		// validation pass
+		assert pub.validate()
 		
 	}
 }

@@ -19,7 +19,7 @@ class ModificationControllerTests {
 		//params["name"] = 'someValidName'
 		params["username"]='toto'
 		params["proposalDate"] = new Date('2007/01/01')
-		params["pub"] = new Pub(name:'pub1', address:'123 av jj', latitude:'aze', longitude:'azeza')
+		params["pub"] = new Pub(name:'pub1', address:'123 av jj', city:'Toulouse')
 
 
 	}
