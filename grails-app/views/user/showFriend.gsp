@@ -93,7 +93,7 @@
 				<li class="fieldcontain">
 					<span id="friends-label" class="property-label"><g:message code="user.friends.label" default="Friends" /></span>
 					
-						<g:each in="${userInstance.friends}" var="f">
+						<g:each in="${userInstance.friends.take(10)}" var="f">
 						<span class="property-value" aria-labelledby="friends-label"><g:link controller="user" action="showPublic"  id="${f.id}">${f?.encodeAsHTML()}</g:link></span>
 						</g:each>
 					
@@ -104,7 +104,8 @@
 				<li class="fieldcontain">
 					<span id="pictures-label" class="property-label"><g:message code="user.pictures.label" default="Pictures" /></span>
 					
-						<g:each in="${userInstance.pictures}" var="p">
+						<span class="property-value" aria-labelledby="coments-label"><g:link controller="picture" action="listFriend" id="${userInstance.id}">See all pictures</g:link></span>
+						<g:each in="${userInstance.pictures.take(10)}" var="p">
 						<span class="property-value" aria-labelledby="pictures-label"><g:link controller="picture" action="showImgAmi" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
 						</g:each>
 					
@@ -121,6 +122,8 @@
 					
 				</li>
 				</g:if>
+				
+				<p align=right><g:link action="removeFriend" id="${userInstance.id}">Remove from my Friends</g:link></p>
 			
 			</ol>
 		</div>
