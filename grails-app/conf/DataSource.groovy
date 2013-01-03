@@ -17,7 +17,7 @@ hibernate {
 environments {
 	development {
 		dataSource {
-			dbCreate = "create-drop" // one of 'create', 'create-drop','update'
+			dbCreate = "create" // one of 'create', 'create-drop','update'
 			url = "jdbc:mysql://91.236.239.60/mypub"
 		}
 	}
