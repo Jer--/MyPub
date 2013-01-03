@@ -93,6 +93,18 @@
 						<span class="property-value" aria-labelledby="addressOptionnal-label"><g:fieldValue bean="${pubInstance}" field="addressOptionnal"/></span>
 					
 				</li>
+				
+				
+				<g:if test="${pubInstance?.zip}">
+				<li class="fieldcontain">
+					<span id="zip-label" class="property-label"><g:message code="pub.zip.label" default="Zip" /></span>
+					
+						<span class="property-value" aria-labelledby="zip-label"><g:fieldValue bean="${pubInstance}" field="zip"/></span>
+					
+				</li>
+				</g:if>
+			
+				
 				</g:if>
 			
 				<g:if test="${pubInstance?.city}">
@@ -103,6 +115,7 @@
 					
 				</li>
 				</g:if>
+				
 			
 				<g:if test="${pubInstance?.website}">
 				<li class="fieldcontain">
@@ -113,14 +126,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${pubInstance?.zip}">
-				<li class="fieldcontain">
-					<span id="zip-label" class="property-label"><g:message code="pub.zip.label" default="Zip" /></span>
-					
-						<span class="property-value" aria-labelledby="zip-label"><g:fieldValue bean="${pubInstance}" field="zip"/></span>
-					
-				</li>
-				</g:if>
 			
 				<g:if test="${pubInstance?.type}">
 				<li class="fieldcontain">
