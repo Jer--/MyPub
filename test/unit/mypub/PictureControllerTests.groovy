@@ -10,6 +10,7 @@ import org.junit.*
 import grails.test.mixin.*
 
 @TestFor(PictureController)
+@TestMixin(User)
 @Mock(Picture)
 class PictureControllerTests {
 
@@ -173,6 +174,25 @@ class PictureControllerTests {
 	
 //	void testEnleverList() {
 //		//no curent user
+//	}
+	
+//	void testListFriend() {
+//		
+//		mockDomain(User)
+//		
+//		def userInstance = new User(username: 'user1', 
+//									password: 'pass1',
+//									firstName: 'alfred',
+//									lastName: 'alfredaussi',
+//									mail: 'alfred@john.fr').save()
+//		userInstance.addToPictures(new Picture(params))
+//		assert userInstance.validate()
+//		
+//		def model = controller.listFriend(userInstance.id)
+//
+//		
+//		//assert model.pictureInstanceTotal == 0
+//		assert model.pictureInstanceList == null
 //	}
 	
 	void testShowPerso() {

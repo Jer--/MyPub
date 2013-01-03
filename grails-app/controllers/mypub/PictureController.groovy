@@ -142,6 +142,11 @@ class PictureController {
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
 		[pictureInstanceList: User.findByUsername(username).pictures, pictureInstanceTotal: User.findByUsername(username).pictures.size()]
 	}
+	
+	def listFriend(Long id) {
+		def userInstance = User.get(id)
+		[pictureInstanceList: userInstance.pictures, pictureInstanceTotal: userInstance.pictures.size()]
+	}
 
 	def enleverList() {
 		def courant = springSecurityService.currentUser
