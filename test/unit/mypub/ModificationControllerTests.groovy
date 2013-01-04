@@ -42,21 +42,21 @@ class ModificationControllerTests {
 		assert model.modificationInstance != null
 	}
 
-	//	void testSave() {
-	//		controller.save()
-	//
-	//		assert model.modificationInstance != null
-	//		assert view == '/modification/create'
-	//
-	//		response.reset()
-	//
-	//		populateValidParams(params)
-	//		controller.save()
-	//
-	//		assert response.redirectedUrl == '/modification/show/1'
-	//		assert controller.flash.message != null
-	//		assert Modification.count() == 1
-	//	}
+//	void testSave() {
+//		controller.save()
+//
+//		assert model.modificationInstance != null
+//		assert view == '/modification/create'
+//
+//		response.reset()
+//
+//		populateValidParams(params)
+//		controller.save()
+//
+//		assert response.redirectedUrl == '/modification/show/1'
+//		assert controller.flash.message != null
+//		assert Modification.count() == 1
+//	}
 
 	//	void testShow() {
 	//		controller.show()
