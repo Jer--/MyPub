@@ -21,23 +21,22 @@ class PubTests {
 		//setUp
 		mockDomain(Pub)
 		mockDomain(User)
-		//def user1 =  new User(username:'john', password: 'aaaa', firstName: 'john', lastName: 'doe', mail:'john@test.fr').save()
-		//assert user1.validate()
+        User user = new User(username:"test",password:"test",firstName:"test",lastName:"test",mail:"test@test.com")
+		user.addToPubs(new Pub(name: 'pub', address: 'address', city: 'Toulouse', type: 'PUB'))
 		
-		//user1.addToPubs(new Pub(name:'pub1', address:'123 av jj'))
+		def pub1 = user.pubs.find{p ->
+			p.name == "pub"
+			
+		}
 		
-		/*def pub = user1.pubs.find {p ->
-			p.name == "pub1"
-		}*/
 		
 		// validation pass
-		//assert pub.validate()
+		assert pub1.validate()
 		
 		
 		// text nullable: false
-		//pub.name = null
-		//assert !pub.validate()
-			true
+		 pub1.name = null
+	     assert !pub1.validate()
 		
 	}
 }
