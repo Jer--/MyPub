@@ -17,6 +17,12 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li>
+					<g:form action="searchPub" >
+						<g:submitButton name="Recherche" class="recherche" value="${message(code: 'default.button.recherche.label', default: 'Find Pub')}" />
+						<g:textField name="pubname" paramName="pubname" required="" placeholder="Name OR City OR Zip"/>
+					</g:form>
+				</li>
 			</ul>
 		</div>
 		<div id="list-pub" class="content scaffold-list" role="main">

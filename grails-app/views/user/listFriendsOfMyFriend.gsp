@@ -9,7 +9,7 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
-		<title>Search Results</title>
+		<title>Friends of my Friend</title>
 	</head>
 	<body>
 		<a href="#list-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -27,7 +27,7 @@
 			</ul>
 		</div>
 		<div id="list-user" class="content scaffold-list" role="main">
-			<h1>Search Result</h1>
+			<h1>Friends of my Friend</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>

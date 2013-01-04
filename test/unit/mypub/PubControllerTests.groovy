@@ -20,6 +20,7 @@ class PubControllerTests {
 		params["address"] = '123 av jj'
 		params["type"] = 'PUB'
 		params["city"] = 'albi'
+		params["zip"] = '31000'
     }
 
     void testIndex() {
@@ -159,4 +160,37 @@ class PubControllerTests {
         assert Pub.get(pub.id) == null
         assert response.redirectedUrl == '/pub/list'
     }
+	
+	// Non - generated Test //////////////////////////////////////////
+	
+	void testSearchPub() {
+		
+		params.pubname = "  "
+		controller.searchPub()
+		assert response.redirectedUrl == '/pub/list'
+		
+		response.reset()
+		
+		populateValidParams(params)
+		def pub = new Pub(params)
+		
+		assert pub.save() != null
+		assert Pub.count() == 1
+		
+		params.pubname = "someValidName"
+		def model = controller.searchPub()
+		assert model.pubInstanceList.size() == 1
+		assert model.pubInstanceTotal == 1
+		
+		params.pubname = "albi"
+		model = controller.searchPub()
+		assert model.pubInstanceList.size() == 1
+		assert model.pubInstanceTotal == 1
+		
+		params.pubname = "31000"
+		model = controller.searchPub()
+		assert model.pubInstanceList.size() == 1
+		assert model.pubInstanceTotal == 1
+		
+	}
 }

@@ -175,6 +175,11 @@ class UserController {
 		[userInstanceList: User.findByUsername(username).friends, userInstanceTotal: User.findByUsername(username).friends.size()]
 	}
 	
+	def listFriendsOfMyFriend(Long id) {
+		def userInstance = User.get(id)
+		[userInstanceList: userInstance.friends, userInstanceTotal: userInstance.friends.size()]
+	}
+	
 	def addFriend() {
 		def courant = springSecurityService.currentUser
 		String username = courant.username
