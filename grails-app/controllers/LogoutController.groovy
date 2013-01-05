@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Author : Group BBHC
- * Licence : AGPL v3
+ * License : AGPL v3
  ******************************************************************************/
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
