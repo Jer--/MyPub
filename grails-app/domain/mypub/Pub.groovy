@@ -13,7 +13,8 @@ class Pub {
 	String zip
 	String website
 	String type
-	
+	// TODO Generated with new attribute idPub
+	int idPub
 	
 	Picture presentationPicture
 	
@@ -27,7 +28,7 @@ class Pub {
 		address nullable:false, blank:false
 		addressOptionnal nullable:true
 		city nullable:false, blank:false
-		
+		idPub unique: true
 		website nullable:true
 		zip nullable:true
 		

@@ -64,7 +64,10 @@ grails.exceptionresolver.params.exclude = ['password']
 grails.hibernate.cache.queries = false
 
 environments {
-    development {
+	test {
+		grails.logging.jul.usebridge = true
+	}
+	development {
         grails.logging.jul.usebridge = true
     }
     production {

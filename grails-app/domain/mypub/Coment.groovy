@@ -9,7 +9,8 @@ class Coment {
 	String username
 	Date postDate
 	String text
-
+	// TODO generated with new attribute "idComment", and Comment with double "m"!
+	int idComment
 	static belongsTo = [pub : Pub]
 
 	String toString () {
@@ -24,5 +25,8 @@ class Coment {
 	}
 
 
-	static constraints = { text size: 1..160 }
+	static constraints = { 
+		text size: 1..160
+		idComment unique:true
+	}
 }

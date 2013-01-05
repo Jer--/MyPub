@@ -8,11 +8,14 @@ class Picture {
 
     String name
 	byte[] data
+	// TODO generated with new attribute idPicture
+	int idPicture
 	
 	String toString() {return name}
 	
 	static constraints = {
 		name blank : false
 		data nullable : true, maxSize: 16777216 /* 16M */
+		idPicture unique: true 
 	}
 }
