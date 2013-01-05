@@ -93,6 +93,18 @@
 						<span class="property-value" aria-labelledby="addressOptionnal-label"><g:fieldValue bean="${pubInstance}" field="addressOptionnal"/></span>
 					
 				</li>
+				
+				
+				<g:if test="${pubInstance?.zip}">
+				<li class="fieldcontain">
+					<span id="zip-label" class="property-label"><g:message code="pub.zip.label" default="Zip" /></span>
+					
+						<span class="property-value" aria-labelledby="zip-label"><g:fieldValue bean="${pubInstance}" field="zip"/></span>
+					
+				</li>
+				</g:if>
+			
+				
 				</g:if>
 			
 				<g:if test="${pubInstance?.city}">
@@ -103,6 +115,7 @@
 					
 				</li>
 				</g:if>
+				
 			
 				<g:if test="${pubInstance?.website}">
 				<li class="fieldcontain">
@@ -113,14 +126,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${pubInstance?.zip}">
-				<li class="fieldcontain">
-					<span id="zip-label" class="property-label"><g:message code="pub.zip.label" default="Zip" /></span>
-					
-						<span class="property-value" aria-labelledby="zip-label"><g:fieldValue bean="${pubInstance}" field="zip"/></span>
-					
-				</li>
-				</g:if>
 			
 				<g:if test="${pubInstance?.type}">
 				<li class="fieldcontain">
@@ -165,13 +170,14 @@
 				<g:if test="${pubInstance?.coments}">
 				<li class="fieldcontain">
 					<span id="coments-label" class="property-label"><g:message code="pub.coments.label" default="Coments" /></span>
-					
-						<g:each in="${pubInstance.coments}" var="c">
-						<span class="property-value" aria-labelledby="coments-label"><g:link controller="coment" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="coments-label"><g:link controller="coment" action="listForAPub" id="${pubInstance.id}">See coments list</g:link></span>
+						<g:each in="${pubInstance.coments.sort{a,b -> b.postDate <=> a.postDate}.take(10)}" var="c">
+						<span class="property-value" aria-labelledby="coments-label"><g:link controller="coment" action="showComent" id="${c.id}">${c?.encodeAsHTML()}</g:link></span>
 						</g:each>
 					
 				</li>
 				</g:if>
+				<g:link controller="coment" action="create" params="['pub.id': pubInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'coment.label', default: 'Coment')])}</g:link>
 			
 				<g:if test="${pubInstance?.users}">
 				<li class="fieldcontain">

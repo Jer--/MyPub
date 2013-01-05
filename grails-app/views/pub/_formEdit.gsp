@@ -31,6 +31,14 @@
 	<g:textField name="addressOptionnal" value="${pubInstance?.addressOptionnal}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'zip', 'error')} ">
+	<label for="zip">
+		<g:message code="pub.zip.label" default="Zip" />
+		
+	</label>
+	<g:textField name="zip" value="${pubInstance?.zip}"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'city', 'error')} required">
 	<label for="city">
 		<g:message code="pub.city.label" default="City" />
@@ -47,13 +55,7 @@
 	<g:textField name="website" value="${pubInstance?.website}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'zip', 'error')} ">
-	<label for="zip">
-		<g:message code="pub.zip.label" default="Zip" />
-		
-	</label>
-	<g:textField name="zip" value="${pubInstance?.zip}"/>
-</div>
+
 
 <div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'type', 'error')} required">
 	<label for="type">
@@ -103,8 +105,8 @@
 	</label>
 	
 <ul class="one-to-many">
-<g:each in="${pubInstance?.coments?}" var="c">
-    <li><g:link controller="coment" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link></li>
+<g:each in="${pubInstance?.coments?.sort{a,b -> b.postDate <=> a.postDate}.take(10)}" var="c">
+    <li><g:link controller="coment" action="showComent" id="${c.id}">${c?.encodeAsHTML()}</g:link></li>
 </g:each>
 <li class="add">
 <g:link controller="coment" action="create" params="['pub.id': pubInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'coment.label', default: 'Coment')])}</g:link>

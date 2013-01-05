@@ -175,10 +175,20 @@ class UserController {
 		[userInstanceList: User.findByUsername(username).friends, userInstanceTotal: User.findByUsername(username).friends.size()]
 	}
 	
+	def listFriendsOfMyFriend(Long id) {
+		def userInstance = User.get(id)
+		[userInstanceList: userInstance.friends, userInstanceTotal: userInstance.friends.size()]
+	}
+	
 	def addFriend() {
 		def courant = springSecurityService.currentUser
 		String username = courant.username
 		def userI = User.get(params.id)
+		if (username.equals(userI.username)) {
+			flash.message = "You can't add yourself as your friend"
+			redirect(action: "listFriends")
+			return
+		}
 		User.findByUsername(username).addToFriends(User.findByUsername(userI.username))
 		User.findByUsername(userI.username).addToFriends(User.findByUsername(username))
 		redirect(action: "listFriends")
@@ -194,8 +204,15 @@ class UserController {
 	}
 	
 	def searchUser() {
-		params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		[userInstanceList: User.findByUsername(params.username), userInstanceTotal: User.findByUsername(params.username).count()]
+		//def userList = User.findByUsername(params.username)
+		def param = params.username
+		def userList = User.findAll {username == param || firstName == param || lastName == param}
+		if(!userList) {
+			flash.message = "No user found"
+			redirect(action: "listFriends")
+			return
+		}
+		[userInstanceList: userList, userInstanceTotal: userList.size()]
 	}
 
 }

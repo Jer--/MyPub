@@ -1,23 +1,29 @@
 /*******************************************************************************
-*  Author : Group BBHC
-*  Licence : AGPL v3
+ *  Author : Group BBHC
+ *  Licence : AGPL v3
  ******************************************************************************/
 package mypub
 
+import java.util.Date
+
 class Modification {
-	
+
 	String username
-	Date proposalDate
-	
+	Date proposalDate = new Date()
+	Pub newContent
+
+	Modification(String username, Pub newContent) {
+		this.username = username
+		this.newContent = newContent
+		usersOk = new ArrayList<User>()
+		usersOk.add(User.findByUsername(username))
+	}
+
 	static belongsTo = [pub : Pub]
-	static hasMany = [usersOk : String]
+	static hasMany = [usersOk : User]
 
-	String toString () {return 'Modification by : ' + username +
-		' date :' + proposalDate 
-		}
-
-	
-    static constraints = {
-		usersOk nullable:true
-    }
+	String toString () {
+		return 'Modification by : ' + username +
+		' date :' + proposalDate
+	}
 }

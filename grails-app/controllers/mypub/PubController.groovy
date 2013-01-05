@@ -99,4 +99,17 @@ class PubController {
             redirect(action: "show", id: id)
         }
     }
+	
+	// Non - generated methods ////////////////////////////////////////////
+	
+	def searchPub() {
+		def param = params.pubname
+		def pubList = Pub.findAll {name == param || city == param || zip == param}
+		if(!pubList) {
+			flash.message = "No pub found"
+			redirect(action: "list")
+			return
+		}
+		[pubInstanceList: pubList, pubInstanceTotal: pubList.size()]
+	}
 }

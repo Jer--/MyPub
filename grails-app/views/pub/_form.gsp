@@ -31,6 +31,15 @@
 	<g:textField name="addressOptionnal" value="${pubInstance?.addressOptionnal}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'zip', 'error')} ">
+	<label for="zip">
+		<g:message code="pub.zip.label" default="Zip" />
+		
+	</label>
+	<g:textField name="zip" value="${pubInstance?.zip}"/>
+</div>
+
+
 <div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'city', 'error')} required">
 	<label for="city">
 		<g:message code="pub.city.label" default="City" />
@@ -47,13 +56,6 @@
 	<g:textField name="website" value="${pubInstance?.website}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'zip', 'error')} ">
-	<label for="zip">
-		<g:message code="pub.zip.label" default="Zip" />
-		
-	</label>
-	<g:textField name="zip" value="${pubInstance?.zip}"/>
-</div>
 
 <div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'type', 'error')} required">
 	<label for="type">

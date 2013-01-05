@@ -1,6 +1,6 @@
 /*******************************************************************************
-*  Author : Group BBHC
-*  Licence : AGPL v3
+ *  Author : Group BBHC
+ *  Licence : AGPL v3
  ******************************************************************************/
 package mypub
 
@@ -15,7 +15,23 @@ import org.junit.*
 @TestFor(Modification)
 class ModificationTests {
 
-	void testSomething() {
-		true
+	void testConstraints() {
+		//setUp
+		mockDomain(Pub)
+		mockDomain(Modification)
+		mockDomain(User)
+		User user = new User(username:"test",password:"test",firstName:"test",lastName:"test",mail:"test@test.com")
+		Pub pub = new Pub(name: 'pub', address: 'address', city: 'Toulouse', type: 'PUB')
+		Pub pubWithModification = new Pub(name: 'pub', address: 'address', city: 'Ramonville', type: 'PUB')
+		assert pub.validate()
+
+		pub.addToModifications(new Modification("test",pubWithModification))
+
+		def modif = pub.modifications.find {m ->
+			m.username == "test"
+		}
+		assert modif.validate()
+
+
 	}
 }

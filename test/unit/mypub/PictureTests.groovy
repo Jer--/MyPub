@@ -15,7 +15,31 @@ import org.junit.*
 @TestFor(Picture)
 class PictureTests {
 
-	void testSomething() {
-		true
+	void testConstraints() {
+		def existingPicture = new Picture(name: 'picTest', data: [1,1,1,1])
+		
+		mockForConstraintsTests(Picture, [existingPicture])
+		
+		// validation pass
+		def picture = new Picture(name: 'picTest')
+		assert picture.validate()
+		
+		// name nullable: false
+		picture = new Picture()
+		assert !picture.validate()
+		assert "nullable" == picture.errors["name"]
+		
+		// name blank: false
+		picture = new Picture(name: '')
+		assert !picture.validate()	
+		assert "blank" == picture.errors["name"]
+		
+		// data: maxSize: 16777216
+		byte[] dataTab = new byte[16777220]
+		picture = new Picture(name: 'picTest', data: dataTab)
+		assert !picture.validate()
+		assert "maxSize" == picture.errors["data"]
+		
+		
 	}
 }
