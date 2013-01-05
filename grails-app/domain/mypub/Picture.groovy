@@ -8,8 +8,6 @@ class Picture {
 
     String name
 	byte[] data
-	// TODO generated with new attribute idPicture
-	int idPicture
 	
 	String toString() {return name}
 	

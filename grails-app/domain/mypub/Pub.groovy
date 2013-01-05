@@ -6,6 +6,7 @@ package mypub
 
 class Pub {
 	
+	// TODO Generated with new attribute idPub
 	String name
 	String address
 	String addressOptionnal
@@ -13,8 +14,6 @@ class Pub {
 	String zip
 	String website
 	String type
-	// TODO Generated with new attribute idPub
-	int idPub
 	
 	Picture presentationPicture
 	
@@ -24,14 +23,12 @@ class Pub {
 	String toString () {return name + ', ' + city }
 	
     static constraints = {
-		name nullable:false, blank:false
+		name nullable:false, blank:false, unique: true
 		address nullable:false, blank:false
 		addressOptionnal nullable:true
 		city nullable:false, blank:false
-		idPub unique: true
 		website nullable:true
 		zip nullable:true
-		
 		type nullable:false, inList: ['PUB','RESTO','CLUB'], blank:false
 		
 		
