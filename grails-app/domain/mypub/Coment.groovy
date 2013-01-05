@@ -25,6 +25,5 @@ class Coment {
 
 	static constraints = { 
 		text size: 1..160
-		idComment unique:true
 	}
 }
