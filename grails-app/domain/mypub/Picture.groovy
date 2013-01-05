@@ -14,6 +14,5 @@ class Picture {
 	static constraints = {
 		name blank : false
 		data nullable : true, maxSize: 16777216 /* 16M */
-		idPicture unique: true 
 	}
 }
