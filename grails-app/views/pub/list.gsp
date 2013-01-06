@@ -34,6 +34,8 @@
 				<thead>
 					<tr>
 					
+						<g:sortableColumn property="presentationPicture" title="${message(code: 'pub.presentationPicture.label', default: 'Presentation Picture')}" />
+					
 						<g:sortableColumn property="name" title="${message(code: 'pub.name.label', default: 'Name')}" />
 					
 						<g:sortableColumn property="address" title="${message(code: 'pub.address.label', default: 'Address')}" />
@@ -51,6 +53,13 @@
 				<tbody>
 				<g:each in="${pubInstanceList}" status="i" var="pubInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					
+						<g:if test="${pubInstance?.presentationPicture}">
+							<td><img class="Picture" src="${createLink(controller:'Picture', action:'viewImage', id:pubInstance.presentationPicture.id)}" width="100"/></td>
+						</g:if>
+						<g:else>
+							<td><img src="${resource(dir: 'images', file: 'pub/TemplatePubBasic.jpg')}" width="100"/></td>
+						</g:else>
 					
 						<td><g:link action="show" id="${pubInstance.id}">${fieldValue(bean: pubInstance, field: "name")}</g:link></td>
 					

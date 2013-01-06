@@ -17,8 +17,7 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link controller='User' action='showProfile'>My Profile</g:link></li>
-				<li><g:link controller='User' action='listFriends'>My Friends</g:link></li>
-				<li><g:link action="listPerso">My Pictures</g:link></li>
+				<li><g:link action="listPerso"><g:message code="My Pictures" /></g:link></li>
 			</ul>
 		</div>
 		<div id="show-picture" class="content scaffold-show" role="main">
@@ -43,10 +42,18 @@
 					<span id="data-label" class="property-label" style="display:none; visibility:hidden"><g:message code="picture.data.label" default="Data" /></span>
 					<img class="Picture" src="${createLink(controller:'Picture', action:'viewImage', id:pictureInstance.id)}"/>
 				</div>
+					
 				</li>
 				</g:if>
 			
 			</ol>
+			<g:form>
+				<fieldset class="buttons">
+					<g:hiddenField name="id" value="${pictureInstance?.id}" />
+					<g:link class="edit" action="edit" id="${pictureInstance?.id}" style="display:none; visibility:hidden"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+					<g:actionSubmit class="delete" action="enleverListForAPub" params="['pubId': params.pub] value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+				</fieldset>
+			</g:form>
 		</div>
 	</body>
 </html>

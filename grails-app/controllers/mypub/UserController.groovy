@@ -1,6 +1,6 @@
 /*******************************************************************************
- * Author : Group BBHC
- * License : AGPL v3
+*  Author : Group BBHC
+*  License : AGPL v3
  ******************************************************************************/
 package mypub
 
@@ -119,7 +119,10 @@ class UserController {
 			}
 			def userRoleInstances = UserRole.findAllByUser(userInstance)
 			userRoleInstances.each {
-				it.delete();
+				it.delete()
+			}
+			userInstance.pictures.each {
+				it.delete()
 			}
             userInstance.delete(flush: true)
             flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), userInstance.username])

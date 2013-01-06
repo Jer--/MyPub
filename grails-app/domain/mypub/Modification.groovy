@@ -8,23 +8,30 @@ import java.util.Date
 
 class Modification {
 
-	String username
+	User author
 	Date proposalDate = new Date()
-	Pub newContent
-	
-	Modification(String username, Pub newContent) {
-		this.username = username
-		this.newContent = newContent
-		usersOk = new ArrayList<User>()
-		usersOk.add(User.findByUsername(username))
-
-	}
+	String about
+	String newContent
 
 	static belongsTo = [pub : Pub]
 	static hasMany = [usersOk : User]
 
 	String toString () {
-		return 'Modification by : ' + username +
+		return 'Modification by : ' + author.getUsername() +
 		' date :' + proposalDate
+	}
+
+	static constraints = {
+		about nullable:false, inList: [
+			'name',
+			'address',
+			'addressOptionnal',
+			'city',
+			'zip',
+			'website',
+			'type'
+		], blank:false
+		author nullable:false
+		newContent nullable:false
 	}
 }

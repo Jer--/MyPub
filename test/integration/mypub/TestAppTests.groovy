@@ -3,9 +3,6 @@
  *  Licence : AGPL v3
  ******************************************************************************/
 package mypub
-package common
-
-import static org.junit.*
 
 import org.junit.*
 
@@ -47,7 +44,7 @@ class TestAppTests extends GroovyTestCase {
 		// userContextInit()
 		log.info("[TestAppTests] Set up success.")
 	}
-	
+
 	@Test
 	void testSomething() {
 		log.info("[TestAppTests] Launch method: deleteUserC().")
@@ -65,7 +62,7 @@ class TestAppTests extends GroovyTestCase {
 		log.info("[TestAppTests] Launch method: deleteFriendBA().")
 		// deleteFriendBA()
 	}
-	
+
 	@After
 	void tearDown() {
 		// userContextClose()
