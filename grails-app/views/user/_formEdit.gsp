@@ -68,7 +68,7 @@
 		<g:message code="user..label" default="Sex" />
 		
 	</label>
-	<g:select name="" from="${userInstance.constraints..inList}" value="${userInstance?.}" valueMessagePrefix="user." noSelection="['': '']"/>
+	<g:select name="" from="${userInstance.constraints..inList}" value="${userInstance?.sex}" valueMessagePrefix="user." noSelection="['': '']"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'pictures', 'error')} ">
