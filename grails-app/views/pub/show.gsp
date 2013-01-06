@@ -81,8 +81,8 @@
 				<li class="fieldcontain">
 					<span id="address-label" class="property-label"><g:message code="pub.address.label" default="Address" /></span>
 					
-						<span class="property-value" aria-labelledby="address-label"><g:fieldValue bean="${pubInstance}" field="address"/></span>
-					
+						<span class="property-value" aria-labelledby="address-label"><g:fieldValue bean="${pubInstance}" field="address"/><g:link controller="modification" action="create" params="['pub.id': pubInstance?.id,about:'adress']"><img src="${resource(dir: 'images', file: 'modif.png')}"/></g:link></span>
+						
 				</li>
 				</g:if>
 			

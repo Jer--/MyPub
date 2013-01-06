@@ -1,8 +1,4 @@
-<%--#-------------------------------------------------------------------------------
-# Author : Group BBHC
-# License : AGPL v3
-#-------------------------------------------------------------------------------
---%>
+
 <%@ page import="mypub.Modification" %>
 <!DOCTYPE html>
 <html>
@@ -28,11 +24,15 @@
 				<thead>
 					<tr>
 					
+						<g:sortableColumn property="about" title="${message(code: 'modification.about.label', default: 'About')}" />
+					
+						<th><g:message code="modification.author.label" default="Author" /></th>
+					
+						<g:sortableColumn property="newContent" title="${message(code: 'modification.newContent.label', default: 'New Content')}" />
+					
 						<g:sortableColumn property="proposalDate" title="${message(code: 'modification.proposalDate.label', default: 'Proposal Date')}" />
 					
 						<th><g:message code="modification.pub.label" default="Pub" /></th>
-					
-						<g:sortableColumn property="username" title="${message(code: 'modification.username.label', default: 'Username')}" />
 					
 					</tr>
 				</thead>
@@ -40,11 +40,15 @@
 				<g:each in="${modificationInstanceList}" status="i" var="modificationInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${modificationInstance.id}">${fieldValue(bean: modificationInstance, field: "proposalDate")}</g:link></td>
+						<td><g:link action="show" id="${modificationInstance.id}">${fieldValue(bean: modificationInstance, field: "about")}</g:link></td>
+					
+						<td>${fieldValue(bean: modificationInstance, field: "author")}</td>
+					
+						<td>${fieldValue(bean: modificationInstance, field: "newContent")}</td>
+					
+						<td><g:formatDate date="${modificationInstance.proposalDate}" /></td>
 					
 						<td>${fieldValue(bean: modificationInstance, field: "pub")}</td>
-					
-						<td>${fieldValue(bean: modificationInstance, field: "username")}</td>
 					
 					</tr>
 				</g:each>

@@ -31,5 +31,7 @@ class Modification {
 			'website',
 			'type'
 		], blank:false
+		author nullable:false
+		newContent nullable:false
 	}
 }

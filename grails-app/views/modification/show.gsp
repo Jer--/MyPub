@@ -1,8 +1,4 @@
-<%--#-------------------------------------------------------------------------------
-# Author : Group BBHC
-# License : AGPL v3
-#-------------------------------------------------------------------------------
---%>
+
 <%@ page import="mypub.Modification" %>
 <!DOCTYPE html>
 <html>
@@ -27,11 +23,29 @@
 			</g:if>
 			<ol class="property-list modification">
 			
-				<g:if test="${modificationInstance?.usersOk}">
+				<g:if test="${modificationInstance?.about}">
 				<li class="fieldcontain">
-					<span id="usersOk-label" class="property-label"><g:message code="modification.usersOk.label" default="Users Ok" /></span>
+					<span id="about-label" class="property-label"><g:message code="modification.about.label" default="About" /></span>
 					
-						<span class="property-value" aria-labelledby="usersOk-label"><g:fieldValue bean="${modificationInstance}" field="usersOk"/></span>
+						<span class="property-value" aria-labelledby="about-label"><g:fieldValue bean="${modificationInstance}" field="about"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${modificationInstance?.author}">
+				<li class="fieldcontain">
+					<span id="author-label" class="property-label"><g:message code="modification.author.label" default="Author" /></span>
+					
+						<span class="property-value" aria-labelledby="author-label"><g:link controller="user" action="show" id="${modificationInstance?.author?.id}">${modificationInstance?.author?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${modificationInstance?.newContent}">
+				<li class="fieldcontain">
+					<span id="newContent-label" class="property-label"><g:message code="modification.newContent.label" default="New Content" /></span>
+					
+						<span class="property-value" aria-labelledby="newContent-label"><g:fieldValue bean="${modificationInstance}" field="newContent"/></span>
 					
 				</li>
 				</g:if>
@@ -54,11 +68,13 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${modificationInstance?.username}">
+				<g:if test="${modificationInstance?.usersOk}">
 				<li class="fieldcontain">
-					<span id="username-label" class="property-label"><g:message code="modification.username.label" default="Username" /></span>
+					<span id="usersOk-label" class="property-label"><g:message code="modification.usersOk.label" default="Users Ok" /></span>
 					
-						<span class="property-value" aria-labelledby="username-label"><g:fieldValue bean="${modificationInstance}" field="username"/></span>
+						<g:each in="${modificationInstance.usersOk}" var="u">
+						<span class="property-value" aria-labelledby="usersOk-label"><g:link controller="user" action="show" id="${u.id}">${u?.encodeAsHTML()}</g:link></span>
+						</g:each>
 					
 				</li>
 				</g:if>
