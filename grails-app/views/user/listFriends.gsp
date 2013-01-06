@@ -55,7 +55,12 @@
 							<td><img class="Picture" src="${createLink(controller:'Picture', action:'viewImageId', id:userInstance?.id)}" width="100"/></td>
 						</g:if>
 						<g:else>
-							<td><img src="${resource(dir: 'images', file: 'defaultAvatar.jpg')}" width="100"/></td>
+							<g:if test="${userInstance?.sexe ==  'F'}">
+							<td><img src="${resource(dir: 'images', file: '/pub/Avatar_woman.jpg')}" width="150"/></td>
+							</g:if>
+							<g:else>
+							<td><img src="${resource(dir: 'images', file: '/pub/Avatar_man.jpg')}" width="150"/></td>
+							</g:else>
 						</g:else>
 
 						<td><g:link action="showFriend" id="${userInstance.id}">${fieldValue(bean: userInstance, field: "username")}</g:link></td>

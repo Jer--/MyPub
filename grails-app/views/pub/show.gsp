@@ -68,6 +68,14 @@
 			<ol class="property-list pub">
 			<%--insert the MAP --%>
 			<div id="map_div" style="width: 400px; height: 300px"></div>
+			</br>
+				<g:if test="${pubInstance?.presentationPicture}">
+					<img class="Picture" src="${createLink(controller:'Picture', action:'viewImage', id:pubInstance.presentationPicture.id)}" width="150"/>
+				</g:if>
+				<g:else>
+					<img src="${resource(dir: 'images', file: 'pub/TemplatePubBasic.jpg')}" width="150"/>
+				</g:else>
+				
 				<g:if test="${pubInstance?.name}">
 				<li class="fieldcontain">
 					<span id="name-label" class="property-label"><g:message code="pub.name.label" default="Name" /></span>
@@ -148,7 +156,7 @@
 				<g:if test="${pubInstance?.pictures}">
 				<li class="fieldcontain">
 					<span id="pictures-label" class="property-label"><g:message code="pub.pictures.label" default="Pictures" /></span>
-					
+					<g:link controller="picture" action="listPub" id="${pubInstance.id}">See all Pictures</g:link>
 						<g:each in="${pubInstance.pictures}" var="p">
 						<span class="property-value" aria-labelledby="pictures-label"><g:link controller="picture" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
 						</g:each>

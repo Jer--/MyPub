@@ -161,6 +161,22 @@ class PictureController {
 		redirect(action: "listPerso")
 	}
 	
+	def showAPub() {
+		def pictureInstance = Picture.get(params.id)
+		if (!pictureInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'picture.label', default: 'Picture'), params.id])
+			redirect(action: "listPerso")
+			return
+		}
+
+		[pictureInstance: pictureInstance]
+	}
+	
+	def listPub(Long id) {
+		def pubInstance = Pub.get(id)
+		[pictureInstanceList: pubInstance.pictures, pictureInstanceTotal: pubInstance.pictures.size()]
+	}
+	
 	def viewImageId = {
 		def picture = User.get(params.id).avatar
 		byte[] pic = picture.data
