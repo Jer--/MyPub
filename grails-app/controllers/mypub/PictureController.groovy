@@ -161,6 +161,51 @@ class PictureController {
 		redirect(action: "listPerso")
 	}
 	
+	def createForAPub(Long pubId) {
+		params["pub"] = pubId
+		[pictureInstance: new Picture(params)]
+	}
+	
+	def saveForAPub(Long pubId) {
+		def pubInstance = Pub.get(pubId)
+		def pictureInstance = new Picture(params)
+		pubInstance.addToPictures(pictureInstance)
+		if (!pictureInstance.save(flush: true)) {
+			render(view: "createForAPub", model: [pictureInstance: pictureInstance])
+			return
+		}
+
+		flash.message = message(code: 'default.created.message', args: [message(code: 'picture.label', default: 'Picture'), pictureInstance.name])
+		redirect(action: "showPub", id: pictureInstance.id)
+	}
+	
+	def enleverListForAPub(Long pubId) {
+		def courant = springSecurityService.currentUser
+		def pictureP = Picture.get(params.id)
+		String username = courant.username
+		if(User.findByUsername(username).avatar.equals(pictureP))
+			User.findByUsername(username).avatar = null
+		else {
+			User.findByUsername(username).removeFromPictures(Picture.findById(pictureP.id))
+			Picture.findById(pictureP.id).delete(flush: true)
+		}
+		redirect(action: "listPerso")
+	}
+	
+	def showPub(Long id) {
+		def courrent = springSecurityService.currentUser
+		String usernameC = courrent.username
+		def userInstance = User.findByUsername(usernameC)
+		def userRoleInstances = UserRole.findAllByUser(userInstance)
+		
+		def pubInstance = Pub.get(params.pubId)
+		// !userRoleInstances.find {role == 'ROLE_ADMIN'} && 
+		if(!pubInstance.users.find {username == usernameC})
+			redirect(action: 'showAPub', id:id)
+		else
+			redirect(action: 'showMyPub', pubId: id)
+	}
+	
 	def showAPub() {
 		def pictureInstance = Picture.get(params.id)
 		if (!pictureInstance) {
@@ -172,8 +217,21 @@ class PictureController {
 		[pictureInstance: pictureInstance]
 	}
 	
+	def showMyPub(Long pubId) {
+		def pictureInstance = Picture.get(params.id)
+		if (!pictureInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'picture.label', default: 'Picture'), params.id])
+			redirect(controller: "user", action: "showProfile")
+			return
+		}
+
+		params["pub"] = pubId
+		[pictureInstance: pictureInstance]
+	}
+	
 	def listPub(Long id) {
 		def pubInstance = Pub.get(id)
+		params["pub"] = id
 		[pictureInstanceList: pubInstance.pictures, pictureInstanceTotal: pubInstance.pictures.size()]
 	}
 	

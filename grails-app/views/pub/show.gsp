@@ -80,7 +80,7 @@
 				<li class="fieldcontain">
 					<span id="name-label" class="property-label"><g:message code="pub.name.label" default="Name" /></span>
 					
-						<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${pubInstance}" field="name"/></span>
+		            <span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${pubInstance}" field="name"/><g:link controller="modification" action="create" params="['pub.id': pubInstance?.id,about:'name']"><img style="vertical-align:middle" src="${resource(dir: 'images', file: 'modif.png')}"/></g:link></span>
 					
 				</li>
 				</g:if>
@@ -89,7 +89,7 @@
 				<li class="fieldcontain">
 					<span id="address-label" class="property-label"><g:message code="pub.address.label" default="Address" /></span>
 					
-						<span class="property-value" aria-labelledby="address-label"><g:fieldValue bean="${pubInstance}" field="address"/><g:link controller="modification" action="create" params="['pub.id': pubInstance?.id,about:'adress']"><img src="${resource(dir: 'images', file: 'modif.png')}"/></g:link></span>
+	            <span class="property-value" aria-labelledby="address-label"><g:fieldValue bean="${pubInstance}" field="address"/><g:link controller="modification" action="create" params="['pub.id': pubInstance?.id,about:'address']"><img style="vertical-align:middle" src="${resource(dir: 'images', file: 'modif.png')}"/></g:link></span>
 						
 				</li>
 				</g:if>
@@ -158,7 +158,7 @@
 					<span id="pictures-label" class="property-label"><g:message code="pub.pictures.label" default="Pictures" /></span>
 					<g:link controller="picture" action="listPub" id="${pubInstance.id}">See all Pictures</g:link>
 						<g:each in="${pubInstance.pictures}" var="p">
-						<span class="property-value" aria-labelledby="pictures-label"><g:link controller="picture" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="pictures-label"><g:link controller="picture" action="showPub" id="${p.id}" params="['pubId': pubInstance?.id]">${p?.encodeAsHTML()}</g:link></span>
 						</g:each>
 					
 				</li>

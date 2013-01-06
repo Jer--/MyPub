@@ -37,7 +37,7 @@
 				<g:each in="${pictureInstanceList}" status="i" var="pictureInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="showAPub" id="${pictureInstance.id}">${fieldValue(bean: pictureInstance, field: "name")}</g:link></td>
+						<td><g:link action="showPub" id="${pictureInstance.id}" params="['pubId': params.pub]">${fieldValue(bean: pictureInstance, field: "name")}</g:link></td>
 						<td><img class="Picture" src="${createLink(controller:'Picture', action:'viewImage', id:pictureInstance.id)}" width="100"/></td>
 					
 					</tr>

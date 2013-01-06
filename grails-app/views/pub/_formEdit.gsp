@@ -70,16 +70,21 @@
 		<g:message code="pub.presentationPicture.label" default="Presentation Picture" />
 		
 	</label>
-	<g:select id="presentationPicture" name="presentationPicture.id" from="${mypub.Picture.list()}" optionKey="id" value="${pubInstance?.presentationPicture?.id}" class="many-to-one" noSelection="['null': '']"/>
+	<g:select id="presentationPicture" name="presentationPicture.id" from="${pubInstance.pictures}" optionKey="id" value="${pubInstance?.presentationPicture?.id}" class="many-to-one" noSelection="['null': '']"/>
 </div>
 
+<!-- 
 <div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'pictures', 'error')} ">
 	<label for="pictures">
 		<g:message code="pub.pictures.label" default="Pictures" />
 		
 	</label>
-	<g:select name="pictures" from="${mypub.Picture.list()}" multiple="multiple" optionKey="id" size="5" value="${pubInstance?.pictures*.id}" class="many-to-many"/>
+	<g:select name="pictures" from="${pubInstance.pictures}" multiple="multiple" optionKey="id" size="5" value="${pubInstance?.pictures*.id}" class="many-to-many"/>
 </div>
+ -->
+<li class="add">
+<g:link controller="picture" action="createForAPub" params="['pubId': pubInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'picture.label', default: 'Picture')])}</g:link>
+</li>
 
 <div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'modifications', 'error')} ">
 	<label for="modifications">
