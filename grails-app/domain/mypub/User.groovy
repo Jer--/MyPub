@@ -5,7 +5,7 @@
 package mypub
 
 class User {
-
+	// TODO Generated
 	transient springSecurityService
 
 	String username
@@ -15,8 +15,8 @@ class User {
 	boolean accountLocked
 	boolean passwordExpired
 	
-	String firstName, lastName, mail, sexe
-	Date ddn
+	String firstName, lastName, mail, sex
+	Date birthday
 	Picture avatar
 	
 	static hasMany = [friends : User, pictures : Picture, pubs : Pub]
@@ -32,8 +32,8 @@ class User {
 		lastName blank: false
 		mail blank: false, email: true
 		avatar nullable:true
-		ddn  nullable: true, blank: false, max: new Date().minus(3650)
-		sexe  nullable: true, inList: ['M','F']
+		birthday  nullable: true, blank: false, max: new Date().minus(3650)
+		sex  nullable: true, inList: ['M','F']
 		
 		friends nullable:true
 		pictures nullable:true

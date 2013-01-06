@@ -56,7 +56,7 @@
 							<td><img class="Picture" src="${createLink(controller:'Picture', action:'viewImageId', id:userInstance?.id)}" width="100"/></td>
 						</g:if>
 						<g:else>
-							<g:if test="${userInstance?.sexe ==  'F'}">
+							<g:if test="${userInstance?.sex ==  'F'}">
 							<td><img src="${resource(dir: 'images', file: '/pub/Avatar_woman.jpg')}" width="150"/></td>
 							</g:if>
 							<g:else>

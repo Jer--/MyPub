@@ -79,20 +79,20 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${userInstance?.ddn}">
+				<g:if test="${userInstance?.birthday}">
 				<li class="fieldcontain">
-					<span id="ddn-label" class="property-label"><g:message code="user.ddn.label" default="Ddn" /></span>
+					<span id="birthday-label" class="property-label"><g:message code="user.birthday.label" default="Birthday" /></span>
 					
-						<span class="property-value" aria-labelledby="ddn-label"><g:formatDate date="${userInstance?.ddn}" /></span>
+						<span class="property-value" aria-labelledby="birthday-label"><g:formatDate date="${userInstance?.birthday}" /></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${userInstance?.sexe}">
+				<g:if test="${userInstance?.sex}">
 				<li class="fieldcontain">
-					<span id="sexe-label" class="property-label"><g:message code="user.sexe.label" default="Sexe" /></span>
+					<span id="sex-label" class="property-label"><g:message code="user.sex.label" default="Sex" /></span>
 					
-						<span class="property-value" aria-labelledby="sexe-label"><g:fieldValue bean="${userInstance}" field="sexe"/></span>
+						<span class="property-value" aria-labelledby="sex-label"><g:fieldValue bean="${userInstance}" field="sex"/></span>
 					
 				</li>
 				</g:if>

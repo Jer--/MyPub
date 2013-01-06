@@ -52,7 +52,7 @@ class UtilsTests {
 		params["city"] = "Rocheford"
 		params["type"] = "PUB"
 		params["User"] = User.findByUsername("A")
-		Pub.create()
+		Pub.create(params)
 	}
 
 	

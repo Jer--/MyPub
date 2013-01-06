@@ -21,7 +21,7 @@ class UserControllerTests {
 		params["firstName"] = 'alfred'
 		params["lastName"] = 'alfredaussi'
 		params["mail"] = 'alfred@john.fr'
-		//params["ddn"]= new Date ('2007/01/01')
+		//params["birthday"]= new Date ('2007/01/01')
 		//params["enabled"] = true
 		//params["accountExpired"] = false
 		//params["accountLocked"] = false

@@ -55,20 +55,20 @@
 	<g:select id="avatar" name="avatar.id" from="${userInstance.pictures}" optionKey="id" value="${userInstance?.avatar?.id}" class="many-to-one" noSelection="['null': '']"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'ddn', 'error')} ">
-	<label for="ddn">
-		<g:message code="user.ddn.label" default="Ddn" />
+<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'birthday', 'error')} ">
+	<label for="birthday">
+		<g:message code="user.birthday.label" default="Birthday" />
 		
 	</label>
-	<g:datePicker name="ddn" precision="day"  value="${userInstance?.ddn}" default="none" noSelection="['': '']" />
+	<g:datePicker name="birthday" precision="day"  value="${userInstance?.birthday}" default="none" noSelection="['': '']" />
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'sexe', 'error')} ">
-	<label for="sexe">
-		<g:message code="user.sexe.label" default="Sexe" />
+<div class="fieldcontain ${hasErrors(bean: userInstance, field: '', 'error')} ">
+	<label for="">
+		<g:message code="user..label" default="Sex" />
 		
 	</label>
-	<g:select name="sexe" from="${userInstance.constraints.sexe.inList}" value="${userInstance?.sexe}" valueMessagePrefix="user.sexe" noSelection="['': '']"/>
+	<g:select name="" from="${userInstance.constraints..inList}" value="${userInstance?.}" valueMessagePrefix="user." noSelection="['': '']"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'pictures', 'error')} ">

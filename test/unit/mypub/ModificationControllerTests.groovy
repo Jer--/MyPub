@@ -23,7 +23,7 @@ class ModificationControllerTests {
 	def populateValidParams(params) {
 		assert params != null
 		// TODO: Populate valid properties like...
-		params["author"] = new User(username:"userTest", password:"passwordTest", firstName:"Delon", lastName:"Alain", sexe:'M', mail:"testmail@test.com")
+		params["author"] = new User(username:"userTest", password:"passwordTest", firstName:"Delon", lastName:"Alain", sex:'M', mail:"testmail@test.com")
 		params["about"] = "city"
 		params["newContent"] = "Paris"
 		params["pub"] = new Pub(name:'pub1', address:'123 av jj', city:'Toulouse')
