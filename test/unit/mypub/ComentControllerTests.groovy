@@ -190,7 +190,7 @@ class ComentControllerTests {
 		assert model.comentInstance == coment
 	}
 
-	void testSAComent() {
+	void testShowAComent() {
 		controller.showAComent()
 
 		assert flash.message != null

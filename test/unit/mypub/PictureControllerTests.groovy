@@ -230,4 +230,28 @@ class PictureControllerTests {
 
 		assert model.pictureInstance == picture
 	}
+	
+	void testShowAPub() {
+		controller.showAPub()
+
+		assert flash.message != null
+		assert response.redirectedUrl == '/user/showProfile'
+
+		populateValidParams(params)
+		def picture = new Picture(params)
+
+		assert picture.save() != null
+
+		params.id = picture.id
+
+		def model = controller.showAPub()
+
+		assert model.pictureInstance == picture
+	}
+	
+//	def testListPub(Long id) {
+//		def pubInstance = Pub.get(id)
+//		[pictureInstanceList: pubInstance.pictures, pictureInstanceTotal: pubInstance.pictures.size()]
+//	}
+	
 }
