@@ -1,11 +1,12 @@
 /*******************************************************************************
-*  Author : Group BBHC
-*  License : AGPL v3
+ *  Author : Group BBHC
+ *  License : AGPL v3
  ******************************************************************************/
 package mypub
 
 
 
+import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUser
 import org.junit.*
 import grails.test.mixin.*
 
@@ -13,10 +14,16 @@ import grails.test.mixin.*
 @Mock(Modification)
 class ModificationControllerTests {
 
+	void setUpSpringSecurity() {
+		def mockSpringSecurityService = mockFor(grails.plugins.springsecurity.SpringSecurityService)
+		mockSpringSecurityService.demand.getPrincipal() { -> ["username":"Test"] }
+		controller.springSecurityService = mockSpringSecurityService.createMock()
+	}
+
 	def populateValidParams(params) {
 		assert params != null
 		// TODO: Populate valid properties like...
-		params["author"] = new User(username:'toto', password: 'aaaa', firstName: 'john', lastName: 'john', mail:'john@lol.fr')
+		params["author"] = new User(username:"userTest", password:"passwordTest", firstName:"Delon", lastName:"Alain", sexe:'M', mail:"testmail@test.com")
 		params["about"] = "city"
 		params["newContent"] = "Paris"
 		params["pub"] = new Pub(name:'pub1', address:'123 av jj', city:'Toulouse')
@@ -42,6 +49,7 @@ class ModificationControllerTests {
 	}
 
 	void testSave() {
+		setUpSpringSecurity()
 		controller.save()
 
 		assert model.modificationInstance != null

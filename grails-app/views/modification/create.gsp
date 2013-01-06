@@ -34,6 +34,7 @@
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>
+				<g:textField name="pub" value="${modificationInstance?.pub?.id}"/> 
 				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 				</fieldset>
