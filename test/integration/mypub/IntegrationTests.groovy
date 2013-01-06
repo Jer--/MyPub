@@ -13,9 +13,9 @@ class IntegrationTests extends GroovyTestCase {
 	void testSomething() {
 		log.info("[IntegrationTests] Start integration test for controller.")
 		log.info("[IntegrationTests] Launch method: testUpdatePub().")
-		testUpdatePub()
+		// testUpdatePub()
 		log.info("[IntegrationTests] Launch method: testSomeRedirect().")
-		testSomeRedirect()
+		// testSomeRedirect()
 	}
 
 	void testUpdatePub() {
