@@ -1,6 +1,6 @@
 /*******************************************************************************
-*  Author : Group BBHC
-*  License : AGPL v3
+ *  Author : Group BBHC
+ *  License : AGPL v3
  ******************************************************************************/
 package mypub
 
@@ -13,15 +13,20 @@ import grails.test.mixin.*
 @Mock(User)
 class UserControllerTests {
 
+	void setUpSpringSecurity() {
+		def mockSpringSecurityService = mockFor(grails.plugins.springsecurity.SpringSecurityService)
+		mockSpringSecurityService.demand.getPrincipal() { -> ["username":"spiderman"] }
+		controller.springSecurityService = mockSpringSecurityService.createMock()
+	}
+
 	def populateValidParams(params) {
 		assert params != null
-		// TODO: Populate valid properties like...
-		params["username"] = 'john'
-		params["password"] = 'azerty'
-		params["firstName"] = 'alfred'
-		params["lastName"] = 'alfredaussi'
-		params["mail"] = 'alfred@john.fr'
-		//params["birthday"]= new Date ('2007/01/01')
+		params["username"] = 'superman'
+		params["password"] = 'xxx'
+		params["firstName"] = 'Kent'
+		params["lastName"] = 'Clark'
+		params["mail"] = 'superman@hero.galaxy'
+		//params["birthday"]= new Date ('1800/01/01')
 		//params["enabled"] = true
 		//params["accountExpired"] = false
 		//params["accountLocked"] = false
@@ -35,9 +40,8 @@ class UserControllerTests {
 	}
 
 	void testList() {
-
 		def model = controller.list()
-
+		
 		assert model.userInstanceList.size() == 0
 		assert model.userInstanceTotal == 0
 	}
@@ -47,20 +51,35 @@ class UserControllerTests {
 
 		assert model.userInstance != null
 	}
-
-	/*TODO problem with password encode
-	 * void testSave() {
-	 controller.save()
-	 assert model.userInstance != null
-	 assert view == '/user/create'
-	 response.reset()
-	 populateValidParams(params)
-	 controller.save()
-	 assert response.redirectedUrl == '/user/show/1'
-	 assert controller.flash.message != null
-	 assert User.count() == 1
-	 }
-	 */
+	
+//	void testSave() {
+//		setUpSpringSecurity()
+//		controller.save()
+//
+//		assert model.userInstance != null
+//		assert view == '/user/create'
+//
+//		response.reset()
+//
+//		populateValidParams(params)
+//		controller.save()
+//
+//		assert response.redirectedUrl == '/user/show/1'
+//		assert controller.flash.message != null
+//		assert User.count() == 1
+//	}
+	
+	//AVANCEE
+	
+//	void testVoir() {
+//		response.reset()
+//		
+//		populateValidParams(params)
+//		controller.voir()
+//		
+//		assert response.redirectedUrl == '/user/show/1'
+//	}
+	
 	void testShow() {
 		controller.show()
 
@@ -96,52 +115,71 @@ class UserControllerTests {
 
 		assert model.userInstance == user
 	}
-	/*TODO problem with password encode
-	 void testUpdate() {
-	 controller.update()
-	 assert flash.message != null
-	 assert response.redirectedUrl == '/user/list'
-	 response.reset()
-	 populateValidParams(params)
-	 def user = new User(params)
-	 assert user.save() != null
-	 // test invalid parameters in update
-	 params.id = user.id
-	 //TODO: add invalid values to params object
-	 params["username"] = null
-	 controller.update()
-	 assert view == "/user/edit"
-	 assert model.userInstance != null
-	 user.clearErrors()
-	 populateValidParams(params)
-	 controller.update()
-	 assert response.redirectedUrl == "/user/show/$user.id"
-	 assert flash.message != null
-	 //test outdated version number
-	 response.reset()
-	 user.clearErrors()
-	 populateValidParams(params)
-	 params.id = user.id
-	 params.version = -1
-	 controller.update()
-	 assert view == "/user/edit"
-	 assert model.userInstance != null
-	 assert model.userInstance.errors.getFieldError('version')
-	 assert flash.message != null
-	 }
-	 void testDelete() {
-	 controller.delete()
-	 assert flash.message != null
-	 assert response.redirectedUrl == '/user/list'
-	 response.reset()
-	 populateValidParams(params)
-	 def user = new User(params)
-	 assert user.save() != null
-	 assert User.count() == 1
-	 params.id = user.id
-	 controller.delete()
-	 assert User.count() == 0
-	 assert User.get(user.id) == null
-	 assert response.redirectedUrl == '/user/list'
-	 }*/
+
+//	void testUpdate() {
+//		controller.update()
+//
+//		assert flash.message != null
+//		assert response.redirectedUrl == '/user/list'
+//
+//		response.reset()
+//
+//		populateValidParams(params)
+//		def user = new User(params)
+//
+//		assert user.save() != null
+//
+//		// test invalid parameters in update
+//		params.id = user.id
+//		//TODO: add invalid values to params object
+//		params["newContent"] = null
+//		controller.update()
+//
+//		assert view == "/user/edit"
+//		assert model.userInstance != null
+//
+//		user.clearErrors()
+//
+//		populateValidParams(params)
+//		controller.update()
+//
+//		assert response.redirectedUrl == "/user/show/$user.id"
+//		assert flash.message != null
+//
+//		//test outdated version number
+//		response.reset()
+//		user.clearErrors()
+//
+//		populateValidParams(params)
+//		params.id = user.id
+//		params.version = -1
+//		controller.update()
+//
+//		assert view == "/modification/edit"
+//		assert model.userInstance != null
+//		assert model.userInstance.errors.getFieldError('version')
+//		assert flash.message != null
+//	}
+//
+//	void testDelete() {
+//		controller.delete()
+//		assert flash.message != null
+//		assert response.redirectedUrl == '/user/list'
+//
+//		response.reset()
+//
+//		populateValidParams(params)
+//		def user = new User(params)
+//
+//		assert user.save() != null
+//		assert User.count() == 1
+//
+//		params.id = user.id
+//
+//		controller.delete()
+//
+//		assert User.count() == 0
+//		assert User.get(user.id) == null
+//		assert response.redirectedUrl == '/user/list'
+//	}
 }

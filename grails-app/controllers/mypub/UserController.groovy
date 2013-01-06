@@ -39,6 +39,9 @@ class UserController {
 
     def save() {
         def userInstance = new User(params)
+		if(userInstance.username == null) {
+			userInstance.username = springSecurityService.currentUser
+		}
         if (!userInstance.save(flush: true)) {
             render(view: "create", model: [userInstance: userInstance])
             return
