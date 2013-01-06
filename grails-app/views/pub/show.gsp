@@ -81,7 +81,7 @@
 					<span id="name-label" class="property-label"><g:message code="pub.name.label" default="Name" /></span>
 					
 		            <span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${pubInstance}" field="name"/><g:link controller="modification" action="create" params="['pub.id': pubInstance?.id,about:'name']"><img style="vertical-align:middle" src="${resource(dir: 'images', file: 'modif.png')}"/></g:link></span>
-					
+
 				</li>
 				</g:if>
 			
@@ -90,6 +90,7 @@
 					<span id="address-label" class="property-label"><g:message code="pub.address.label" default="Address" /></span>
 					
 	            <span class="property-value" aria-labelledby="address-label"><g:fieldValue bean="${pubInstance}" field="address"/><g:link controller="modification" action="create" params="['pub.id': pubInstance?.id,about:'address']"><img style="vertical-align:middle" src="${resource(dir: 'images', file: 'modif.png')}"/></g:link></span>
+
 						
 				</li>
 				</g:if>
