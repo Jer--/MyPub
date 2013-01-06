@@ -18,16 +18,16 @@ class IntegrationTests extends GroovyTestCase {
 		// testSomeRedirect()
 	}
 
-	void testUpdatePub() {
-		def controller = new Pub(name: 'pub', address: 'address', city: 'Toulouse', type: 'PUB')
-		controller.params.address = "nouvelle address"
-		controller.params.city = "Saint Denis"
-		controller.update(controller.getIdPub(), controller.getIdPub())
-	}
-
-	void testSomeRedirect() {
-		def pub =  new Pub(name: 'pub', address: 'address', city: 'Toulouse', type: 'PUB')
-		pub.show()
-		assertEquals "/Pub/show", pub.response.redirectedUrl
-	}
+	/*void testUpdatePub() {
+	 def controller = new Pub(name: 'pub', address: 'address', city: 'Toulouse', type: 'PUB')
+	 controller.params.address = "nouvelle address"
+	 controller.params.city = "Saint Denis"
+	 controller.update(controller.getIdPub(), controller.getIdPub())
+	 }
+	 void testSomeRedirect() {
+	 def pub =  new Pub(name: 'pub', address: 'address', city: 'Toulouse', type: 'PUB')
+	 pub.show()
+	 assertEquals "/Pub/show", pub.response.redirectedUrl
+	 }
+	 */
 }
