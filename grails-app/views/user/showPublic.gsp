@@ -28,11 +28,15 @@
 			<ol class="property-list user">
 			
 				<g:if test="${userInstance?.avatar}">
-					<img id="showAvatar" class="Picture" src="${createLink(controller:'Picture', action:'viewImageId', id:userInstance?.id)}" width="200"/>
+					<img id="showAvatar" class="Picture" src="${createLink(controller:'Picture', action:'viewImageId', id:userInstance?.id)}" width="150"/>
 				</g:if>
 				<g:else>
-					<img src="${resource(dir: 'images', file: 'defaultAvatar.jpg')}" width="200"/>
-				</g:else>
+					<g:if test="${userInstance?.sexe ==  'F'}">
+					<img src="${resource(dir: 'images', file: '/pub/Avatar_woman.jpg')}" width="150"/>
+					</g:if>
+					<g:else>
+					<img src="${resource(dir: 'images', file: '/pub/Avatar_man.jpg')}" width="150"/>
+				</g:else>				</g:else>
 			
 				<g:if test="${userInstance?.username}">
 				<li class="fieldcontain">
