@@ -1,6 +1,6 @@
 /*******************************************************************************
-*  Author : Group BBHC
-*  License : AGPL v3
+ *  Author : Group BBHC
+ *  License : AGPL v3
  ******************************************************************************/
 package mypub
 
@@ -20,7 +20,7 @@ class ComentControllerTests {
 		// TODO: Populate valid properties like...
 		//params["name"] = 'someValidName'
 		params["username"]='testName'
-		params["postDate"]= new Date ('2007/01/01')
+		//		params["postDate"]= new Date ('2007/01/01')
 		params["text"]='coment test'
 		params["pub"] = new Pub(name:'pub1', address:'123 av jj', city:'Toulouse')
 	}
@@ -38,12 +38,12 @@ class ComentControllerTests {
 		assert model.comentInstanceTotal == 0
 	}
 
-//	No Current User
-//	void testCreate() {
-//		def model = controller.create()
-//
-//		assert model.comentInstance != null
-//	}
+	//	No Current User
+	//	void testCreate() {
+	//		def model = controller.create()
+	//
+	//		assert model.comentInstance != null
+	//	}
 
 	void testSave() {
 		controller.save()
@@ -164,17 +164,17 @@ class ComentControllerTests {
 		assert Coment.get(coment.id) == null
 		assert response.redirectedUrl == '/pub/show'
 	}
-	
+
 	// Non - generated Test //////////////////////////////////////
-	
-//	No Current User
-//	void testShowComent() {
-//		
-//	}
-	
+
+	//	No Current User
+	//	void testShowComent() {
+	//
+	//	}
+
 	void testShowMyComent() {
 		controller.showMyComent()
-		
+
 		assert flash.message != null
 		assert response.redirectedUrl == '/user/showProfile'
 
@@ -189,10 +189,10 @@ class ComentControllerTests {
 
 		assert model.comentInstance == coment
 	}
-	
+
 	void testSAComent() {
 		controller.showAComent()
-		
+
 		assert flash.message != null
 		assert response.redirectedUrl == '/user/showProfile'
 
@@ -207,19 +207,19 @@ class ComentControllerTests {
 
 		assert model.comentInstance == coment
 	}
-	
+
 	void testListForAPub() {
 		mockDomain(Pub)
 		def pub = new Pub(name: 'pub1', address: 'address', city: 'city', type: 'PUB').save()
 		pub.addToComents(new Coment(
-			username: 'user1',
-			postDate: new Date(),
-			text : 'a coment'
-			))
+				username: 'user1',
+				postDate: new Date(),
+				text : 'a coment'
+				))
 		assert pub.validate()
-		
+
 		def model = controller.listForAPub(pub.id)
-		
+
 		assert model.comentInstanceList.size() == 1
 		assert model.comentInstanceTotal == 1
 	}

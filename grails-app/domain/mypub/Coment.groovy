@@ -1,13 +1,13 @@
 /*******************************************************************************
-*  Author : Group BBHC
-*  License : AGPL v3
+ *  Author : Group BBHC
+ *  License : AGPL v3
  ******************************************************************************/
 package mypub
 
 class Coment {
 
 	String username
-	Date postDate
+	Date postDate = new Date()
 	String text
 	static belongsTo = [pub : Pub]
 
@@ -23,7 +23,5 @@ class Coment {
 	}
 
 
-	static constraints = { 
-		text size: 1..160
-	}
+	static constraints = {  text size: 1..160 }
 }
