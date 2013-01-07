@@ -5,6 +5,7 @@
 --%>
 
 <%@ page import="mypub.User"%>
+<%@ page import="mypub.Picture"%>
 <%@ page
 	import="org.springframework.dao.DataIntegrityViolationException"%>
 <%@ page import="grails.plugins.springsecurity.Secured"%>
@@ -119,16 +120,62 @@
 			<g:link controller='Pub' action='list'>My Pubs</g:link><br/>
 			<g:link controller='Logout'>Logout</g:link>
 		</div>
+	<div>
+		<h1 align="center">
+			Welcome Back
+			<sec:username />
+		</h1>
+	
+		
+		<div align="center" id="statusRight">
+			<g:if test="${userInstance?.avatar}">
+					<img id="showAvatar" class="Picture" src="${createLink(controller:'Picture', action:'viewImageId', id:userInstance?.id)}" width="150"/>
+				</g:if>
+				<g:else>
+					<g:if test="${userInstance?.sex ==  'F'}">
+					<img src="${resource(dir: 'images', file: '/pub/Avatar_woman.jpg')}" width="150"/>
+					</g:if>
+					<g:else>
+					<img src="${resource(dir: 'images', file: '/pub/Avatar_man.jpg')}" width="150"/>
+					</g:else>
+				</g:else>	
 		</div>
+		<div align="center">
+			<g:if test="${userInstance?.friends}">
+			<p>
+				You have <%out.print(userInstance.friends.size().toString()) %> friend
+			</p>
+			</g:if>
+				<g:else>
+					<p> 
+					You have no friend
+					</p> 
+				</g:else>
+		</div>
+		<div align="center">	
+				<g:if test="${userInstance?.pubs}">
+			<p>
+				You have <%out.print(userInstance.pubs.size().toString()) %> pub(s)
+			</p>
+			</g:if>
+				<g:else>
+					<p> 
+					You have no pub
+					</p> 
+				</g:else>
+		</div>
+	</div>	
 	</sec:ifLoggedIn>
+	
+
+	<sec:ifNotLoggedIn>
+	
 	<div id="page-body" role="main">
 			<h1>Welcome</h1>
 			<br /> <br />
 			<p align=justify>Hey ! Welcome to MyPub ! Your e-community which that you can exchange your favorites pubs with your friends! Recommend, note, comment and share !</p>
 			<br /> <br />
 	</div>
-
-	<sec:ifNotLoggedIn>
 		<div class="nav" role="navigation">
 			<ul>
 				<li><g:link controller='login' action='auth'>Login</g:link></li>

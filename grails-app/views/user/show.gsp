@@ -114,8 +114,7 @@
 					
 						<g:each in="${userInstance.pictures}" var="p">
 						<span class="property-value" aria-labelledby="pictures-label"><g:link controller="picture" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
+						</g:each>	
 				</li>
 				</g:if>
 			

@@ -220,5 +220,5 @@ class UserController {
 		}
 		[userInstanceList: userList, userInstanceTotal: userList.size()]
 	}
-
+	
 }
