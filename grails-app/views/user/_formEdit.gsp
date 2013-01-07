@@ -63,12 +63,12 @@
 	<g:datePicker name="birthday" precision="day"  value="${userInstance?.birthday}" default="none" noSelection="['': '']" />
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: userInstance, field: '', 'error')} ">
-	<label for="">
-		<g:message code="user..label" default="Sex" />
+<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'sex', 'error')} ">
+	<label for="sex">
+		<g:message code="user.sex.label" default="Sex" />
 		
 	</label>
-	<g:select name="" from="${userInstance.constraints..inList}" value="${userInstance?.sex}" valueMessagePrefix="user." noSelection="['': '']"/>
+	<g:select name="sex" from="${userInstance.constraints.sex.inList}" value="${userInstance?.sex}" valueMessagePrefix="user.sex" noSelection="['': '']"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'pictures', 'error')} ">
