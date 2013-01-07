@@ -32,6 +32,7 @@ class PictureController {
 		def courant = springSecurityService.currentUser
 		String username = courant.username
 		User.findByUsername(username).addToPictures(pictureInstance)
+		
         if (!pictureInstance.save(flush: true)) {
             render(view: "create", model: [pictureInstance: pictureInstance])
             return
@@ -180,52 +181,53 @@ class PictureController {
 	}
 	
 	def enleverListForAPub(Long pubId) {
-		def courant = springSecurityService.currentUser
-		def pictureP = Picture.get(params.id)
-		String username = courant.username
-		if(User.findByUsername(username).avatar.equals(pictureP))
-			User.findByUsername(username).avatar = null
-		else {
-			User.findByUsername(username).removeFromPictures(Picture.findById(pictureP.id))
-			Picture.findById(pictureP.id).delete(flush: true)
+		def pubInstance = Pub.get(pubId)
+		def pictureInstance = Picture.get(params.id)
+		if (pubInstance.presentationPicture.equals(pictureInstance)){
+			flash.message = "Sorry this picture cannot be delete because its the presentation picture"
+			redirect(action: "showPub", id: pictureInstance.id)
+		} else {
+			pubInstance.removeFromPictures(pictureInstance)
+			Picture.findById(pictureInstance.id).delete(flush: true)
 		}
-		redirect(action: "listPerso")
+		redirect(controller:'Pub', action: "show", id: 1)
 	}
 	
-	def showPub(Long id) {
+	def showPub(Long pubId) {
 		def courrent = springSecurityService.currentUser
 		String usernameC = courrent.username
 		def userInstance = User.findByUsername(usernameC)
 		def userRoleInstances = UserRole.findAllByUser(userInstance)
-		
-		def pubInstance = Pub.get(params.pubId)
-		// !userRoleInstances.find {role == 'ROLE_ADMIN'} && 
-		if(!pubInstance.users.find {username == usernameC})
-			redirect(action: 'showAPub', id:id)
-		else
-			redirect(action: 'showMyPub', pubId: id)
+		def pubInstance = Pub.get(pubId)
+
+		if(userInstance.getAuthorities().find {it.authority == 'ROLLE_ADMIN'} && !pubInstance.users.find {username == usernameC})
+			redirect(action: 'showAPub', id:params.id, params: [pubId: pubInstance.id])
+		else {
+			redirect(action: 'showMyPub',id: params.id, params: [pubId: pubInstance.id])
+		}
 	}
 	
 	def showAPub() {
 		def pictureInstance = Picture.get(params.id)
 		if (!pictureInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'picture.label', default: 'Picture'), params.id])
-			redirect(controller: "user", action: "showProfile")
+			redirect(controller: "pub", action: "show", id: params.pubId)
 			return
 		}
 
 		[pictureInstance: pictureInstance]
 	}
 	
-	def showMyPub(Long pubId) {
+	def showMyPub() {
 		def pictureInstance = Picture.get(params.id)
+
 		if (!pictureInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'picture.label', default: 'Picture'), params.id])
-			redirect(controller: "user", action: "showProfile")
+			redirect(controller: "pub", action: "show", id: params.pubId)
 			return
 		}
 
-		params["pub"] = pubId
+		params["pub"] = params.pubId
 		[pictureInstance: pictureInstance]
 	}
 	

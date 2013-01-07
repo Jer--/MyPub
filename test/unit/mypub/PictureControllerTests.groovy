@@ -10,9 +10,15 @@ import org.junit.*
 import grails.test.mixin.*
 
 @TestFor(PictureController)
-@TestMixin(User)
+@TestMixin(Pub)
 @Mock(Picture)
 class PictureControllerTests {
+	
+	void setUpSpringSecurity() {
+		def mockSpringSecurityService = mockFor(grails.plugins.springsecurity.SpringSecurityService)
+		mockSpringSecurityService.demand.getPrincipal() { -> ["username":"Test"] }
+		controller.springSecurityService = mockSpringSecurityService.createMock()
+	}
 
     def populateValidParams(params) {
         assert params != null
@@ -42,6 +48,17 @@ class PictureControllerTests {
 
    // TODO : we can't test because there no current user
 //     void testSave() {
+//		 mockDomain(User)
+//		 
+//		 def userInstance = new User(username: 'user1',
+// 									password: 'pass1',
+// 									firstName: 'alfred',
+// 									lastName: 'alfredaussi',
+// 									mail: 'alfred@john.fr')
+//		assert userInstance.validate()
+//		 
+//		controller.springSecurityService = [currentUser:[id:userInstance.id]]
+//		//setUpSpringSecurity()
 //        controller.save()
 //
 //        assert model.pictureInstance != null
@@ -162,39 +179,7 @@ class PictureControllerTests {
     }
 	
 	// Non - generated Tests ///////////////////////////////////////
-	
-//	TODO : we can't test because there no current user
-//	void testListPerso() {
-//		
-//		def model = controller.listPerso()
-//
-//		assert model.pictureInstanceList.size() == 0
-//		assert model.pictureInstanceTotal == 0
-//	}
-	
-//	void testEnleverList() {
-//		//no curent user
-//	}
-	
-//	void testListFriend() {
-//		
-//		mockDomain(User)
-//		
-//		def userInstance = new User(username: 'user1', 
-//									password: 'pass1',
-//									firstName: 'alfred',
-//									lastName: 'alfredaussi',
-//									mail: 'alfred@john.fr').save()
-//		userInstance.addToPictures(new Picture(params))
-//		assert userInstance.validate()
-//		
-//		def model = controller.listFriend(userInstance.id)
-//
-//		
-//		//assert model.pictureInstanceTotal == 0
-//		assert model.pictureInstanceList == null
-//	}
-	
+		
 	void testShowPerso() {
 		controller.showPerso()
 
@@ -214,6 +199,7 @@ class PictureControllerTests {
 	}
 	
 	void testShowImgAmi() {
+
 		controller.showImgAmi()
 
 		assert flash.message != null
@@ -231,11 +217,91 @@ class PictureControllerTests {
 		assert model.pictureInstance == picture
 	}
 	
+//	TODO : we can't test because there no current user
+//	void testListPerso() {
+//
+//		def model = controller.listPerso()
+//
+//		assert model.pictureInstanceList.size() == 0
+//		assert model.pictureInstanceTotal == 0
+//	}
+
+//	void testListFriend() {
+//
+//		mockDomain(User)
+//
+//		def userInstance = new User(username: 'user1',
+//									password: 'pass1',
+//									firstName: 'alfred',
+//									lastName: 'alfredaussi',
+//									mail: 'alfred@john.fr')
+//		userInstance.addToPictures(new Picture(params))
+//		assert userInstance.validate()
+//
+//		def model = controller.listFriend(userInstance.id)
+//
+//
+//		//assert model.pictureInstanceTotal == 0
+//		assert model.pictureInstanceList == null
+//	}
+	
+//	void testEnleverList() {
+//		//no curent user
+//	}
+	
+	void testCreateForAPub() {
+		
+		mockDomain(Pub)
+		def pub = new Pub(name: 'pub1', address: 'address', city: 'city', type: 'PUB').save()
+		assert pub.validate()
+		
+		def model = controller.createForAPub(pub.id)
+
+        assert model.pictureInstance != null
+	}
+	
+     void testSaveForAPub() {
+		 mockDomain(Pub)
+		def pub = new Pub(name: 'pub1', address: 'address', city: 'city', type: 'PUB').save()
+		assert pub.validate()
+		
+        controller.saveForAPub(pub.id)
+
+        assert model.pictureInstance != null
+        assert view == '/picture/createForAPub'
+
+        response.reset()
+
+        populateValidParams(params)
+        controller.saveForAPub(pub.id)
+
+        assert response.redirectedUrl == '/picture/showPub/1'
+        assert controller.flash.message != null
+        assert Picture.count() == 1
+    }
+
+//	 void testEnleverListForAPub() {
+//		 mockDomain(Pub)
+//		 def pub = new Pub(name: 'pub1', address: 'address', city: 'city', type: 'PUB').save()
+//		 assert pub.validate()
+//		 
+//		 populateValidParams(params)
+//		 def picture = new Picture(params)
+//		 
+//		 pub.addToPictures(picture)
+//		 assert pub.pictures.size() == 1
+//		 
+//		 params["pubId"] = pub.id
+//		 picture.enleverListForAPub()
+//		 
+//		 assert pub.pictures.size() == 0
+//	 }	
+	 
 	void testShowAPub() {
 		controller.showAPub()
 
 		assert flash.message != null
-		assert response.redirectedUrl == '/user/showProfile'
+		assert response.redirectedUrl == '/pub/show'
 
 		populateValidParams(params)
 		def picture = new Picture(params)
@@ -249,9 +315,38 @@ class PictureControllerTests {
 		assert model.pictureInstance == picture
 	}
 	
-//	def testListPub(Long id) {
-//		def pubInstance = Pub.get(id)
-//		[pictureInstanceList: pubInstance.pictures, pictureInstanceTotal: pubInstance.pictures.size()]
-//	}
+	void testShowMyPub() {
+		controller.showMyPub()
+
+		assert flash.message != null
+		assert response.redirectedUrl == '/pub/show'
+
+		populateValidParams(params)
+		def picture = new Picture(params)
+
+		assert picture.save() != null
+
+		params.id = picture.id
+
+		def model = controller.showMyPub()
+
+		assert model.pictureInstance == picture
+	}
+	
+	void testListPub() {
+		mockDomain(Pub)
+		def pub = new Pub(name: 'pub1', address: 'address', city: 'city', type: 'PUB').save()
+		assert pub.validate()
+		
+		populateValidParams(params)
+		def picture = new Picture(params)
+		
+		pub.addToPictures(picture)
+		assert pub.pictures.size() == 1
+		
+		def model = controller.listPub(pub.id)
+		assert model.pictureInstanceList.size() == 1
+		assert model.pictureInstanceTotal == 1
+	}
 	
 }
