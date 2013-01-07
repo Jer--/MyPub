@@ -118,7 +118,6 @@
 			<g:link controller='Picture' action='listPerso'>My Pictures</g:link><br/>
 			<g:link controller='User' action='listFriends'>My Friends</g:link><br/>
 			<g:link controller='Pub' action='list'>My Pubs</g:link><br/>
-			<g:link controller='Picture' action='list'>Pictures</g:link><br/>
 			<g:link controller='Logout'>Logout</g:link>
 		</div>
 	<div>

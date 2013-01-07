@@ -109,10 +109,26 @@
 				<li class="fieldcontain">
 					<span id="pictures-label" class="property-label"><g:message code="user.pictures.label" default="Pictures" /></span>
 					
+					  
 						<span class="property-value" aria-labelledby="pictures-label"><g:link controller="picture" action="listFriend" id="${userInstance.id}">See all pictures</g:link></span>
+						<!--
 						<g:each in="${userInstance.pictures.take(10)}" var="p">
 						<span class="property-value" aria-labelledby="pictures-label"><g:link controller="picture" action="showImgAmi" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
 						</g:each>
+						-->
+						
+						<table>
+						<tbody>
+						<g:each in="${userInstance.pictures.take(5)}" var="p">
+						<td>
+							<g:link controller="picture" action="showImgAmi" id="${p.id}">
+							<img class="Picture" src="${createLink(controller:'Picture', action:'viewImage', id:p.id)}" width="100"/>
+							</g:link>
+						</td>
+						</g:each>
+						</tbody>
+						</table>
+						
 					
 				</li>
 				</g:if>
