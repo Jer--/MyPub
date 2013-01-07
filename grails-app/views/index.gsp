@@ -121,50 +121,29 @@
 			<g:link controller='Logout'>Logout</g:link>
 		</div>
 	<div>
-		<h1 align="center">
+		<h1 align="right">
 			Welcome Back
-			<sec:username />
+			<sec:username /> .  
 		</h1>
 	
-		
+		<g:set var="userNow" value="${User.findByUsername(sec.loggedInUserInfo(field:'username'))}" />
 		<div align="center" id="statusRight">
-			<g:if test="${userInstance?.avatar}">
-					<img id="showAvatar" class="Picture" src="${createLink(controller:'Picture', action:'viewImageId', id:userInstance?.id)}" width="150"/>
+			<g:if test="${userNow?.avatar}">
+					<img id="showAvatar" class="Picture" src="${createLink(controller:'Picture', action:'viewImageId', id:userNow.id)}" width="150"/>
 				</g:if>
 				<g:else>
-					<g:if test="${userInstance?.sex ==  'F'}">
+					<g:if test="${userNow?.sex ==  'F'}">
 					<img src="${resource(dir: 'images', file: '/pub/Avatar_woman.jpg')}" width="150"/>
 					</g:if>
 					<g:else>
 					<img src="${resource(dir: 'images', file: '/pub/Avatar_man.jpg')}" width="150"/>
 					</g:else>
 				</g:else>	
+				<br>
+				You have <%out.print(userNow.friends.size().toString()) %> friend(s)<br>
+				You have <%out.print(userNow.pubs.size().toString())%> pub(s)<br>
 		</div>
-		<div align="center">
-			<g:if test="${userInstance?.friends}">
-			<p>
-				You have <%out.print(userInstance.friends.size().toString()) %> friend
-			</p>
-			</g:if>
-				<g:else>
-					<p> 
-					You have no friend
-					</p> 
-				</g:else>
-		</div>
-		<div align="center">	
-				<g:if test="${userInstance?.pubs}">
-			<p>
-				You have <%out.print(userInstance.pubs.size().toString()) %> pub(s)
-			</p>
-			</g:if>
-				<g:else>
-					<p> 
-					You have no pub
-					</p> 
-				</g:else>
-		</div>
-	</div>	
+	
 	</sec:ifLoggedIn>
 	
 
