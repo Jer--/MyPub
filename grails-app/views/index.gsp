@@ -114,20 +114,25 @@
 	<a href="#page-body" class="skip"><g:message
 				code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 	<sec:ifLoggedIn>
-		<div id="status" role="complementary">
+		<!--<div id="status" role="complementary">
 			<h1 align=center>Menu</h1>
 			<g:link controller='User' action='showProfile'>My Profile</g:link><br/>
 			<g:link controller='Picture' action='listPerso'>My Pictures</g:link><br/>
 			<g:link controller='User' action='listFriends'>My Friends</g:link><br/>
 			<g:link controller='Pub' action='list'>My Pubs</g:link><br/>
-			<g:link controller='Logout'>Logout</g:link>
-		</div>
+			
+		</div>-->
 	<div>
-		<h1 align="right">
-			Welcome Back
-			<sec:username /> .  
+		<h1 align="left" style="margin : 15px;">
+			Welcome Back : 
+			<sec:username /> |  
+			<g:link controller='User' action='showProfile'>My Profile</g:link> |
+			<g:link controller='Picture' action='listPerso'>My Pictures</g:link> | 
+			<g:link controller='User' action='listFriends'>My Friends</g:link> |
+			<g:link controller='Pub' action='list'>My Pubs</g:link> |
+			<g:link controller='Logout'>logout</g:link>
 		</h1>
-	
+		
 		<g:set var="userNow" value="${User.findByUsername(sec.loggedInUserInfo(field:'username'))}" />
 		<div align="center" id="statusRight">
 			<g:if test="${userNow?.avatar}">
