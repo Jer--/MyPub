@@ -19,6 +19,7 @@
 				<li><g:link controller='User' action='showProfile'>My Profile</g:link></li>
 				<li><g:link controller='User' action='listFriends'>My Friends</g:link></li>
 				<li><g:link action="listPerso">My Pictures</g:link></li>
+				<li><g:link controller='Logout'>Logout</g:link></li>
 			</ul>
 		</div>
 		<div id="show-picture" class="content scaffold-show" role="main">

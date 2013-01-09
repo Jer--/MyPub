@@ -19,6 +19,7 @@
 				<li><g:link controller='User' action='showProfile'>My Profile</g:link></li>
 				<li><g:link controller='Pub' action='list'>My Pubs</g:link></li>
 				<li><g:link controller="coment" action="listForAPub" id="${comentInstance?.pub?.id}">${fieldValue(bean: comentInstance, field: "pub")} Coments List</g:link></li>
+				<li><g:link controller='Logout'>Logout</g:link></li>
 			</ul>
 		</div>
 		<div id="show-coment" class="content scaffold-show" role="main">

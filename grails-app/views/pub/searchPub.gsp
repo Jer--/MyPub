@@ -22,6 +22,7 @@
 						<g:textField name="pubname" paramName="pubname" required="" placeholder="Name OR City OR Zip"/>
 					</g:form>
 				</li>
+				<li><g:link controller='Logout'>Logout</g:link></li>
 			</ul>
 		</div>
 		<div id="list-pub" class="content scaffold-list" role="main">

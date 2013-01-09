@@ -22,6 +22,7 @@
 						<g:submitButton name="Recherche" class="recherche" value="${message(code: 'default.button.recherche.label', default: 'Find Pub')}" />
 						<g:textField name="pubname" paramName="pubname" required="" placeholder="Name OR City OR Zip"/>
 					</g:form>
+					<li><g:link controller='Logout'>Logout</g:link></li>
 				</li>
 			</ul>
 		</div>

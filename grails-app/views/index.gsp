@@ -122,19 +122,19 @@
 			<g:link controller='Pub' action='list'>My Pubs</g:link><br/>
 			
 		</div>-->
-	<div>
-		<h1 align="left" style="margin : 15px;">
-			Welcome Back : 
-			<sec:username /> |  
-			<g:link controller='User' action='showProfile'>My Profile</g:link> |
-			<g:link controller='Picture' action='listPerso'>My Pictures</g:link> | 
-			<g:link controller='User' action='listFriends'>My Friends</g:link> |
-			<g:link controller='Pub' action='list'>My Pubs</g:link> |
-			<g:link controller='Logout'>logout</g:link>
-		</h1>
+	
+			<fieldset class="buttons"> Welcome Back  <sec:username />   
+				<g:link controller='User' action='showProfile'>My Profile</g:link>
+				<g:link controller='Picture' action='listPerso'>My Pictures</g:link>
+				<g:link controller='User' action='listFriends'>My Friends</g:link>
+				<g:link controller='Pub' action='list'>My Pubs</g:link>
+				<g:link controller='Logout'>Logout</g:link>
+			</fieldset>
+		 
 		
 		<g:set var="userNow" value="${User.findByUsername(sec.loggedInUserInfo(field:'username'))}" />
 		<div align="center" id="statusRight">
+		<br><br><br>
 			<g:if test="${userNow?.avatar}">
 					<img id="showAvatar" class="Picture" src="${createLink(controller:'Picture', action:'viewImageId', id:userNow.id)}" width="150"/>
 				</g:if>
@@ -146,7 +146,7 @@
 					<img src="${resource(dir: 'images', file: '/pub/Avatar_man.jpg')}" width="150"/>
 					</g:else>
 				</g:else>	
-				<br>
+				<br><br>
 				You have <%out.print(userNow.friends.size().toString()) %> friend(s)<br>
 				You have <%out.print(userNow.pubs.size().toString())%> pub(s)<br>
 		</div>
@@ -155,18 +155,20 @@
 	
 
 	<sec:ifNotLoggedIn>
+	<div class="nav" role="navigation">
 	
+			<ul>
+				<li><h3><g:link controller='login' action='auth'>Login</g:link></h3></li>
+			</ul>
+			
+		</div>
 	<div id="page-body" role="main">
-			<h1>Welcome</h1>
+			<h1 style="margin : 15px;">Welcome</h1>
 			<br /> <br />
 			<p align=justify style="margin : 15px;">Hey ! Welcome to MyPub ! Your e-community which that you can exchange your favorites pubs with your friends! Recommend, note, comment and share !</p>
 			<br /> <br />
 	</div>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><g:link controller='login' action='auth'>Login</g:link></li>
-			</ul>
-		</div>
+		
 		<div>
 				<g:include controller="user" action="create" />
 		</div>

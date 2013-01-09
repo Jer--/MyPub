@@ -18,6 +18,7 @@
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link controller='User' action='showProfile'>My Profile</g:link></li>
 				<li><g:link class="create" action="create"><g:message code="Import new Picture" /></g:link></li>
+				<li><g:link controller='Logout'>Logout</g:link></li>
 			</ul>
 		</div>
 		<div id="list-picture" class="content scaffold-list" role="main">

@@ -24,6 +24,7 @@
 						<g:textField name="username" paramName="username" required="" value="${userInstance?.username}"/>
 					</g:form>
 				</li>
+				<li><g:link controller='Logout'>Logout</g:link></li>
 			</ul>
 		</div>
 		<div id="list-user" class="content scaffold-list" role="main">
