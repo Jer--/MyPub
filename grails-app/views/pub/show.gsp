@@ -60,14 +60,14 @@
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
-		<div id="show-pub" class="content scaffold-show" role="main">
+		<div id="show-pub" class="content scaffold-show" role="main" style="min-height : 400px; ">
 			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list pub">
 			<%--insert the MAP --%>
-			<div id="map_div" style="width: 400px; height: 300px"></div>
+			<div id="map_div" style="width: 400px; height: 300px; float : right"></div>
 			</br>
 				<g:if test="${pubInstance?.presentationPicture}">
 					<img class="Picture" src="${createLink(controller:'Picture', action:'viewImage', id:pubInstance.presentationPicture.id)}" width="150"/>

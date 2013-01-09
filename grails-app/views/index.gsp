@@ -50,7 +50,9 @@
 			.ie6 #status {
 				display: inline; /* float double margin fix http://www.positioniseverything.net/explorer/doubled-margin.html */
 			}
-
+			#statusRight{
+				min-height : 400px;
+			}
 			#status ul {
 				font-size: 0.9em;
 				list-style-type: none;
@@ -152,7 +154,7 @@
 	<div id="page-body" role="main">
 			<h1>Welcome</h1>
 			<br /> <br />
-			<p align=justify>Hey ! Welcome to MyPub ! Your e-community which that you can exchange your favorites pubs with your friends! Recommend, note, comment and share !</p>
+			<p align=justify style="margin : 15px;">Hey ! Welcome to MyPub ! Your e-community which that you can exchange your favorites pubs with your friends! Recommend, note, comment and share !</p>
 			<br /> <br />
 	</div>
 		<div class="nav" role="navigation">
