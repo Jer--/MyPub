@@ -399,7 +399,7 @@ input:invalid:focus, select:invalid:focus, textarea:invalid:focus {
 /* TABLES */
 
 table {
-	border-top: 1px solid #DFDFDF;
+	border: 1px solid #DFDFDF;
 	border-collapse: collapse;
 	width: 100%;
 	margin-bottom: 1em;
@@ -422,6 +422,8 @@ td, th {
 	padding: 0.5em 0.6em;
 	text-align: left;
 	vertical-align: top;
+	border-top: 1px solid #DFDFDF;
+	border-collapse: collapse;
 }
 
 th {

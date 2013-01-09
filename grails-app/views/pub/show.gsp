@@ -71,10 +71,10 @@
 			<div id="map_div" style="width: 400px; height: 300px; float : right"></div>
 			</br>
 				<g:if test="${pubInstance?.presentationPicture}">
-					<img class="Picture" src="${createLink(controller:'Picture', action:'viewImage', id:pubInstance.presentationPicture.id)}" width="150"/>
+					<img class="Picture" src="${createLink(controller:'Picture', action:'viewImage', id:pubInstance.presentationPicture.id)}" width="200"/>
 				</g:if>
 				<g:else>
-					<img src="${resource(dir: 'images', file: 'pub/TemplatePubBasic.jpg')}" width="150"/>
+					<img src="${resource(dir: 'images', file: 'pub/TemplatePubBasic.jpg')}" width="200"/>
 				</g:else>
 				
 				<g:if test="${pubInstance?.name}">
@@ -178,16 +178,30 @@
 			
 				<g:if test="${pubInstance?.coments}">
 				<li class="fieldcontain">
-					<span id="coments-label" class="property-label"><g:message code="pub.coments.label" default="Coments" /></span>
-						<span class="property-value" aria-labelledby="coments-label"><g:link controller="coment" action="listForAPub" id="${pubInstance.id}">See coments list</g:link></span>
-						<g:each in="${pubInstance.coments.sort{a,b -> b.postDate <=> a.postDate}.take(10)}" var="c">
-						<span class="property-value" aria-labelledby="coments-label"><g:link controller="coment" action="showComent" id="${c.id}">${c?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
+					<table >
+					<th>
+					<li>Lastest Comments
+					<g:link  controller="coment" action="create" params="['pub.id': pubInstance?.id]" style="float: right">${message(code: 'default.add.label', args: [message(code: 'coment.label', default: 'Coment')])}</g:link></li>
+					</th>
+					<g:each in="${pubInstance.coments.sort{a,b -> b.postDate <=> a.postDate}.take(5)}" var="c">
+					<tr>
+						<td>
+						<div>
+						<strong>By ${c.username} </strong>${c.postDate }
+        				</div>
+        				<div class="spacer">${c.text }</div>
+						
+						</td>
+					</tr>
+					</g:each>
+					</table>			
 				</li>
 				</g:if>
-				<g:link controller="coment" action="create" params="['pub.id': pubInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'coment.label', default: 'Coment')])}</g:link>
-			
+				<g:else>
+					<p align=justify style="margin : 15px;">No comments for this Pub</p>
+					<g:link style="margin : 15px;" controller="coment" action="create" params="['pub.id': pubInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'coment.label', default: 'Coment')])}</g:link>
+				</g:else>
+							
 				<g:if test="${pubInstance?.users}">
 				<li class="fieldcontain">
 					<span id="users-label" class="property-label"><g:message code="pub.users.label" default="Users" /></span>
@@ -200,13 +214,14 @@
 				</g:if>
 			
 			</ol>
-			<g:form>
+			
+		</div>
+		<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${pubInstance?.id}" />
 					<g:link class="edit" action="edit" id="${pubInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>
-		</div>
 	</body>
 </html>
