@@ -23,7 +23,7 @@
 						<g:textField name="pubname" paramName="pubname" required="" placeholder="Name OR City OR Zip"/>
 					</g:form>
 				</li>
-				<li style="float : right"><g:link controller='Logout'>Logout</g:link></li>
+				<li style="float : right"><g:link controller='Logout'><img src="${resource(dir: 'images', file: 'skin/logout.png')}" width="15"/> Logout</g:link></li>
 			</ul>
 		</div>
 		<div id="list-pub" class="content scaffold-list" role="main">

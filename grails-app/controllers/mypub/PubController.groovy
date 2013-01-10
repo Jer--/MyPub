@@ -122,7 +122,14 @@ class PubController {
 		def userInstance = springSecurityService.currentUser
 		
 		def pubInstance = Pub.get(params.id)
+		//test if alreaydy in pub list
 		
+		def already = userInstance.pubs.findAll {p -> p.name == pubInstance.name}
+		if(already){
+			flash.message = "You already add this pub"
+			redirect(action: "listPubs")
+			return
+		}
 		Pub.findByName(pubInstance.name).addToUsers(User.findByUsername(userInstance.username))
 		User.findByUsername(userInstance.username).addToPubs(Pub.findByName(pubInstance.name))
 		redirect(action: "listPubs")

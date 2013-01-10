@@ -190,6 +190,10 @@ img {
 	text-indent: 25px;
 }
 
+.nav a.logout {
+	background-image: url(../images/skin/logout.png);
+}
+
 .nav a.home {
 	background-image: url(../images/skin/house.png);
 }

@@ -19,7 +19,7 @@
 				<li><g:link controller='User' action='showProfile'>My Profile</g:link></li>
 				<li><g:link controller='Pub' action='list'>My Pubs</g:link></li>
 				<li><g:link controller="comment" action="listForAPub" id="${commentInstance?.pub?.id}">${fieldValue(bean: commentInstance, field: "pub")} comments List</g:link></li>
-				<li><g:link controller='Logout'>Logout</g:link></li>
+				<li style="float : right"><g:link controller='Logout'><img src="${resource(dir: 'images', file: 'skin/logout.png')}" width="15"/> Logout</g:link></li>
 			</ul>
 		</div>
 		<div id="show-comment" class="content scaffold-show" role="main">
