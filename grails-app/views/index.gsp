@@ -114,22 +114,13 @@
 	<a href="#page-body" class="skip"><g:message
 				code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 	<sec:ifLoggedIn>
-		<!--<div id="status" role="complementary">
-			<h1 align=center>Menu</h1>
-			<g:link controller='User' action='showProfile'>My Profile</g:link><br/>
-			<g:link controller='Picture' action='listPerso'>My Pictures</g:link><br/>
-			<g:link controller='User' action='listFriends'>My Friends</g:link><br/>
-			<g:link controller='Pub' action='list'>My Pubs</g:link><br/>
-			
-		</div>-->
-	
 			<fieldset class="buttons"> Welcome Back  <sec:username />   
 				<g:link controller='User' action='showProfile'>My Profile</g:link>
 				<g:link controller='Picture' action='listPerso'>My Pictures</g:link>
 				<g:link controller='User' action='listFriends'>My Friends</g:link>
 				<g:link controller='Pub' action='listPubs'>My Pubs</g:link>
 				<g:link controller='Pub' action='list'>Pubs</g:link>
-				<li style="float : right"><g:link controller='Logout'><img src="${resource(dir: 'images', file: 'skin/logout.png')}" width="15"/> Logout</g:link></li>
+				<g:link controller='Logout'style="float : right"><img src="${resource(dir: 'images', file: 'skin/logout.png')}" width="15"/> Logout</g:link>
 			</fieldset>
 		 
 		
@@ -156,46 +147,19 @@
 	
 
 	<sec:ifNotLoggedIn>
-	<div class="nav" role="navigation">
-	
-			<ul>
-				<li><h3><g:link controller='login' action='auth'>Login</g:link></h3></li>
-			</ul>
-			
-		</div>
+	<fieldset class="buttons">
+	<div style="margin-left : 20px;">You are already a member? Log you !<g:link controller='login' action='auth'><h3>Login</h3></g:link></div>
+	</fieldset>
 	<div id="page-body" role="main">
-			<h1 style="margin : 15px;">Welcome</h1>
+			<h1 style="margin : 15px;">Welcome to My Pub</h1>
 			<br /> <br />
-			<p align=justify style="margin : 15px;">Hey ! Welcome to MyPub ! Your e-community which that you can exchange your favorites pubs with your friends! Recommend, note, comment and share !</p>
-			<br /> <br />
+			<p align=justify style="margin : 15px;">My Pub it's your e-community which that you can exchange your favorites pubs with your friends! Recommend, note, comment and share !</p>
+			<br />
+			<p align=justify style="margin : 15px;">So what are you waiting for? Rejoin our community !</p>
+			<br />
 	</div>
-		
 		<div>
 				<g:include controller="user" action="create" />
-		</div>
-		<!--  
-		<div align=left id="status" role="main">
-			<h1 align=center>Menu</h1>
-			<p>
-				Pour vous connecter :<br />
-				<%--
-				redirection vers la connexion
-				--%>
-				<g:link controller='login' action='auth'>Connexion</g:link>
-			</p>
-			<p>
-			<%--
-				redirection vers l'inscription
-				--%>
-				Pour vous inscrire :<br />
-				<g:link controller='User' action='create'>Inscription</g:link>
-			</p>
-		</div>
-		-->
-
-
-		<div id="page-body" role="explain">
-			
 		</div>
 	</sec:ifNotLoggedIn>
 

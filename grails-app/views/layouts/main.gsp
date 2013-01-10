@@ -25,7 +25,7 @@
 	<body>
 		<div id="grailsLogo" role="banner"><a href="http://www.my-pub.me"><img src="${resource(dir: 'images/pub', file: 'logo_mypub.png')}" alt="Grails" width=250/></a></div>
 		<g:layoutBody/>
-		<div class="footer" role="contentinfo" style="color : #FFFFFF;">IVVQ 2013</div>
+		<div class="footer" role="contentinfo" style="color : #FFFFFF;">IVVQ 2013 - BBHC</div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 		<g:javascript library="application"/>
 		<r:layoutResources />
