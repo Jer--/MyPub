@@ -56,7 +56,7 @@ class CommentControllerTests {
 		populateValidParams(params)
 		controller.save()
 
-		assert response.redirectedUrl == '/comment/showcomment/1'
+		assert response.redirectedUrl == '/comment/showComment/1'
 		assert controller.flash.message != null
 		assert Comment.count() == 1
 	}
