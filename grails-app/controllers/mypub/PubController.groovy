@@ -125,7 +125,23 @@ class PubController {
 		
 		Pub.findByName(pubInstance.name).addToUsers(User.findByUsername(userInstance.username))
 		User.findByUsername(userInstance.username).addToPubs(Pub.findByName(pubInstance.name))
-		redirect(action: "list")
+		redirect(action: "listPubs")
+	}
+	
+	def removePub() {
+		def courant = springSecurityService.currentUser
+		String username = courant.username
+		def pubInstance = Pub.get(params.id)
+		User.findByUsername(username).removeFromPubs(Pub.findByName(pubInstance.name))
+		Pub.findByName(pubInstance.name).removeFromUsers(User.findByUsername(username))
+		redirect(action: "listPubs")
+	}
+	
+	def listPubs() {
+		def courant = springSecurityService.currentUser
+		String username = courant.username
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		[pubInstanceList: User.findByUsername(username).pubs, pubInstanceTotal: User.findByUsername(username).pubs.size()]
 	}
 	
 }

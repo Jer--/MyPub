@@ -127,7 +127,8 @@
 				<g:link controller='User' action='showProfile'>My Profile</g:link>
 				<g:link controller='Picture' action='listPerso'>My Pictures</g:link>
 				<g:link controller='User' action='listFriends'>My Friends</g:link>
-				<g:link controller='Pub' action='list'>My Pubs</g:link>
+				<g:link controller='Pub' action='listPubs'>My Pubs</g:link>
+				<g:link controller='Pub' action='list'>Pubs</g:link>
 				<g:link controller='Logout'>Logout</g:link>
 			</fieldset>
 		 
