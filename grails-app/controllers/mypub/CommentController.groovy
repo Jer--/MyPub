@@ -114,19 +114,19 @@ class CommentController {
 	
 	// Non- generated methods //////////////////////////////////////////////////
 	
-	def showcomment(Long id) {
+	def showComment(Long id) {
 		def courrent = springSecurityService.currentUser
 		String username = courrent.username
 		def commentInstance = Comment.get(id)
 		//String commentUsername = commentInstance.username
 		if(commentInstance.username.equalsIgnoreCase(username)) {
-			redirect(action: 'showMycomment', id: id)
+			redirect(action: 'showMyComment', id: id)
 		} else {
-			redirect(action: "showAcomment", id: id)
+			redirect(action: "showAComment", id: id)
 		}
 	}
 	
-	def showMycomment(Long id) {
+	def showMyComment(Long id) {
 		def commentInstance = Comment.get(id)
 		if (!commentInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'comment.label', default: 'comment'), id])
@@ -137,7 +137,7 @@ class CommentController {
 		[commentInstance: commentInstance]
 	}
 	
-	def showAcomment(Long id) {
+	def showAComment(Long id) {
 		def commentInstance = Comment.get(id)
 		if (!commentInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'comment.label', default: 'comment'), id])
