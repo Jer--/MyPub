@@ -187,7 +187,7 @@
 					<tr>
 						<td>
 						<div>
-						<strong>By ${c.username} </strong>${c.postDate }
+						<strong>By ${c.username} </strong>${c.postDate.format("dd/MM/yyyy") } at ${c.postDate.format("hh:mm a") }
         				</div>
         				<div class="spacer">${c.text }</div>
 						
