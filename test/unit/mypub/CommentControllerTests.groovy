@@ -211,7 +211,7 @@ class CommentControllerTests {
 	void testListForAPub() {
 		mockDomain(Pub)
 		def pub = new Pub(name: 'pub1', address: 'address', city: 'city', type: 'PUB').save()
-		pub.addTocomments(new Comment(
+		pub.addToComments(new Comment(
 				username: 'user1',
 				postDate: new Date(),
 				text : 'a comment'

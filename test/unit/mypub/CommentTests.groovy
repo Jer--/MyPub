@@ -24,7 +24,7 @@ class CommentTests {
 		Pub pub1 = new Pub(name: 'pub1', address: 'address', city: 'city', type: 'PUB')
 		assert pub1.validate()
 
-		pub1.addTocomments(new Comment(
+		pub1.addToComments(new Comment(
 				username: 'user1',
 				text : 'a comment'
 				))
