@@ -37,7 +37,7 @@ class CommentController {
         }
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'comment.label', default: 'comment'), commentInstance.id])
-        redirect(action: "showcomment", id: commentInstance.id)
+        redirect(action: "showComment", id: commentInstance.id)
     }
 
 	@Secured(['ROLE_ADMIN'])

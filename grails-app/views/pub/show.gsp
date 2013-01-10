@@ -175,7 +175,7 @@
 					
 				</li>
 				</g:if>
-			
+			</br></br>
 				<g:if test="${pubInstance?.comments}">
 				<li class="fieldcontain">
 					<table >
