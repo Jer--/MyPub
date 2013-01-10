@@ -7,7 +7,8 @@ package mypub
 import org.springframework.dao.DataIntegrityViolationException
 
 class PubController {
-
+	def springSecurityService
+	
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -115,6 +116,16 @@ class PubController {
 			return
 		}
 		[pubInstanceList: pubList, pubInstanceTotal: pubList.size()]
+	}
+	
+	def addPub() {
+		def userInstance = springSecurityService.currentUser
+		
+		def pubInstance = Pub.get(params.id)
+		
+		Pub.findByName(pubInstance.name).addToUsers(User.findByUsername(userInstance.username))
+		User.findByUsername(userInstance.username).addToPubs(Pub.findByName(pubInstance.name))
+		redirect(action: "list")
 	}
 	
 }

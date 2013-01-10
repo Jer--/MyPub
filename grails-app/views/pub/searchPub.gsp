@@ -63,6 +63,9 @@
 						<td>${fieldValue(bean: pubInstance, field: "website")}</td>
 					
 						<td>${fieldValue(bean: pubInstance, field: "zip")}</td>
+						
+						<td><g:link action="addPub" id="${pubInstance.id}">Add</g:link></td>
+						
 					
 					</tr>
 				</g:each>
