@@ -176,14 +176,14 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${pubInstance?.coments}">
+				<g:if test="${pubInstance?.comments}">
 				<li class="fieldcontain">
 					<table >
 					<th>
 					<li>Lastest Comments
-					<g:link  controller="coment" action="create" params="['pub.id': pubInstance?.id]" style="float: right">${message(code: 'default.add.label', args: [message(code: 'coment.label', default: 'Coment')])}</g:link></li>
+					<g:link  controller="comment" action="create" params="['pub.id': pubInstance?.id]" style="float: right">${message(code: 'default.add.label', args: [message(code: 'comment.label', default: 'comment')])}</g:link></li>
 					</th>
-					<g:each in="${pubInstance.coments.sort{a,b -> b.postDate <=> a.postDate}.take(5)}" var="c">
+					<g:each in="${pubInstance.comments.sort{a,b -> b.postDate <=> a.postDate}.take(5)}" var="c">
 					<tr>
 						<td>
 						<div>
@@ -199,7 +199,7 @@
 				</g:if>
 				<g:else>
 					<p align=justify style="margin : 15px;">No comments for this Pub</p>
-					<g:link style="margin : 15px;" controller="coment" action="create" params="['pub.id': pubInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'coment.label', default: 'Coment')])}</g:link>
+					<g:link style="margin : 15px;" controller="comment" action="create" params="['pub.id': pubInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'comment.label', default: 'comment')])}</g:link>
 				</g:else>
 							
 				<g:if test="${pubInstance?.users}">

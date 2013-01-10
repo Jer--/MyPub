@@ -18,7 +18,7 @@ class Pub {
 	Picture presentationPicture
 	
 	static belongsTo = User
-	static hasMany =  [pictures : Picture, coments : Coment, modifications : Modification, users : User]
+	static hasMany =  [pictures : Picture, comments : Comment, modifications : Modification, users : User]
 	
 	String toString () {return name + ', ' + city }
 	
@@ -36,7 +36,7 @@ class Pub {
 		
 		pictures nullable: true
 		modifications nullable:true
-		coments nullable: true
+		comments nullable: true
 		
     }
 }

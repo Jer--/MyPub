@@ -12,48 +12,48 @@ import org.junit.*
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@TestFor(Coment)
+@TestFor(Comment)
 @TestMixin(Pub)
-class ComentTests {
+class CommentTests {
 
 	void testConstraints() {
 
 		//setUp
 		mockDomain(Pub)
-		mockDomain(Coment)
+		mockDomain(Comment)
 		Pub pub1 = new Pub(name: 'pub1', address: 'address', city: 'city', type: 'PUB')
 		assert pub1.validate()
 
-		pub1.addToComents(new Coment(
+		pub1.addTocomments(new Comment(
 				username: 'user1',
-				text : 'a coment'
+				text : 'a comment'
 				))
 
-		def coment = pub1.coments.find {c ->
+		def comment = pub1.comments.find {c ->
 			c.username == "user1"
 		}
 
 		// validation pass
-		assert coment.validate()
+		assert comment.validate()
 
 		// text nullable: false
-		coment.text = null
-		assert !coment.validate()
+		comment.text = null
+		assert !comment.validate()
 
 		// username nullable: false
-		coment.text = 'some text'
-		coment.username = null
-		assert !coment.validate()
+		comment.text = 'some text'
+		comment.username = null
+		assert !comment.validate()
 
 		// postDate nullable: false
-		coment.username = 'user1'
-		coment.postDate = null
-		assert !coment.validate()
+		comment.username = 'user1'
+		comment.postDate = null
+		assert !comment.validate()
 
 		// text size ..160
-		coment.postDate = new Date()
-		coment.text = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-		assert !coment.validate()
+		comment.postDate = new Date()
+		comment.text = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+		assert !comment.validate()
 
 	}
 }

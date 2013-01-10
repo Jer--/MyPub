@@ -4,7 +4,7 @@
  ******************************************************************************/
 package mypub
 
-class Coment {
+class Comment {
 
 	String username
 	Date postDate = new Date()

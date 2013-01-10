@@ -10,10 +10,10 @@ import grails.test.mixin.*
 
 import org.junit.*
 
-@TestFor(ComentController)
+@TestFor(CommentController)
 @TestMixin(Pub)
-@Mock(Coment)
-class ComentControllerTests {
+@Mock(Comment)
+class CommentControllerTests {
 
 	def populateValidParams(params) {
 		assert params != null
@@ -21,125 +21,125 @@ class ComentControllerTests {
 		//params["name"] = 'someValidName'
 		params["username"]='testName'
 		//		params["postDate"]= new Date ('2007/01/01')
-		params["text"]='coment test'
+		params["text"]='comment test'
 		params["pub"] = new Pub(name:'pub1', address:'123 av jj', city:'Toulouse')
 	}
 
 	void testIndex() {
 		controller.index()
-		assert "/coment/list" == response.redirectedUrl
+		assert "/comment/list" == response.redirectedUrl
 	}
 
 	void testList() {
 
 		def model = controller.list()
 
-		assert model.comentInstanceList.size() == 0
-		assert model.comentInstanceTotal == 0
+		assert model.commentInstanceList.size() == 0
+		assert model.commentInstanceTotal == 0
 	}
 
 	//	No Current User
 	//	void testCreate() {
 	//		def model = controller.create()
 	//
-	//		assert model.comentInstance != null
+	//		assert model.commentInstance != null
 	//	}
 
 	void testSave() {
 		controller.save()
 
-		assert model.comentInstance != null
-		assert view == '/coment/create'
+		assert model.commentInstance != null
+		assert view == '/comment/create'
 
 		response.reset()
 
 		populateValidParams(params)
 		controller.save()
 
-		assert response.redirectedUrl == '/coment/showComent/1'
+		assert response.redirectedUrl == '/comment/showcomment/1'
 		assert controller.flash.message != null
-		assert Coment.count() == 1
+		assert Comment.count() == 1
 	}
 
 	void testShow() {
 		controller.show()
 
 		assert flash.message != null
-		assert response.redirectedUrl == '/coment/list'
+		assert response.redirectedUrl == '/comment/list'
 
 		populateValidParams(params)
-		def coment = new Coment(params)
+		def comment = new Comment(params)
 
-		assert coment.save() != null
+		assert comment.save() != null
 
-		params.id = coment.id
+		params.id = comment.id
 
 		def model = controller.show()
 
-		assert model.comentInstance == coment
+		assert model.commentInstance == comment
 	}
 
 	void testEdit() {
 		controller.edit()
 
 		assert flash.message != null
-		assert response.redirectedUrl == '/coment/list'
+		assert response.redirectedUrl == '/comment/list'
 
 		populateValidParams(params)
-		def coment = new Coment(params)
+		def comment = new Comment(params)
 
-		assert coment.save() != null
+		assert comment.save() != null
 
-		params.id = coment.id
+		params.id = comment.id
 
 		def model = controller.edit()
 
-		assert model.comentInstance == coment
+		assert model.commentInstance == comment
 	}
 
 	void testUpdate() {
 		controller.update()
 
 		assert flash.message != null
-		assert response.redirectedUrl == '/coment/list'
+		assert response.redirectedUrl == '/comment/list'
 
 		response.reset()
 
 		populateValidParams(params)
-		def coment = new Coment(params)
+		def comment = new Comment(params)
 
-		assert coment.save() != null
+		assert comment.save() != null
 
 		// test invalid parameters in update
-		params.id = coment.id
+		params.id = comment.id
 		//TODO: add invalid values to params object
 		params["text"]='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
 
 		controller.update()
 
-		assert view == "/coment/edit"
-		assert model.comentInstance != null
+		assert view == "/comment/edit"
+		assert model.commentInstance != null
 
-		coment.clearErrors()
+		comment.clearErrors()
 
 		populateValidParams(params)
 		controller.update()
 
-		assert response.redirectedUrl == "/coment/show/$coment.id"
+		assert response.redirectedUrl == "/comment/show/$comment.id"
 		assert flash.message != null
 
 		//test outdated version number
 		response.reset()
-		coment.clearErrors()
+		comment.clearErrors()
 
 		populateValidParams(params)
-		params.id = coment.id
+		params.id = comment.id
 		params.version = -1
 		controller.update()
 
-		assert view == "/coment/edit"
-		assert model.comentInstance != null
-		assert model.comentInstance.errors.getFieldError('version')
+		assert view == "/comment/edit"
+		assert model.commentInstance != null
+		assert model.commentInstance.errors.getFieldError('version')
 		assert flash.message != null
 	}
 
@@ -151,76 +151,76 @@ class ComentControllerTests {
 		response.reset()
 
 		populateValidParams(params)
-		def coment = new Coment(params)
+		def comment = new Comment(params)
 
-		assert coment.save() != null
-		assert Coment.count() == 1
+		assert comment.save() != null
+		assert Comment.count() == 1
 
-		params.id = coment.id
+		params.id = comment.id
 
 		controller.delete()
 
-		assert Coment.count() == 0
-		assert Coment.get(coment.id) == null
+		assert Comment.count() == 0
+		assert Comment.get(comment.id) == null
 		assert response.redirectedUrl == '/pub/show'
 	}
 
 	// Non - generated Test //////////////////////////////////////
 
 	//	No Current User
-	//	void testShowComent() {
+	//	void testShowcomment() {
 	//
 	//	}
 
-	void testShowMyComent() {
-		controller.showMyComent()
+	void testShowMycomment() {
+		controller.showMycomment()
 
 		assert flash.message != null
 		assert response.redirectedUrl == '/user/showProfile'
 
 		populateValidParams(params)
-		def coment = new Coment(params)
+		def comment = new Comment(params)
 
-		assert coment.save() != null
+		assert comment.save() != null
 
-		params.id = coment.id
+		params.id = comment.id
 
-		def model = controller.showMyComent()
+		def model = controller.showMycomment()
 
-		assert model.comentInstance == coment
+		assert model.commentInstance == comment
 	}
 
-	void testShowAComent() {
-		controller.showAComent()
+	void testShowAcomment() {
+		controller.showAcomment()
 
 		assert flash.message != null
 		assert response.redirectedUrl == '/user/showProfile'
 
 		populateValidParams(params)
-		def coment = new Coment(params)
+		def comment = new Comment(params)
 
-		assert coment.save() != null
+		assert comment.save() != null
 
-		params.id = coment.id
+		params.id = comment.id
 
-		def model = controller.showAComent()
+		def model = controller.showAcomment()
 
-		assert model.comentInstance == coment
+		assert model.commentInstance == comment
 	}
 
 	void testListForAPub() {
 		mockDomain(Pub)
 		def pub = new Pub(name: 'pub1', address: 'address', city: 'city', type: 'PUB').save()
-		pub.addToComents(new Coment(
+		pub.addTocomments(new Comment(
 				username: 'user1',
 				postDate: new Date(),
-				text : 'a coment'
+				text : 'a comment'
 				))
 		assert pub.validate()
 
 		def model = controller.listForAPub(pub.id)
 
-		assert model.comentInstanceList.size() == 1
-		assert model.comentInstanceTotal == 1
+		assert model.commentInstanceList.size() == 1
+		assert model.commentInstanceTotal == 1
 	}
 }

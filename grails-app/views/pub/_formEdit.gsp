@@ -103,18 +103,18 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'coments', 'error')} ">
-	<label for="coments">
-		<g:message code="pub.coments.label" default="Coments" />
+<div class="fieldcontain ${hasErrors(bean: pubInstance, field: 'comments', 'error')} ">
+	<label for="comments">
+		<g:message code="pub.comments.label" default="comments" />
 		
 	</label>
 	
 <ul class="one-to-many">
-<g:each in="${pubInstance?.coments?.sort{a,b -> b.postDate <=> a.postDate}.take(10)}" var="c">
-    <li><g:link controller="coment" action="showComent" id="${c.id}">${c?.encodeAsHTML()}</g:link></li>
+<g:each in="${pubInstance?.comments?.sort{a,b -> b.postDate <=> a.postDate}.take(10)}" var="c">
+    <li><g:link controller="comment" action="showcomment" id="${c.id}">${c?.encodeAsHTML()}</g:link></li>
 </g:each>
 <li class="add">
-<g:link controller="coment" action="create" params="['pub.id': pubInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'coment.label', default: 'Coment')])}</g:link>
+<g:link controller="comment" action="create" params="['pub.id': pubInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'comment.label', default: 'comment')])}</g:link>
 </li>
 </ul>
 
