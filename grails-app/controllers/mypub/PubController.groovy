@@ -116,4 +116,5 @@ class PubController {
 		}
 		[pubInstanceList: pubList, pubInstanceTotal: pubList.size()]
 	}
+	
 }
