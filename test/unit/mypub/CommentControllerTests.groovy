@@ -172,8 +172,8 @@ class CommentControllerTests {
 	//
 	//	}
 
-	void testShowMycomment() {
-		controller.showMycomment()
+	void testShowMyComment() {
+		controller.showMyComment()
 
 		assert flash.message != null
 		assert response.redirectedUrl == '/user/showProfile'
@@ -185,13 +185,13 @@ class CommentControllerTests {
 
 		params.id = comment.id
 
-		def model = controller.showMycomment()
+		def model = controller.showMyComment()
 
 		assert model.commentInstance == comment
 	}
 
-	void testShowAcomment() {
-		controller.showAcomment()
+	void testShowAComment() {
+		controller.showAComment()
 
 		assert flash.message != null
 		assert response.redirectedUrl == '/user/showProfile'
@@ -203,7 +203,7 @@ class CommentControllerTests {
 
 		params.id = comment.id
 
-		def model = controller.showAcomment()
+		def model = controller.showAComment()
 
 		assert model.commentInstance == comment
 	}
