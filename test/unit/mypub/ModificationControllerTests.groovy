@@ -12,6 +12,7 @@ import org.junit.*
 import grails.test.mixin.*
 
 @TestFor(ModificationController)
+@TestMixin(Pub)
 @Mock(Modification)
 class ModificationControllerTests {
 
@@ -41,7 +42,9 @@ class ModificationControllerTests {
 		params["author"] = new User(username:"userTest", password:"passwordTest", firstName:"Delon", lastName:"Alain", sex:'M', mail:"testmail@test.com")
 		params["about"] = "city"
 		params["newContent"] = "Paris"
-		params["pub"] = new Pub(name:'pub1', address:'123 av jj', city:'Toulouse')
+		Pub pubInstance = new Pub(name:'pub1', address:'123 av jj', city:'Toulouse')
+		params["pub"] = pubInstance
+		params["pubId"] = pubInstance.id
 	}
 
 	void testIndex() {
@@ -50,7 +53,6 @@ class ModificationControllerTests {
 	}
 
 	void testList() {
-
 		def model = controller.list()
 
 		assert model.modificationInstanceList.size() == 0
@@ -58,6 +60,7 @@ class ModificationControllerTests {
 	}
 
 	void testCreate() {
+		mockDomain(Pub)
 		def model = controller.create()
 
 		assert model.modificationInstance != null
