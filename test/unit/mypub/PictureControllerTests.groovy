@@ -8,21 +8,35 @@ package mypub
 
 import org.junit.*
 import grails.test.mixin.*
+import grails.plugins.springsecurity.SpringSecurityService
 
 @TestFor(PictureController)
-@TestMixin(Pub)
 @Mock(Picture)
 class PictureControllerTests {
 	
-	void setUpSpringSecurity() {
-		def mockSpringSecurityService = mockFor(grails.plugins.springsecurity.SpringSecurityService)
-		mockSpringSecurityService.demand.getPrincipal() { -> ["username":"Test"] }
-		controller.springSecurityService = mockSpringSecurityService.createMock()
+	def setUpSpringSecurity() {
+		
+		def user1 = new User(username: 'user1',
+			password: 'pass1',
+			firstName: 'alfred',
+			lastName: 'alfredaussi',
+			mail: 'alfred@john.fr')
+
+		def security = mockFor(SpringSecurityService)
+		security.metaClass.getCurrentUser = { -> return user1 }
+		return security
+	}
+	
+	def setUpSpringSecurity(User u) {
+
+		def security = mockFor(SpringSecurityService)
+		security.metaClass.getCurrentUser = { -> return u }
+		return security
 	}
 
     def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
+        // Populate valid properties like...
         params["name"] = 'pictest'
 		params["data"]= [1,1,1,1]
     }
@@ -46,33 +60,33 @@ class PictureControllerTests {
         assert model.pictureInstance != null
     }
 
-   // TODO : we can't test because there no current user
-//     void testSave() {
-//		 mockDomain(User)
-//		 
-//		 def userInstance = new User(username: 'user1',
-// 									password: 'pass1',
-// 									firstName: 'alfred',
-// 									lastName: 'alfredaussi',
-// 									mail: 'alfred@john.fr')
-//		assert userInstance.validate()
-//		 
-//		controller.springSecurityService = [currentUser:[id:userInstance.id]]
-//		//setUpSpringSecurity()
-//        controller.save()
-//
-//        assert model.pictureInstance != null
-//        assert view == '/picture/create'
-//
-//        response.reset()
-//
-//        populateValidParams(params)
-//        controller.save()
-//
-//        assert response.redirectedUrl == '/picture/show/1'
-//        assert controller.flash.message != null
-//        assert Picture.count() == 1
-//    }
+     void testSave() {
+		 mockDomain(User)
+		 
+		 def userInstance = new User(username: 'user1',
+ 									password: 'pass1',
+ 									firstName: 'alfred',
+ 									lastName: 'alfredaussi',
+ 									mail: 'alfred@john.fr')
+		assert userInstance.validate()
+		assert userInstance.save() != null
+		 
+		controller.springSecurityService =setUpSpringSecurity(userInstance)
+
+        controller.save()
+
+        assert model.pictureInstance != null
+        assert view == '/picture/create'
+
+        response.reset()
+
+        populateValidParams(params)
+        controller.save()
+
+        assert response.redirectedUrl == '/picture/showPerso/1'
+        assert controller.flash.message != null
+        assert Picture.count() == 1
+    }
 
     void testShow() {
         controller.show()
@@ -125,7 +139,7 @@ class PictureControllerTests {
 
         // test invalid parameters in update
         params.id = picture.id
-        //TODO: add invalid values to params object
+        //invalid values to params object
 		params["name"] = null
 		
         controller.update()
@@ -217,33 +231,50 @@ class PictureControllerTests {
 		assert model.pictureInstance == picture
 	}
 	
-//	TODO : we can't test because there no current user
-//	void testListPerso() {
-//
-//		def model = controller.listPerso()
-//
-//		assert model.pictureInstanceList.size() == 0
-//		assert model.pictureInstanceTotal == 0
-//	}
+	void testListPerso() {
+		
+		mockDomain(User)
+		
+		def user = new User(username: 'user1',
+									password: 'pass1',
+									firstName: 'alfred',
+									lastName: 'alfredaussi',
+									mail: 'alfred@john.fr')
+	   assert user.validate()
+	   assert user.save() != null
+		
+	   controller.springSecurityService = setUpSpringSecurity(user)
+	   
+	   populateValidParams(params)
+	   user.addToPictures(new Picture(params))
 
-//	void testListFriend() {
-//
-//		mockDomain(User)
-//
-//		def userInstance = new User(username: 'user1',
-//									password: 'pass1',
-//									firstName: 'alfred',
-//									lastName: 'alfredaussi',
-//									mail: 'alfred@john.fr')
-//		userInstance.addToPictures(new Picture(params))
-//		assert userInstance.validate()
-//
-//		def model = controller.listFriend(userInstance.id)
-//
-//
-//		//assert model.pictureInstanceTotal == 0
-//		assert model.pictureInstanceList == null
-//	}
+		def model = controller.listPerso()
+
+		assert model.pictureInstanceList.size() == 1
+		assert model.pictureInstanceTotal == 1
+	}
+
+	void testListFriend() {
+
+		mockDomain(User)
+		
+		def user = new User(username: 'user1',
+									password: 'pass1',
+									firstName: 'alfred',
+									lastName: 'alfredaussi',
+									mail: 'alfred@john.fr')
+	   assert user.validate()
+	   assert user.save() != null
+	   
+	   populateValidParams(params)
+	   user.addToPictures(new Picture(params))
+
+	   params["id"] = user.id
+		def model = controller.listFriend()
+
+		assert model.pictureInstanceList.size() == 1
+		assert model.pictureInstanceTotal == 1
+	}
 	
 //	void testEnleverList() {
 //		//no curent user

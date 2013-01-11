@@ -310,4 +310,78 @@ class UserControllerTests {
 		assert model.userInstanceList.size() == 1
 		assert model.userInstanceTotal == 1
 	}
+	
+	void testAddFriend() {
+		
+		populateValidParams(params)
+		def user = new User(params)
+
+		assert user.save() != null
+		
+		controller.springSecurityService = setUpSpringSecurity(user)
+		
+		params["id"] = user.id
+		controller.addFriend()
+		
+		assert flash.message != null
+		assert response.redirectedUrl == '/user/listFriends'
+		
+		response.reset()
+		
+		params["username"] = "user2"
+		def user2 = new User(params)
+		assert user2.save() != null
+		
+		params["id"] = user2.id
+		controller.addFriend()
+		
+		assert user.friends.size() == 1
+		assert response.redirectedUrl == '/user/listFriends'
+	}
+	
+//	void testRemoveFriend() {
+//		populateValidParams(params)
+//		def user = new User(params)
+//		assert user.save() != null
+//		
+//		controller.springSecurityService = setUpSpringSecurity(user)
+//		
+//		params["username"] = "user2"
+//		def user2 = new User(params)
+//		assert user2.save() != null
+//		
+//		user.addToFriends(user2)
+//		user2.addToFriends(user)
+//		assert user.friends.size() == 1
+//		assert user2.friends.size() == 1
+//		
+//		response.reset()
+//		
+//		params["id"] = user2.id
+//		controller.removeFriend()
+//		
+//		assert user.friends.size() == 0
+//		assert response.redirectedUrl == '/user/listFriends'
+//		
+//	}
+	
+	void testSearchUser() {
+		params["username"] = "noUser"
+		controller.searchUser()
+		
+		assert flash.message != null
+		assert response.redirectedUrl == '/user/listFriends'
+		
+		response.reset()
+		
+		populateValidParams(params)
+		def user = new User(params)
+		assert user.save() != null
+		
+		params["username"] = user.username
+		def model = controller.searchUser()
+		
+		assert model.userInstanceList.size() == 1
+		assert model.userInstanceTotal == 1
+	}
 }
