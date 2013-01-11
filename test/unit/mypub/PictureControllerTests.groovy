@@ -4,10 +4,6 @@
  ******************************************************************************/
 package mypub
 
-
-
-import org.junit.*
-import grails.test.mixin.*
 import grails.plugins.springsecurity.SpringSecurityService
 
 @TestFor(PictureController)
@@ -276,9 +272,30 @@ class PictureControllerTests {
 		assert model.pictureInstanceTotal == 1
 	}
 	
-//	void testEnleverList() {
-//		//no curent user
-//	}
+	void testEnleverList() {
+		mockDomain(User)
+		
+		def user = new User(username: 'user1',
+									password: 'pass1',
+									firstName: 'alfred',
+									lastName: 'alfredaussi',
+									mail: 'alfred@john.fr')
+	   assert user.validate()
+	   assert user.save() != null
+	   
+	   controller.springSecurityService = setUpSpringSecurity(user)
+	   
+	   populateValidParams(params)
+	   def picture = new Picture(params)
+	   assert picture.save() != null
+	   
+	   user.avatar = picture
+	   params["id"] = picture.id
+	   
+	   controller.enleverList()
+	   
+	   assert response.redirectedUrl == '/picture/listPerso'
+	}
 	
 	void testCreateForAPub() {
 		
@@ -311,22 +328,39 @@ class PictureControllerTests {
         assert Picture.count() == 1
     }
 
-//	 void testEnleverListForAPub() {
-//		 mockDomain(Pub)
-//		 def pub = new Pub(name: 'pub1', address: 'address', city: 'city', type: 'PUB').save()
-//		 assert pub.validate()
-//		 
-//		 populateValidParams(params)
-//		 def picture = new Picture(params)
-//		 
-//		 pub.addToPictures(picture)
-//		 assert pub.pictures.size() == 1
-//		 
-//		 params["pubId"] = pub.id
-//		 picture.enleverListForAPub()
-//		 
-//		 assert pub.pictures.size() == 0
-//	 }	
+	 void testEnleverListForAPub() {
+		 mockDomain(Pub)
+		 def pub = new Pub(name: 'pub1', address: 'address', city: 'city', type: 'PUB').save()
+		 assert pub.validate()
+		 assert pub.save() != null
+		 
+		 populateValidParams(params)
+		 def picture = new Picture(params)
+		 assert picture.save() != null
+		 
+		 pub.addToPictures(picture)
+		 assert pub.pictures.size() == 1
+		 
+		 pub.presentationPicture = picture
+		 
+		 params["pubId"] = pub.id
+		 params["id"] = picture.id
+		 controller.enleverListForAPub()
+		 
+		 assert controller.flash.message != null
+		 assert response.redirectedUrl == '/picture/showPub/1'
+		 
+		 response.reset()
+		 
+		 pub.presentationPicture = null
+		 
+		 params["pubId"] = pub.id
+		 params["id"] = picture.id
+		 controller.enleverListForAPub()
+		 
+		 assert pub.pictures.size() == 0
+		 assert response.redirectedUrl == '/pub/show/1'
+	 }	
 	 
 	void testShowAPub() {
 		controller.showAPub()

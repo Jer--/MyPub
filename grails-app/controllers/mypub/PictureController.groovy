@@ -155,10 +155,10 @@ class PictureController {
 		String username = courant.username
 		if(User.findByUsername(username).avatar.equals(pictureP))
 			User.findByUsername(username).avatar = null
-		else {
-			User.findByUsername(username).removeFromPictures(Picture.findById(pictureP.id))
-			Picture.findById(pictureP.id).delete(flush: true)
-		}
+		
+		User.findByUsername(username).removeFromPictures(Picture.findById(pictureP.id))
+		Picture.findById(pictureP.id).delete(flush: true)
+
 		redirect(action: "listPerso")
 	}
 	
@@ -186,6 +186,7 @@ class PictureController {
 		if (pubInstance.presentationPicture.equals(pictureInstance)){
 			flash.message = "Sorry this picture cannot be delete because its the presentation picture"
 			redirect(action: "showPub", id: pictureInstance.id)
+			return
 		} else {
 			pubInstance.removeFromPictures(pictureInstance)
 			Picture.findById(pictureInstance.id).delete(flush: true)
