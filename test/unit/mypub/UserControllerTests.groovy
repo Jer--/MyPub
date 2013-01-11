@@ -18,15 +18,6 @@ import grails.test.mixin.*
 @Mock(User)
 class UserControllerTests {
 
-//	void setUpSpringSecurity() {
-//		def mockSpringSecurityService = mockFor(grails.plugins.springsecurity.SpringSecurityService)
-//		List NO_ROLES = [new GrantedAuthorityImpl("ROLE_NO_ROLES")]
-//		def userG = new GrailsUser('username', 'password', true, false,false, false,NO_ROLES, 1)
-//		mockSpringSecurityService.demand.getPrincipal() {-> userG.id }
-//		mockSpringSecurityService.demand.getCurrentUser = { -> return userG }
-//		controller.springSecurityService = mockSpringSecurityService.createMock()
-//	}
-	
 	def setUpSpringSecurity() {
 		
 		def user1 = new User(username: 'user1',
@@ -37,15 +28,13 @@ class UserControllerTests {
 
 		def security = mockFor(SpringSecurityService)
 		security.metaClass.getCurrentUser = { -> return user1 }
-		security.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
 		return security
 	}
 	
-	def setUpSpringSecurity2(User u) {
+	def setUpSpringSecurity(User u) {
 
 		def security = mockFor(SpringSecurityService)
 		security.metaClass.getCurrentUser = { -> return u }
-		security.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
 		return security
 	}
 
@@ -84,8 +73,10 @@ class UserControllerTests {
 	
 	void testSave() {
 		
+		mockDomain(UserRole)
+		mockDomain(Role)
+		
 		controller.springSecurityService = setUpSpringSecurity()
-		//User.springSecurityService = setUpSpringSecurity()
 		
 		controller.save()
 
@@ -138,90 +129,93 @@ class UserControllerTests {
 		assert model.userInstance == user
 	}
 
-//	void testUpdate() {
-//		controller.update()
-//
-//		assert flash.message != null
-//		assert response.redirectedUrl == '/user/list'
-//
-//		response.reset()
-//
-//		populateValidParams(params)
-//		def user = new User(params)
-//
-//		assert user.save() != null
-//
-//		// test invalid parameters in update
-//		params.id = user.id
-//		//TODO: add invalid values to params object
-//		params["newContent"] = null
-//		controller.update()
-//
-//		assert view == "/user/edit"
-//		assert model.userInstance != null
-//
-//		user.clearErrors()
-//
-//		populateValidParams(params)
-//		controller.update()
-//
-//		assert response.redirectedUrl == "/user/show/$user.id"
-//		assert flash.message != null
-//
-//		//test outdated version number
-//		response.reset()
-//		user.clearErrors()
-//
-//		populateValidParams(params)
-//		params.id = user.id
-//		params.version = -1
-//		controller.update()
-//
-//		assert view == "/modification/edit"
-//		assert model.userInstance != null
-//		assert model.userInstance.errors.getFieldError('version')
-//		assert flash.message != null
-//	}
-//
-//	void testDelete() {
-//		controller.delete()
-//		assert flash.message != null
-//		assert response.redirectedUrl == '/user/list'
-//
-//		response.reset()
-//
-//		populateValidParams(params)
-//		def user = new User(params)
-//
-//		assert user.save() != null
-//		assert User.count() == 1
-//
-//		params.id = user.id
-//
-//		controller.delete()
-//
-//		assert User.count() == 0
-//		assert User.get(user.id) == null
-//		assert response.redirectedUrl == '/user/list'
-//	}
+	void testUpdate() {
+		controller.update()
+
+		assert flash.message != null
+		assert response.redirectedUrl == '/user/list'
+
+		response.reset()
+
+		populateValidParams(params)
+		def user = new User(params)
+
+		assert user.save() != null
+
+		// test invalid parameters in update
+		params.id = user.id
+		//invalid values to params object
+		params["username"] = null
+		controller.update()
+
+		assert view == "/user/edit"
+		assert model.userInstance != null
+
+		user.clearErrors()
+
+		populateValidParams(params)
+		controller.update()
+
+		assert response.redirectedUrl == "/user/showProfile"
+		assert flash.message != null
+
+		//test outdated version number
+		response.reset()
+		user.clearErrors()
+
+		populateValidParams(params)
+		params.id = user.id
+		params.version = -1
+		controller.update()
+
+		assert view == "/user/edit"
+		assert model.userInstance != null
+		assert model.userInstance.errors.getFieldError('version')
+		assert flash.message != null
+	}
+
+	void testDelete() {
+
+		mockDomain(UserRole)
+		controller.delete()
+		assert flash.message != null
+		assert response.redirectedUrl == '/user/list'
+
+		response.reset()
+
+		populateValidParams(params)
+		def user = new User(params)
+
+		assert user.save() != null
+		assert User.count() == 1
+
+		params.id = user.id
+
+		controller.delete()
+
+		assert User.count() == 0
+		assert User.get(user.id) == null
+		assert response.redirectedUrl == '/logout'
+	}
 	
 	
 	// Non - generated tests ///////////////////////////////////////////
 	
+	void testVoir() {
+		
+		populateValidParams(params)
+		def user = new User(params)
+
+		assert user.save() != null
+		
+		controller.springSecurityService = setUpSpringSecurity(user)
+		
+		controller.voir()
+		
+		assert response.redirectedUrl == '/user/show/1'
+	}
+	
 	void testShowProfile(){
-		
-		//setUpSpringSecurity()
-		
-//		def user1 = new User(username: 'user1',
-// 									password: 'pass1',
-// 									firstName: 'alfred',
-// 									lastName: 'alfredaussi',
-// 									mail: 'alfred@john.fr')
-//		
-//		def security = mockFor(SpringSecurityService)
-//		security.metaClass.getCurrentUser = { -> return user1 }
-//		//security.demand.getPrincipal() {-> user1}
-//		controller.springSecurityService = security
 		
 		controller.springSecurityService = setUpSpringSecurity()
 		
@@ -237,7 +231,7 @@ class UserControllerTests {
 
 		assert user.save() != null
 		
-		controller.springSecurityService = setUpSpringSecurity2(user)
+		controller.springSecurityService = setUpSpringSecurity(user)
 
 		params.id = user.id
 
@@ -245,5 +239,75 @@ class UserControllerTests {
 
 		assert model.userInstance == user
 
+	}
+	
+	void testShowFriend() {
+		controller.showFriend()
+		
+		assert flash.message != null
+		assert response.redirectedUrl == '/user/listFriends'
+
+		populateValidParams(params)
+		def user = new User(params)
+
+		assert user.save() != null
+
+		params.id = user.id
+
+		def model = controller.showFriend()
+
+		assert model.userInstance == user
+	}
+	
+	void testShowPublic() {
+		controller.showPublic()
+		
+		assert flash.message != null
+		assert response.redirectedUrl == '/user/listFriends'
+
+		populateValidParams(params)
+		def user = new User(params)
+
+		assert user.save() != null
+
+		params.id = user.id
+
+		def model = controller.showPublic()
+
+		assert model.userInstance == user
+	}
+	
+	void testListFriends() {
+		
+		populateValidParams(params)
+		def user = new User(params)
+
+		assert user.save() != null
+		
+		params["username"] = "user2"
+		user.addToFriends(new User(params))
+		
+		controller.springSecurityService = setUpSpringSecurity(user)
+		
+		def model = controller.listFriends()
+		
+		assert model.userInstanceList.size() == 1
+		assert model.userInstanceTotal == 1
+	}
+	
+	void testListFriendsOfMyFriend() {
+		populateValidParams(params)
+		def user = new User(params)
+
+		assert user.save() != null
+		
+		params["username"] = "user2"
+		user.addToFriends(new User(params))
+		
+		params["id"] = user.id
+		def model = controller.listFriendsOfMyFriend()
+		
+		assert model.userInstanceList.size() == 1
+		assert model.userInstanceTotal == 1
 	}
 }

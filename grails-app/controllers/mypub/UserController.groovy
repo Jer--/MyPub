@@ -43,16 +43,11 @@ class UserController {
             render(view: "create", model: [userInstance: userInstance])
             return
         }
-		//UserRole.create userInstance, Role.findByAuthority('ROLE_USER'), true
+		UserRole.create userInstance, Role.findByAuthority('ROLE_USER'), true
 		
         flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.username])
 		redirect(controller: "login", action: "auth")
     }
-
-	def voir(){
-		def userInstance = springSecurityService.getCurrentUser().getId()
-		redirect(controller: 'user', action: 'show', id: userInstance)
-	}
 	
     def show(Long id) {
         def userInstance = User.get(id)
@@ -108,7 +103,7 @@ class UserController {
     def delete(Long id) {
         def userInstance = User.get(id)
         if (!userInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), userInstance.username])
+            flash.message = "No user found"
             redirect(action: "list")
             return
         }
@@ -135,6 +130,13 @@ class UserController {
     }
 	
 	// Non - Generated methos ////////////////////////////////////////
+	
+	def voir(){
+		def courant = springSecurityService.currentUser
+		String username = courant.username
+		def userInstance = User.findByUsername(username)
+		redirect(controller: 'user', action: 'show', id: userInstance.id)
+	}
 	
 	def showProfile(){
 		def courant = springSecurityService.currentUser
@@ -163,7 +165,7 @@ class UserController {
 	def showPublic(Long id) {
 		def userInstance = User.get(id)
 		if (!userInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), userInstance.username])
+			flash.message = "No user found"
 			redirect(action: "listFriends")
 			return
 		}
