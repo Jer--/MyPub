@@ -66,3 +66,16 @@ codenarc.reports = {
 		title = 'CodeNarc code Report'
 	}
 }
+coverage {
+		exclusions = ['**/grails-app/conf/**',
+			'**/grails-app/controllers/**',
+			'*.class',
+			'LoginController.groovy',
+			'LogoutController.groovy',
+			'UserRole.groovy',
+			'Role.groovy',
+			'UserRoleController.groovy',
+			'RoleController.groovy']
+		xml = true
+		enabledByDefault = true
+	}
