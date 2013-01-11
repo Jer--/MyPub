@@ -3,9 +3,11 @@
  *  License : AGPL v3
   ******************************************************************************/
 package mypub
+import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUser
 
-
-
+import grails.plugins.springsecurity.SpringSecurityService
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl
 import org.junit.*
 import grails.test.mixin.*
 
@@ -21,6 +23,20 @@ class PubControllerTests {
 		params["city"] = 'albi'
 		params["zip"] = '31000'
     }
+	
+	def setUpSpringSecurity() {
+		
+		def user1 = new User(username: 'user1',
+			password: 'pass1',
+			firstName: 'alfred',
+			lastName: 'alfredaussi',
+			mail: 'alfred@john.fr')
+
+		def security = mockFor(SpringSecurityService)
+		security.metaClass.getCurrentUser = { -> return user1 }
+		
+		return security
+	}
 
     void testIndex() {
         controller.index()
@@ -192,4 +208,11 @@ class PubControllerTests {
 		assert model.pubInstanceTotal == 1
 		
 	}
+	
+	//void testListPub(){
+		//controller.springSecurityService = setUpSpringSecurity()
+		//
+		//controller.listPubs()
+		//assert response.redirectedUrl == '/pub/listPubs'
+	//}
 }
