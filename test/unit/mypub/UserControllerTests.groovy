@@ -4,19 +4,41 @@
  ******************************************************************************/
 package mypub
 
+import java.util.Collection;
 
-
+import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUser
 import org.junit.*
+import grails.plugins.springsecurity.SpringSecurityService
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl
+
 import grails.test.mixin.*
 
 @TestFor(UserController)
 @Mock(User)
 class UserControllerTests {
 
-	void setUpSpringSecurity() {
-		def mockSpringSecurityService = mockFor(grails.plugins.springsecurity.SpringSecurityService)
-		mockSpringSecurityService.demand.getPrincipal() { -> ["username":"spiderman"] }
-		controller.springSecurityService = mockSpringSecurityService.createMock()
+//	void setUpSpringSecurity() {
+//		def mockSpringSecurityService = mockFor(grails.plugins.springsecurity.SpringSecurityService)
+//		List NO_ROLES = [new GrantedAuthorityImpl("ROLE_NO_ROLES")]
+//		def userG = new GrailsUser('username', 'password', true, false,false, false,NO_ROLES, 1)
+//		mockSpringSecurityService.demand.getPrincipal() {-> userG.id }
+//		mockSpringSecurityService.demand.getCurrentUser = { -> return userG }
+//		controller.springSecurityService = mockSpringSecurityService.createMock()
+//	}
+	
+	def setUpSpringSecurity() {
+		
+		def user1 = new User(username: 'user1',
+			password: 'pass1',
+			firstName: 'alfred',
+			lastName: 'alfredaussi',
+			mail: 'alfred@john.fr')
+
+		def security = mockFor(SpringSecurityService)
+		security.metaClass.getCurrentUser = { -> return user1 }
+		
+		return security
 	}
 
 	def populateValidParams(params) {
@@ -27,10 +49,10 @@ class UserControllerTests {
 		params["lastName"] = 'Clark'
 		params["mail"] = 'superman@hero.galaxy'
 		//params["birthday"]= new Date ('1800/01/01')
-		//params["enabled"] = true
-		//params["accountExpired"] = false
-		//params["accountLocked"] = false
-		//params["passwordExpired"] = false
+		params["enabled"] = true
+		params["accountExpired"] = false
+		params["accountLocked"] = false
+		params["passwordExpired"] = false
 
 	}
 
@@ -53,7 +75,9 @@ class UserControllerTests {
 	}
 	
 //	void testSave() {
-//		setUpSpringSecurity()
+//		
+//		controller.springSecurityService = setUpSpringSecurity()
+//		
 //		controller.save()
 //
 //		assert model.userInstance != null
@@ -64,20 +88,9 @@ class UserControllerTests {
 //		populateValidParams(params)
 //		controller.save()
 //
-//		assert response.redirectedUrl == '/user/show/1'
+//		assert response.redirectedUrl == '/login/auth'
 //		assert controller.flash.message != null
 //		assert User.count() == 1
-//	}
-	
-	//AVANCEE
-	
-//	void testVoir() {
-//		response.reset()
-//		
-//		populateValidParams(params)
-//		controller.voir()
-//		
-//		assert response.redirectedUrl == '/user/show/1'
 //	}
 	
 	void testShow() {
@@ -181,5 +194,45 @@ class UserControllerTests {
 //		assert User.count() == 0
 //		assert User.get(user.id) == null
 //		assert response.redirectedUrl == '/user/list'
+//	}
+	
+	
+	// Non - generated tests ///////////////////////////////////////////
+	
+//	void testShowProfile(){
+//		
+//		//setUpSpringSecurity()
+//		
+////		def user1 = new User(username: 'user1',
+//// 									password: 'pass1',
+//// 									firstName: 'alfred',
+//// 									lastName: 'alfredaussi',
+//// 									mail: 'alfred@john.fr')
+////		
+////		def security = mockFor(SpringSecurityService)
+////		security.metaClass.getCurrentUser = { -> return user1 }
+////		//security.demand.getPrincipal() {-> user1}
+////		controller.springSecurityService = security
+//		
+//		controller.springSecurityService = setUpSpringSecurity()
+//		
+//		controller.showProfile()
+//		
+//		assert flash.message != null
+//		assert response.redirectedUrl == '/'
+//		
+//		response.reset()
+//
+//		populateValidParams(params)
+//		def user = new User(params)
+//
+//		assert user.save() != null
+//
+//		params.id = user.id
+//
+//		def model = controller.showProfile()
+//
+//		assert model.userInstance == user
+//
 //	}
 }

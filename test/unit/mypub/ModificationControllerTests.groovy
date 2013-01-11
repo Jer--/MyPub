@@ -7,6 +7,7 @@ package mypub
 
 
 import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUser
+import grails.plugins.springsecurity.SpringSecurityService
 import org.junit.*
 import grails.test.mixin.*
 
@@ -14,10 +15,24 @@ import grails.test.mixin.*
 @Mock(Modification)
 class ModificationControllerTests {
 
-	void setUpSpringSecurity() {
-		def mockSpringSecurityService = mockFor(grails.plugins.springsecurity.SpringSecurityService)
-		mockSpringSecurityService.demand.getPrincipal() { -> ["username":"Test"] }
-		controller.springSecurityService = mockSpringSecurityService.createMock()
+//	void setUpSpringSecurity() {
+//		def mockSpringSecurityService = mockFor(grails.plugins.springsecurity.SpringSecurityService)
+//		mockSpringSecurityService.demand.getPrincipal() { -> ["username":"Test"] }
+//		controller.springSecurityService = mockSpringSecurityService.createMock()
+//	}
+	
+	def setUpSpringSecurity() {
+		
+		def user1 = new User(username: 'user1',
+			password: 'pass1',
+			firstName: 'alfred',
+			lastName: 'alfredaussi',
+			mail: 'alfred@john.fr')
+
+		def security = mockFor(SpringSecurityService)
+		security.metaClass.getCurrentUser = { -> return user1 }
+		
+		return security
 	}
 
 	def populateValidParams(params) {
@@ -49,7 +64,8 @@ class ModificationControllerTests {
 	}
 
 	void testSave() {
-		setUpSpringSecurity()
+		//setUpSpringSecurity()
+		controller.springSecurityService = setUpSpringSecurity()
 		controller.save()
 
 		assert model.modificationInstance != null

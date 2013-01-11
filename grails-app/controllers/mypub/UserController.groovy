@@ -39,9 +39,6 @@ class UserController {
 
     def save() {
         def userInstance = new User(params)
-		if(userInstance.username == null) {
-			userInstance.username = springSecurityService.currentUser
-		}
         if (!userInstance.save(flush: true)) {
             render(view: "create", model: [userInstance: userInstance])
             return
@@ -144,7 +141,7 @@ class UserController {
 		String username = courant.username
 		def userInstance = User.findByUsername(username)
 		if (!userInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
+			flash.message = "No user"
 			redirect(uri: '/')
 			return
 		}

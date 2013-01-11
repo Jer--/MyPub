@@ -25,7 +25,7 @@ class ModificationController {
 
 	def save() {
 		def modificationInstance = new Modification(params)
-		if(modificationInstance.author == null)
+		//if(modificationInstance.author == null)
 			modificationInstance.author = springSecurityService.currentUser
 		System.out.println(springSecurityService.currentUser)
 		if (!modificationInstance.save(flush: true)) {
@@ -37,6 +37,7 @@ class ModificationController {
 			message(code: 'modification.label', default: 'Modification'),
 			modificationInstance.id
 		])
+		def username = modificationInstance.author.username
 		redirect(action: "show", id: modificationInstance.id)
 	}
 
