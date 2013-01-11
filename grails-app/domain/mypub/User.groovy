@@ -59,6 +59,10 @@ class User {
 	}
 
 	protected void encodePassword() {
+		if (springSecurityService == null) {
+			password = "passworld"
+			return
+		}
 		password = springSecurityService.encodePassword(password)
 	}
 }

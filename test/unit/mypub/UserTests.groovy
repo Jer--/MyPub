@@ -7,6 +7,7 @@ package mypub
 
 
 import grails.test.mixin.*
+import grails.plugins.springsecurity.SpringSecurityService
 
 import org.junit.*
 
@@ -15,6 +16,20 @@ import org.junit.*
  */
 @TestFor(User)
 class UserTests {
+	
+	def setUpSpringSecurity() {
+		
+		def user1 = new User(username: 'user1',
+			password: 'pass1',
+			firstName: 'alfred',
+			lastName: 'alfredaussi',
+			mail: 'alfred@john.fr')
+
+		def security = mockFor(SpringSecurityService)
+		security.metaClass.getCurrentUser = { -> return user1 }
+		security.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
+		return security
+	}
 	
 	void testconstraint() {
 		 def existingUser = new User(username:"userTest", password:"passwordTest", firstName:"Delon", lastName:"Alain", sex:'M', mail:"testmail@test.com")
@@ -116,5 +131,9 @@ class UserTests {
 		 user = new User(username:"userTest12", password:"passwordTest", firstName:"Bayrou", lastName:"Francois", mail:"testmail@test.com", birthday: "ZE")
 		 // assert !user.validate()
 		 // assert "max" == user.errors["birthday"]
+	}
+	
+	void testEncodePassword() {
+		
 	}
 }

@@ -37,7 +37,15 @@ class UserControllerTests {
 
 		def security = mockFor(SpringSecurityService)
 		security.metaClass.getCurrentUser = { -> return user1 }
-		
+		security.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
+		return security
+	}
+	
+	def setUpSpringSecurity2(User u) {
+
+		def security = mockFor(SpringSecurityService)
+		security.metaClass.getCurrentUser = { -> return u }
+		security.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
 		return security
 	}
 
@@ -49,10 +57,10 @@ class UserControllerTests {
 		params["lastName"] = 'Clark'
 		params["mail"] = 'superman@hero.galaxy'
 		//params["birthday"]= new Date ('1800/01/01')
-		params["enabled"] = true
-		params["accountExpired"] = false
-		params["accountLocked"] = false
-		params["passwordExpired"] = false
+//		params["enabled"] = true
+//		params["accountExpired"] = false
+//		params["accountLocked"] = false
+//		params["passwordExpired"] = false
 
 	}
 
@@ -74,24 +82,25 @@ class UserControllerTests {
 		assert model.userInstance != null
 	}
 	
-//	void testSave() {
-//		
-//		controller.springSecurityService = setUpSpringSecurity()
-//		
-//		controller.save()
-//
-//		assert model.userInstance != null
-//		assert view == '/user/create'
-//
-//		response.reset()
-//
-//		populateValidParams(params)
-//		controller.save()
-//
-//		assert response.redirectedUrl == '/login/auth'
-//		assert controller.flash.message != null
-//		assert User.count() == 1
-//	}
+	void testSave() {
+		
+		controller.springSecurityService = setUpSpringSecurity()
+		//User.springSecurityService = setUpSpringSecurity()
+		
+		controller.save()
+
+		assert model.userInstance != null
+		assert view == '/user/create'
+
+		response.reset()
+
+		populateValidParams(params)
+		controller.save()
+
+		assert response.redirectedUrl == '/login/auth'
+		assert controller.flash.message != null
+		assert User.count() == 1
+	}
 	
 	void testShow() {
 		controller.show()
@@ -199,40 +208,42 @@ class UserControllerTests {
 	
 	// Non - generated tests ///////////////////////////////////////////
 	
-//	void testShowProfile(){
+	void testShowProfile(){
+		
+		//setUpSpringSecurity()
+		
+//		def user1 = new User(username: 'user1',
+// 									password: 'pass1',
+// 									firstName: 'alfred',
+// 									lastName: 'alfredaussi',
+// 									mail: 'alfred@john.fr')
 //		
-//		//setUpSpringSecurity()
-//		
-////		def user1 = new User(username: 'user1',
-//// 									password: 'pass1',
-//// 									firstName: 'alfred',
-//// 									lastName: 'alfredaussi',
-//// 									mail: 'alfred@john.fr')
-////		
-////		def security = mockFor(SpringSecurityService)
-////		security.metaClass.getCurrentUser = { -> return user1 }
-////		//security.demand.getPrincipal() {-> user1}
-////		controller.springSecurityService = security
-//		
-//		controller.springSecurityService = setUpSpringSecurity()
-//		
-//		controller.showProfile()
-//		
-//		assert flash.message != null
-//		assert response.redirectedUrl == '/'
-//		
-//		response.reset()
-//
-//		populateValidParams(params)
-//		def user = new User(params)
-//
-//		assert user.save() != null
-//
-//		params.id = user.id
-//
-//		def model = controller.showProfile()
-//
-//		assert model.userInstance == user
-//
-//	}
+//		def security = mockFor(SpringSecurityService)
+//		security.metaClass.getCurrentUser = { -> return user1 }
+//		//security.demand.getPrincipal() {-> user1}
+//		controller.springSecurityService = security
+		
+		controller.springSecurityService = setUpSpringSecurity()
+		
+		controller.showProfile()
+		
+		assert flash.message != null
+		assert response.redirectedUrl == '/'
+		
+		response.reset()
+
+		populateValidParams(params)
+		def user = new User(params)
+
+		assert user.save() != null
+		
+		controller.springSecurityService = setUpSpringSecurity2(user)
+
+		params.id = user.id
+
+		def model = controller.showProfile()
+
+		assert model.userInstance == user
+
+	}
 }
