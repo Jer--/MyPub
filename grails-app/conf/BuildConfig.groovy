@@ -72,10 +72,10 @@ coverage {
 			'*.class',
 			'LoginController.groovy',
 			'LogoutController.groovy',
-			'UserRole.groovy',
-			'Role.groovy',
-			'UserRoleController.groovy',
-			'RoleController.groovy']
+			'**/UserRole.*',
+			'**/Role.*',
+			'**/UserRoleController.*',
+			'**/RoleController.*']
 		xml = true
 		enabledByDefault = true
 	}
