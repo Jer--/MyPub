@@ -20,14 +20,14 @@ class ModificationController {
 	}
 
 	def create() {
+		params.pub = Pub.findById(params.pubId)
+		System.out.println("++++++++++ param : "+params.pub);
 		[modificationInstance: new Modification(params)]
 	}
 
 	def save() {
 		def modificationInstance = new Modification(params)
-		//if(modificationInstance.author == null)
-			modificationInstance.author = springSecurityService.currentUser
-		System.out.println(springSecurityService.currentUser)
+		modificationInstance.author = springSecurityService.currentUser
 		if (!modificationInstance.save(flush: true)) {
 			render(view: "create", model: [modificationInstance: modificationInstance])
 			return
