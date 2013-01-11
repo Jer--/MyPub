@@ -55,8 +55,14 @@ grails.project.dependency.resolution = {
 		compile ':cache:1.0.0'
 
 	}
-	codenarc.properties = {
-		GrailsPublicControllerMethod.enabled = false
-		EmptyIfStatement.priority = 1
+}
+codenarc.properties = {
+	GrailsPublicControllerMethod.enabled = false
+	EmptyIfStatement.priority = 1
+}
+codenarc.reports = {
+	Jenkins('xml') {
+		outputFile = 'target/CodeNarcReport.xml'
+		title = 'CodeNarc code Report'
 	}
 }
