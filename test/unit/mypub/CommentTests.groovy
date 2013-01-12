@@ -56,4 +56,26 @@ class CommentTests {
 		assert !comment.validate()
 
 	}
+	
+	void testToString() {
+		mockDomain(Pub)
+		mockDomain(Comment)
+		Pub pub1 = new Pub(name: 'pub1', address: 'address', city: 'city', type: 'PUB')
+		assert pub1.validate()
+
+		pub1.addToComments(new Comment(
+				username: 'user1',
+				text : 'a comment'
+				))
+
+		def comment = pub1.comments.find {c ->
+			c.username == "user1"
+		}
+		
+		assert comment.toString() == "user1 : a comment"
+		
+		comment.text = "abcdefghijklmnopqrstuvwxyz123456"
+		
+		assert comment.toString() == "user1 : abcdefghijklmnopqrstuvwxyz1234"
+	}
 }

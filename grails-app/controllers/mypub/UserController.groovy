@@ -29,7 +29,6 @@ class UserController {
 
 	@Secured(['ROLE_ADMIN'])
     def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
         [userInstanceList: User.list(params), userInstanceTotal: User.count()]
     }
 
@@ -176,7 +175,6 @@ class UserController {
 	def listFriends() {
 		def courant = springSecurityService.currentUser
 		String username = courant.username
-		params.max = Math.min(params.max ? params.int('max') : 10, 100)
 		[userInstanceList: User.findByUsername(username).friends, userInstanceTotal: User.findByUsername(username).friends.size()]
 	}
 	

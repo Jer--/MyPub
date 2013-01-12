@@ -5,7 +5,7 @@
 package mypub
 
 
-
+import grails.plugins.springsecurity.SpringSecurityService
 import grails.test.mixin.*
 
 import org.junit.*
@@ -14,10 +14,30 @@ import org.junit.*
 @TestMixin(Pub)
 @Mock(Comment)
 class CommentControllerTests {
+	
+	def setUpSpringSecurity() {
+		
+		def user1 = new User(username: 'user1',
+			password: 'pass1',
+			firstName: 'alfred',
+			lastName: 'alfredaussi',
+			mail: 'alfred@john.fr')
+
+		def security = mockFor(SpringSecurityService)
+		security.metaClass.getCurrentUser = { -> return user1 }
+		return security
+	}
+	
+	def setUpSpringSecurity(User u) {
+
+		def security = mockFor(SpringSecurityService)
+		security.metaClass.getCurrentUser = { -> return u }
+		return security
+	}
 
 	def populateValidParams(params) {
 		assert params != null
-		// TODO: Populate valid properties like...
+		// Populate valid properties like...
 		//params["name"] = 'someValidName'
 		params["username"]='testName'
 		//		params["postDate"]= new Date ('2007/01/01')
@@ -38,12 +58,12 @@ class CommentControllerTests {
 		assert model.commentInstanceTotal == 0
 	}
 
-	//	No Current User
-	//	void testCreate() {
-	//		def model = controller.create()
-	//
-	//		assert model.commentInstance != null
-	//	}
+	void testCreate() {
+		controller.springSecurityService = setUpSpringSecurity()
+		def model = controller.create()
+
+		assert model.commentInstance != null
+	}
 
 	void testSave() {
 		controller.save()
@@ -112,7 +132,7 @@ class CommentControllerTests {
 
 		// test invalid parameters in update
 		params.id = comment.id
-		//TODO: add invalid values to params object
+		//add invalid values to params object
 		params["text"]='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
 
 		controller.update()
@@ -167,10 +187,35 @@ class CommentControllerTests {
 
 	// Non - generated Test //////////////////////////////////////
 
-	//	No Current User
-	//	void testShowcomment() {
-	//
-	//	}
+	void testShowComment() {
+		mockDomain(User)
+		
+		def user = new User(username: 'user1',
+									password: 'pass1',
+									firstName: 'alfred',
+									lastName: 'alfredaussi',
+									mail: 'alfred@john.fr')
+	   assert user.save() != null
+	   
+	   controller.springSecurityService =setUpSpringSecurity(user)
+	   
+	   populateValidParams(params)
+	   def comment = new Comment(params)
+	   assert comment.save() != null
+	   
+	   params["id"] = comment.id
+	   controller.showComment()
+	   
+	   assert response.redirectedUrl == '/comment/showAComment/1'
+	   
+	   response.reset()
+	   
+	   user1.username = 'testName'
+	   params["id"] = comment.id
+	   controller.showComment()
+	   
+	   assert response.redirectedUrl == '/comment/showMyComment/1'
+	}
 
 	void testShowMyComment() {
 		controller.showMyComment()

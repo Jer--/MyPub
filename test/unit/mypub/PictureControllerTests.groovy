@@ -466,4 +466,40 @@ class PictureControllerTests {
 		assert model.pictureInstanceTotal == 1
 	}
 	
+	void testViewImage() {
+		populateValidParams(params)
+		def picture = new Picture(params)
+
+		assert picture.save() != null
+
+		params.id = picture.id
+		
+		controller.viewImage()
+		assert response.contentType == "image/jpeg"
+	}
+	
+	void testViewImageId() {
+		mockDomain(User)
+		
+		def user = new User(username: 'user1',
+									password: 'pass1',
+									firstName: 'alfred',
+									lastName: 'alfredaussi',
+									mail: 'alfred@john.fr')
+	   assert user.validate()
+	   assert user.save() != null
+	   
+	   populateValidParams(params)
+	   def picture = new Picture(params)
+
+	   assert picture.save() != null
+	   user.avatar = picture
+	   
+	   params.id = user.id
+	   
+	   controller.viewImageId()
+	   assert response.contentType == "image/jpeg"
+	   
+	}
+	
 }

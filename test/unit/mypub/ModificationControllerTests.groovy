@@ -28,6 +28,13 @@ class ModificationControllerTests {
 		
 		return security
 	}
+	
+	def setUpSpringSecurity(User u) {
+		
+		def security = mockFor(SpringSecurityService)
+		security.metaClass.getCurrentUser = { -> return u }
+		return security
+	}
 
 	def populateValidParams(params) {
 		assert params != null

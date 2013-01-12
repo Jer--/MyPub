@@ -33,4 +33,21 @@ class ModificationTests {
 
 
 	}
+	
+	void testToString() {
+		mockDomain(Pub)
+		mockDomain(Modification)
+		mockDomain(User)
+		User user = new User(username:"test",password:"test",firstName:"test",lastName:"test",mail:"test@test.com")
+		Pub pub = new Pub(name: 'pub', address: 'address', city: 'Toulouse', type: 'PUB')
+		assert pub.validate()
+
+		pub.addToModifications(new Modification(author:user,about:"city",newContent:"Paris",pub:pub))
+
+		def modif = pub.modifications.find {m ->
+			m.author == user
+		}
+		
+		assert modif.toString() == 'Modification by : test date :' + modif.proposalDate.toString()
+	}
 }

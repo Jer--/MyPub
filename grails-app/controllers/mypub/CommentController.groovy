@@ -18,7 +18,7 @@ class CommentController {
 
 	@Secured(['ROLE_ADMIN'])
     def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
+        //params.max = Math.min(max ?: 10, 100)
         [commentInstanceList: Comment.list(params), commentInstanceTotal: Comment.count()]
     }
 
