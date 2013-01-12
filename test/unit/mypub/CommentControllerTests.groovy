@@ -210,7 +210,7 @@ class CommentControllerTests {
 	   
 	   response.reset()
 	   
-	   user1.username = 'testName'
+	   user.username = 'testName'
 	   params["id"] = comment.id
 	   controller.showComment()
 	   
