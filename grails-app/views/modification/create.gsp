@@ -31,7 +31,7 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form action="save" params="['pubId': params.pub]">
+			<g:form action="save" params="['modif': "${modificationInstance}"]">
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>
