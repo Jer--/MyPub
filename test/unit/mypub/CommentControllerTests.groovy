@@ -267,5 +267,16 @@ class CommentControllerTests {
 
 		assert model.commentInstanceList.size() == 1
 		assert model.commentInstanceTotal == 1
+		
+		pub.addToComments(new Comment(
+			username: 'user2',
+			postDate: new Date(),
+			text : 'a comment'
+			))
+		
+		model = controller.listForAPub(pub.id)
+		
+		assert model.commentInstanceList.size() == 2
+		assert model.commentInstanceTotal == 2
 	}
 }

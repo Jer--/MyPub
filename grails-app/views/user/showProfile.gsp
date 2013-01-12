@@ -97,11 +97,45 @@
 				<li class="fieldcontain">
 					<span id="friends-label" class="property-label"><g:message code="user.friends.label" default="Friends" /></span>
 					
+					<!-- 
 						<g:each in="${userInstance.friends.take(10)}" var="f">
 						<span class="property-value" aria-labelledby="friends-label"><g:link controller="user" action="showFriend"  id="${f.id}">${f?.encodeAsHTML()}</g:link></span>
 						</g:each>
+					 -->
+						<span class="property-value" aria-labelledby="friends-label">
+						<table style="width: 45%;" >
+							<th>
+							Friends
+							<g:link controller='User' action='listFriends' style="float: right">Manage Friends</g:link>
+							</th>
+							<g:each in="${userInstance.friends.sort{a,b -> a.username <=> b.username}}" var="f">
+							<tr>
+							<td>
+							<g:link controller="user" action="showFriend"  id="${f.id}">
+								<g:if test="${f?.avatar}">
+									<img id="showAvatar" class="Picture" src="${createLink(controller:'Picture', action:'viewImageId', id:f?.id)}" width="30"/>
+								</g:if>
+								<g:else>
+									<g:if test="${f?.sex ==  'F'}">
+									<img src="${resource(dir: 'images', file: '/pub/Avatar_woman.jpg')}" width="30"/>
+									</g:if>
+									<g:else>
+									<img src="${resource(dir: 'images', file: '/pub/Avatar_man.jpg')}" width="30"/>
+									</g:else>
+								</g:else>
+							</g:link>
+							<g:link controller="user" action="showFriend"  id="${f.id}">${f?.encodeAsHTML()}</g:link>
+							<g:link action="removeFriend" id="${f.id}">
+							<img src="${resource(dir: 'images', file: '/skin/delete_icon.jpg')}" width="25" align="right"/>
+							</g:link>
+							</td>
+							</tr>
+							</g:each>
+						</table>
+						</span>
 					
 				</li>
+
 				</g:if>
 			
 				<g:if test="${userInstance?.pictures}">

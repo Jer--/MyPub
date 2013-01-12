@@ -39,4 +39,11 @@ class PubTests {
 	     assert !pub1.validate()
 		
 	}
+	
+	void testToString() {
+		mockDomain(Pub)
+		def pub = new Pub(name: 'pub', address: 'address', city: 'Toulouse', type: 'PUB')
+		
+		assert pub.toString() == "pub, Toulouse"
+	}
 }

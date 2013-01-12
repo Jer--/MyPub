@@ -383,4 +383,59 @@ class UserControllerTests {
 		assert model.userInstanceList.size() == 1
 		assert model.userInstanceTotal == 1
 	}
+	
+	void testDeleteClos3() {
+		
+		mockDomain(UserRole)
+		controller.delete()
+		assert flash.message != null
+		assert response.redirectedUrl == '/user/list'
+
+		response.reset()
+
+		populateValidParams(params)
+		def user = new User(params)
+		assert user.save() != null
+		
+		mockDomain(Picture)
+		def picture = new Picture(name: 'picTest', data: [1,1,1,1])
+		assert picture.save()
+		
+		user.addToPictures(picture)
+
+		params.id = user.id
+
+		controller.delete()
+
+		assert User.count() == 0
+		assert User.get(user.id) == null
+		assert response.redirectedUrl == '/logout'
+	}
+	
+	void testDeleteClos2() {
+		
+		mockDomain(UserRole)
+		mockDomain(Role)
+		
+		controller.delete()
+		assert flash.message != null
+		assert response.redirectedUrl == '/user/list'
+
+		response.reset()
+
+		populateValidParams(params)
+		def user = new User(params)
+		assert user.save() != null
+		
+		def userRole = new Role(authority: 'ROLE_USER').save()
+		UserRole.create user, userRole, true
+
+		params.id = user.id
+
+		controller.delete()
+
+		assert User.count() == 0
+		assert User.get(user.id) == null
+		assert response.redirectedUrl == '/logout'
+	}
 }
