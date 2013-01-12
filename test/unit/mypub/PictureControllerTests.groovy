@@ -296,6 +296,15 @@ class PictureControllerTests {
 	   
 	   controller.enleverList()
 	   
+	   assert flash.message != null
+	   assert response.redirectedUrl == '/user/showProfile'
+	   
+	   response.reset()
+	   
+	   user.avatar = null
+	   params["id"] = picture.id
+	   controller.enleverList()
+	   
 	   assert response.redirectedUrl == '/picture/listPerso'
 	}
 	
@@ -363,6 +372,47 @@ class PictureControllerTests {
 		 assert pub.pictures.size() == 0
 		 assert response.redirectedUrl == '/pub/show/1'
 	 }	
+	 
+	 
+	 void testShowPub() {
+		 
+		 mockDomain(UserRole)
+		 
+		 mockDomain(User)
+		 def user = new User(username: 'user1',
+			 password: 'pass1',
+			 firstName: 'alfred',
+			 lastName: 'alfredaussi',
+			 mail: 'alfred@john.fr')
+		assert user.validate()
+		assert user.save() != null
+		
+		controller.springSecurityService = setUpSpringSecurity(user)
+
+		 mockDomain(Pub)
+		 def pub = new Pub(name: 'pub1', address: 'address', city: 'city', type: 'PUB')
+		 assert pub.save() != null
+		 
+		 populateValidParams(params)
+		 def picture = new Picture(params)
+		 assert picture.save() != null
+		 
+		 params["pubId"] = pub.id
+		 params["id"] = picture.id
+		 controller.showPub()
+		 
+		 assert response.redirectedUrl == '/picture/showAPub/1?pubId=1'
+		 
+		 response.reset()
+		 pub.addToUsers(user)
+		 
+		 params["pubId"] = pub.id
+		 params["id"] = picture.id
+		 controller.showPub()
+		 assert response.redirectedUrl == '/picture/showMyPub/1?pubId=1'
+		 
+		 
+	 }
 	 
 	void testShowAPub() {
 		controller.showAPub()

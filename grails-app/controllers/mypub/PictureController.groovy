@@ -153,12 +153,16 @@ class PictureController {
 		def courant = springSecurityService.currentUser
 		def pictureP = Picture.get(params.id)
 		String username = courant.username
-		if(User.findByUsername(username).avatar.equals(pictureP))
-			User.findByUsername(username).avatar = null
-		
+		if(User.findByUsername(username).avatar.equals(pictureP)) {
+			flash.message = "Sorry this picture cannot be delete because its your avatar, change it before deleting this picture"
+			redirect(controller:'user', action: "showProfile")
+			return
+		}
+		else
+		{
 		User.findByUsername(username).removeFromPictures(Picture.findById(pictureP.id))
-		Picture.findById(pictureP.id).delete(flush: true)
-
+		pictureP.delete(flush: true)
+		}
 		redirect(action: "listPerso")
 	}
 	
@@ -201,7 +205,7 @@ class PictureController {
 		def userRoleInstances = UserRole.findAllByUser(userInstance)
 		def pubInstance = Pub.get(pubId)
 
-		if(userInstance.getAuthorities().find {it.authority == 'ROLLE_ADMIN'} && !pubInstance.users.find {username == usernameC})
+		if(!userInstance.getAuthorities().find {it.authority == 'ROLLE_ADMIN'} && !pubInstance.users.find {it.username == usernameC})
 			redirect(action: 'showAPub', id:params.id, params: [pubId: pubInstance.id])
 		else {
 			redirect(action: 'showMyPub',id: params.id, params: [pubId: pubInstance.id])

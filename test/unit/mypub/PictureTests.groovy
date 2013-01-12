@@ -45,4 +45,9 @@ class PictureTests {
 		
 		
 	}
+	
+	void testToString() {
+		def picture = new Picture(name: 'picTest', data: [1,1,1,1])
+		assert picture.toString() == "picTest"
+	}
 }
