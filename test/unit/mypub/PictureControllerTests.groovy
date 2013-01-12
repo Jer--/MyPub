@@ -5,6 +5,8 @@
 package mypub
 
 import grails.plugins.springsecurity.SpringSecurityService
+import org.junit.*
+import grails.test.mixin.*
 
 @TestFor(PictureController)
 @Mock(Picture)
