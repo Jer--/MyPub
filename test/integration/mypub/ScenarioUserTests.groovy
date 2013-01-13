@@ -1,10 +1,13 @@
+/*******************************************************************************
+ *  Author : Group BBHC
+ *  Licence : AGPL v3
+ ******************************************************************************/
 package mypub
 
 import static org.junit.Assert.*
-
-import org.apache.jasper.compiler.Node.ParamsAction;
-import org.junit.*
 import groovy.mock.interceptor.*
+
+import org.junit.*
 
 /**
  * Scenario for users tests.
