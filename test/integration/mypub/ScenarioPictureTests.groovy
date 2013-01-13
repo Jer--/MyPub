@@ -23,9 +23,11 @@ import org.junit.*
  * - Change the description of the bar with user B,
  * - User B removes his friend (the user A).
  */
-class TestAppTests extends GroovyTestCase {
+class ScenarioPictureTests extends GroovyTestCase {
 
 	def sessionFactory
+
+
 
 	@Before
 	void setUp() {
