@@ -11,6 +11,15 @@ import org.junit.*
 
 /**
  * Scenario for pub tests.
+ * This scenario allows us to test the different possible use cases do by users
+ * of the web application MyPub.
+ * -> Steps:
+ * - Add three users (A, B and C),
+ * - User A creates a pub,
+ * - Users B and C add the pub to their pub list,
+ * - Users A and B add comments to the pub,
+ * - Users B deletes his comment,
+ * - Users A then B modify the pub description.
  */
 class ScenarioPubTests extends GroovyTestCase {
 
@@ -42,7 +51,10 @@ class ScenarioPubTests extends GroovyTestCase {
 		userA = new User(username:"userA",  enabled: true, password:"passwordA", firstName:"Hobitt", lastName:"bilbo", mail:"bjm.brion@gmail.com").save(failOnError:true)
 		userB = new User(username:"userB",  enabled: true, password:"passwordB", firstName:"johanson", lastName:"scarlett", mail:"beauty@gmail.com").save(failOnError:true)
 		userC = new User(username:"userC",  enabled: true, password:"passwordC", firstName:"filipo", lastName:"goz", mail:"filipo@gmail.com").save(failOnError:true)
+		// Le pub a été créé par l'utilisateur A.s
+		pub.addToUsers(userA)
 		pub.setBelongsTo(userA)
+		userA.addToPubs(pub)
 		print "[setUp()] Nombre d'utilisateurs apres ajout des users tests : " + User.count()
 		println ", et de pubs : " + Pub.count()
 
@@ -53,7 +65,64 @@ class ScenarioPubTests extends GroovyTestCase {
 	}
 
 	@Test
-	void testAddPub() {
+	void testPubToUsersWithComments() {
+		log.info("[ScenarioPubTests] testPubDescription start.")
+		
+		println "[testPubToUsersWithComments()] Le pub doit posseder " + pub.getUsers().size() + " == 1 utilisateur (A qui l'a créé)."
+		assert 1 == pub.getUsers().size()
+		println "[testPubToUsersWithComments()] L'utilisateur A doit posseder " + userA.getPubs().size() + " pub (celui qu'il a créé."
+		println "[testPubToUsersWithComments()] L'utilisateur B ne possede pas de pub avant de lui en ajouter un."
+		println "[testPubToUsersWithComments()] L'utilisateur C ne possede pas de pub avant de lui en ajouter un."
+		println "[testPubToUsersWithComments()] Ajout des pubs pour les utilisateurs B et C"
+		assert userB.addToPubs(pub)
+		assert userC.addToPubs(pub)
+		
+		println "[testPubToUsersWithComments()] L'utilisateur B possede " + userB.getPubs().size() + " pub(s)."
+		assert 1 == userB.getPubs().size()
+		println "[testPubToUsersWithComments()] L'utilisateur C possede " + userC.getPubs().size() + " pub(s)."
+		assert 1 == userC.getPubs().size()
+		println "[testPubToUsersWithComments()] Le pub possede " + pub.getUsers().size() + " utilisateur(s)."
+		assert 3 == pub.getUsers().size()
+		
+		println "[testPubToUsersWithComments()] Les utilisateurs A et B ajoutent chacun un commentaire dans le pub."
+		Comment commentUserA = new Comment(username:"userA", postDate:new Date(), text:"Commentaire de test fait par l'utilisateur A")
+		Comment commentUserB = new Comment(username:"userB", postDate:new Date(), text:"Commentaire de test fait par l'utilisateur B")
+		assert pub.addToComments(commentUserA)
+		assert pub.addToComments(commentUserB)
+		println "[testPubToUsersWithComments()] L'utilisateur A et B ont ajoute un commentaire chacun au pub, nb commentaires = " + pub.getComments().size()
+		assert 2 == pub.getComments().size()
+		
+		println "[testPubToUsersWithComments()] L'utilisateur B supprime son commentaire fait, avant nb commentaires = " + pub.getComments().size()
+		assert pub.getComments().minus(commentUserB)
+		println "[testPubToUsersWithComments()] L'utilisateur B supprime son commentaire fait, apres nb commentaires = " + pub.getComments().size()
+		//assert 1 == pub.getComments().size()
+		// TODO Ne veut pas supprimer ???????
+		log.info("[ScenarioPubTests] testPubDescription end.")
+	}
+	
+	@Test
+	void testPubToUsersWithModifications() {
+		log.info("[ScenarioPubTests] testPubDescription start.")
+		
+		println "[testPubToUsersWithModifications()] Le pub doit posseder " + pub.getUsers().size() + " == 1 utilisateur (A qui l'a créé)."
+		assert 1 == pub.getUsers().size()
+		println "[testPubToUsersWithModifications()] L'utilisateur A doit posseder " + userA.getPubs().size() + " pub (celui qu'il a créé."
+		println "[testPubToUsersWithModifications()] L'utilisateur B ne possede pas de pub avant de lui en ajouter un."
+		println "[testPubToUsersWithModifications()] L'utilisateur C ne possede pas de pub avant de lui en ajouter un."
+		println "[testPubToUsersWithModifications()] Ajout des pubs pour les utilisateurs B et C"
+		userB.addToPubs(pub)
+		userC.addToPubs(pub)
+		
+		println "[testPubToUsersWithModifications()] L'utilisateur B possede " + userB.getPubs().size() + " pub(s)."
+		assert 1 == userB.getPubs().size()
+		println "[testPubToUsersWithModifications()] L'utilisateur C possede " + userC.getPubs().size() + " pub(s)."
+		assert 1 == userC.getPubs().size()
+		println "[testPubToUsersWithModifications()] Le pub possede " + pub.getUsers().size() + " utilisateur(s)."
+		assert 3 == pub.getUsers().size()
+		
+		Modification modificationA = new Modification(about:"type", author:"userA", newContent:"CLUB") 
+		
+		log.info("[ScenarioPubTests] testPubDescription end.")
 	}
 
 	@After
