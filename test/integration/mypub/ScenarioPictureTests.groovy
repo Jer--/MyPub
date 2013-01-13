@@ -13,15 +13,17 @@ import org.junit.*
  * This scenario allows us to test the different possible use cases do by users
  * of the web application MyPub.
  * -> Steps:
- * - Add a pub (pub1),
  * - Add three users (A, B and C),
+ * - User A creates a pub,
  * - Delete User C,
  * - Creating a friendship bond between users A and B,
  * - Add a bar with user A edit,
  * - Add a comment with user B,
  * - Delete comment with user B,
  * - Change the description of the bar with user B,
- * - User B removes his friend (the user A).
+ * - User B removes his friend (the user A), 
+ * - Delete the pub,
+ * - Delete User A, B, C.
  */
 class ScenarioPictureTests extends GroovyTestCase {
 
@@ -54,7 +56,11 @@ class ScenarioPictureTests extends GroovyTestCase {
 		userA = new User(username:"userA",  enabled: true, password:"passwordA", firstName:"Hobitt", lastName:"bilbo", mail:"bjm.brion@gmail.com").save(failOnError:true)
 		userB = new User(username:"userB",  enabled: true, password:"passwordB", firstName:"johanson", lastName:"scarlett", mail:"beauty@gmail.com").save(failOnError:true)
 		userC = new User(username:"userC",  enabled: true, password:"passwordC", firstName:"filipo", lastName:"goz", mail:"filipo@gmail.com").save(failOnError:true)
+		// Le pub a été créé par l'utilisateur A.
+		pub.addToUsers(userA)
 		pub.setBelongsTo(userA)
+		userA.addToPubs(pub)
+		
 		print "[setUp()] Nombre d'utilisateurs apres ajout des users tests : " + User.count()
 		println ", et de pubs : " + Pub.count()
 
@@ -75,8 +81,9 @@ class ScenarioPictureTests extends GroovyTestCase {
 	}
 
 	@Test
-	void testSomething() {
+	void testAddPictureToPubAndUser() {
 		log.info("[ScenarioPictureTests] Launch method: deleteUserC().")
+		println "[testAddPictureToPubAndUser()] Start "
 	}
 
 	@After
@@ -85,7 +92,7 @@ class ScenarioPictureTests extends GroovyTestCase {
 
 		log.info("[ScenarioPictureTests] Tear Down: toString tests.")
 
-		println "[tearDown()] Info pub test : " + Pub.findByName("pub").toString()
+		println "[tearDown()] Info pub test : " + Pub.findByName("Pub des tests").toString()
 		println "[tearDown()] Info UserA test : " + User.findByUsername("userA").toString()
 		println "[tearDown()] Info UserB test : " + User.findByUsername("userB").toString()
 		println "[tearDown()] Info UserC test: " + User.findByUsername("userC").toString()

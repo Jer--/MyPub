@@ -13,10 +13,13 @@ import org.junit.*
  * This scenario allows us to test the different possible use cases do by users
  * of the web application MyPub.
  * -> Steps:
- * - Add a pub,
  * - Add three users (A, B and C),
+ * - User A creates a pub,
+ * - Add users B and C to the pub,
  * - Each user adds a comment to the pub.
- * - Each user removes his comment.
+ * - Each user removes his comment, 
+ * - Delete the pub,
+ * - Delete User A, B, C.
  */
 class ScenarioCommentsTests extends GroovyTestCase {
 	
@@ -48,7 +51,10 @@ class ScenarioCommentsTests extends GroovyTestCase {
 		userA = new User(username:"userA",  enabled: true, password:"passwordA", firstName:"Hobitt", lastName:"bilbo", mail:"bjm.brion@gmail.com").save(failOnError:true)
 		userB = new User(username:"userB",  enabled: true, password:"passwordB", firstName:"johanson", lastName:"scarlett", mail:"beauty@gmail.com").save(failOnError:true)
 		userC = new User(username:"userC",  enabled: true, password:"passwordC", firstName:"filipo", lastName:"goz", mail:"filipo@gmail.com").save(failOnError:true)
+		// Le pub a été créé par l'utilisateur A.
+		pub.addToUsers(userA)
 		pub.setBelongsTo(userA)
+		userA.addToPubs(pub)
 
 		print "[setUp()] Nombre d'utilisateurs apres ajout des users tests : " + User.count()
 		println ", et de pubs : " + Pub.count()
@@ -74,11 +80,11 @@ class ScenarioCommentsTests extends GroovyTestCase {
 		assert 3 == pub.getComments().size()
 		
 		println "[testAddCommentPub()] Le nombre de commentaire dans pub avant suppression des commentaires est de : " + pub.getComments().size()
-		//assert pub.getComments().remove(Comment.findByUsername("userA"))
-		//assert pub.getComments().remove(Comment.findByUsername("userB"))
-		//assert pub.getComments().remove(Comment.findByUsername("userC"))
+		assert pub.getComments().remove(commentUserA)
+		assert pub.getComments().remove(commentUserB)
+		assert pub.getComments().remove(commentUserC)
 		println "[testAddCommentPub()] Le nombre de commentaire dans pub apres suppression des commentaires est de : " + pub.getComments().size()
-		//assert 3 != pub.getComments().size()
+		assert 3 != pub.getComments().size()
 		//TODO
 	}
 
@@ -88,7 +94,7 @@ class ScenarioCommentsTests extends GroovyTestCase {
 
 		log.info("[ScenarioCommentsTests] Tear Down: toString tests.")
 
-		println "[tearDown()] Info pub test : " + Pub.findByName("pub").toString()
+		println "[tearDown()] Info pub test : " + Pub.findByName("Pub des tests").toString()
 		println "[tearDown()] Info UserA test : " + User.findByUsername("userA").toString()
 		println "[tearDown()] Info UserB test : " + User.findByUsername("userB").toString()
 		println "[tearDown()] Info UserC test: " + User.findByUsername("userC").toString()
