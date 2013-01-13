@@ -102,6 +102,7 @@
 						<span class="property-value" aria-labelledby="addressOptionnal-label"><g:fieldValue bean="${pubInstance}" field="addressOptionnal"/></span>
 					
 				</li>
+			    </g:if>
 				
 				
 				<g:if test="${pubInstance?.zip}">
@@ -114,7 +115,6 @@
 				</g:if>
 			
 				
-				</g:if>
 			
 				<g:if test="${pubInstance?.city}">
 				<li class="fieldcontain">

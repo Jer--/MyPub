@@ -87,6 +87,7 @@ class PubController {
     }
 
     def delete(Long id) {
+		def userInstance = springSecurityService.currentUser
         def pubInstance = Pub.get(id)
         if (!pubInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'pub.label', default: 'Pub'), id])
@@ -95,6 +96,10 @@ class PubController {
         }
 
         try {
+			pubInstance.users.each {
+				it.removeFromPubs(pubInstance)
+			}
+			
             pubInstance.delete(flush: true)
             flash.message = message(code: 'default.deleted.message', args: [message(code: 'pub.label', default: 'Pub'), id])
             redirect(action: "list")
