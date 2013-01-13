@@ -38,7 +38,6 @@ class ModificationController {
 			message(code: 'modification.label', default: 'Modification'),
 			modificationInstance.id
 		])
-		def username = modificationInstance.author.username
 		redirect(action: "show", id: modificationInstance.id)
 	}
 
