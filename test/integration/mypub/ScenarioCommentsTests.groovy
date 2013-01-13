@@ -10,8 +10,16 @@ import org.junit.*
 
 /**
  * Scenario for comments tests.
+ * This scenario allows us to test the different possible use cases do by users
+ * of the web application MyPub.
+ * -> Steps:
+ * - Add a pub,
+ * - Add three users (A, B and C),
+ * - Each user adds a comment to the pub.
+ * - Each user removes his comment.
  */
 class ScenarioCommentsTests extends GroovyTestCase {
+	
 	Pub pub
 	User userA, userB, userC
 	@Before
@@ -52,8 +60,26 @@ class ScenarioCommentsTests extends GroovyTestCase {
 	}
 
 	@Test
-	void testSomething() {
-		log.info("[ScenarioCommentsTests] Start integration test ScenarioCommentsTests.")
+	void testAddCommentPub() {
+		log.info("[ScenarioCommentsTests] Start integration test testAddCommentPub.")
+		Comment commentUserA = new Comment(username:"userA", postDate:new Date(), text:"Commentaire de test fait par l'utilisateur A")
+		Comment commentUserB = new Comment(username:"userB", postDate:new Date(), text:"Commentaire de test fait par l'utilisateur B")
+		Comment commentUserC = new Comment(username:"userC", postDate:new Date(), text:"Commentaire de test fait par l'utilisateur C")
+		
+		println "[testAddCommentPub()] Le nombre de commentaire dans pub avant ajout des commentaires est de : 0"
+		assert pub.addToComments(commentUserA)
+		assert pub.addToComments(commentUserB)
+		assert pub.addToComments(commentUserC)
+		println "[testAddCommentPub()] Le nombre de commentaire dans pub apres ajout des commentaires est de : " + pub.getComments().size()
+		assert 3 == pub.getComments().size()
+		
+		println "[testAddCommentPub()] Le nombre de commentaire dans pub avant suppression des commentaires est de : " + pub.getComments().size()
+		//assert pub.getComments().remove(Comment.findByUsername("userA"))
+		//assert pub.getComments().remove(Comment.findByUsername("userB"))
+		//assert pub.getComments().remove(Comment.findByUsername("userC"))
+		println "[testAddCommentPub()] Le nombre de commentaire dans pub apres suppression des commentaires est de : " + pub.getComments().size()
+		//assert 3 != pub.getComments().size()
+		//TODO
 	}
 
 	@After
