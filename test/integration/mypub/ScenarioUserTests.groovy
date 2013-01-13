@@ -16,6 +16,7 @@ import org.junit.*
  * -> Steps:
  * - Add a pub,
  * - Add three users (A, B and C),
+ * - Add the three users to the pub list.
  * - Creating friendship bond between users A and B and between users A and C,
  * - Delete friendship bond between users A and B and between users A and C,
  * - Delete User A, B, C.
@@ -73,10 +74,10 @@ class ScenarioUserTests extends GroovyTestCase {
 	@Test
 	void testAddsFriends() {
 		log.info("[testAddsFriends] Add friends to user A.")
-		println "[testAddsFriends]  Aucun ami avant ajout des liens d'amitie "
+		println "[testAddsFriends]  Aucun ami avant ajout des liens d'amities "
 		userA.addToFriends(User.findByUsername("userB"))
 		userA.addToFriends(User.findByUsername("userC"))
-		println "[testAddsFriends] Nombre d'ami apres ajout des liens d'amitie : " + userA.getFriends().size()
+		println "[testAddsFriends] Nombre d'ami apres ajout des liens d'amities : " + userA.getFriends().size()
 		assert 2 == userA.getFriends().size()
 		log.info("[testAddsFriends] Add friends to user A end.")
 	}
@@ -84,16 +85,16 @@ class ScenarioUserTests extends GroovyTestCase {
 	@Test
 	void testRemovesFriends() {
 		log.info("[ScenarioUserTests] Add friends to user A.")
-		println "[testRemovesFriends] Aucun ami avant ajout des liens d'amitie "
+		println "[testRemovesFriends] Aucun ami avant ajout des liens d'amities "
 		userA.addToFriends(User.findByUsername("userB"))
 		userA.addToFriends(User.findByUsername("userC"))
-		println "[testRemovesFriends] Nombre d'ami apres ajout des liens d'amitie : " + userA.getFriends().size()
+		println "[testRemovesFriends] Nombre d'ami apres ajout des liens d'amities : " + userA.getFriends().size()
 		log.info("[ScenarioUserTests] Add friends to user A end.")
-		println "[testRemovesFriends] Nombre d'ami avant suppression des liens d'amitie : " + userA.getFriends().size()
+		println "[testRemovesFriends] Nombre d'ami avant suppression des liens d'amities : " + userA.getFriends().size()
 		assert 2, userA.getFriends().size()
 		assert userA.getFriends().remove(User.findByUsername("userB"))
 		assert userA.getFriends().remove(User.findByUsername("userC"))
-		println "[testRemovesFriends] Nombre d'ami apres suppression des liens d'amitie : " + userA.getFriends().size()
+		println "[testRemovesFriends] Nombre d'ami apres suppression des liens d'amities : " + userA.getFriends().size()
 		assert 2 != userA.getFriends().size()
 	}
 
