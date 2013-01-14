@@ -202,7 +202,6 @@ class PictureController {
 		def courrent = springSecurityService.currentUser
 		String usernameC = courrent.username
 		def userInstance = User.findByUsername(usernameC)
-		def userRoleInstances = UserRole.findAllByUser(userInstance)
 		def pubInstance = Pub.get(pubId)
 
 		if(!userInstance.getAuthorities().find {it.authority == 'ROLLE_ADMIN'} && !pubInstance.users.find {it.username == usernameC})
