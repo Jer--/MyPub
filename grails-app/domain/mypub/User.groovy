@@ -5,7 +5,6 @@
 package mypub
 
 class User {
-	// TODO Generated
 	transient springSecurityService
 
 	String username
@@ -65,4 +64,16 @@ class User {
 		}
 		password = springSecurityService.encodePassword(password)
 	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
+	
+	
 }

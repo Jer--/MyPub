@@ -14,5 +14,16 @@ class Role {
 
 	static constraints = {
 		authority blank: false, unique: true
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
+	
 }

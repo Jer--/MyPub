@@ -4,8 +4,6 @@
  ******************************************************************************/
 package mypub
 
-import java.util.Date
-
 class Modification {
 
 	User author
