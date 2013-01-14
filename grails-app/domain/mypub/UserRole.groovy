@@ -11,6 +11,12 @@ class UserRole implements Serializable {
 	User user
 	Role role
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
+
 	boolean equals(other) {
 		if (!(other instanceof UserRole)) {
 			return false

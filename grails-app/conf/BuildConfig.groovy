@@ -68,14 +68,9 @@ codenarc.reports = {
 }
 coverage {
 		exclusions = ['**/grails-app/conf/**',
-			'**/grails-app/controllers/**',
 			'*.class',
-			'LoginController.groovy',
-			'LogoutController.groovy',
-			'**/UserRole.*',
-			'**/Role.*',
-			'**/UserRoleController.*',
-			'**/RoleController.*']
+			'mypub/Role*.class',
+			'mypub/UserRole*.class']
 		xml = true
-		enabledByDefault = true
+		enabledByDefault = false
 	}
