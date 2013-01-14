@@ -3,11 +3,8 @@
  *  License : AGPL v3
   ******************************************************************************/
 package mypub
-import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUser
 
 import grails.plugins.springsecurity.SpringSecurityService
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl
 import org.junit.*
 import grails.test.mixin.*
 

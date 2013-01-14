@@ -4,14 +4,10 @@
  ******************************************************************************/
 package mypub
 
-import java.util.Collection;
 import org.junit.*
 import grails.test.mixin.*
 
-import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUser
 import grails.plugins.springsecurity.SpringSecurityService
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl
 
 @TestFor(UserController)
 @Mock(User)

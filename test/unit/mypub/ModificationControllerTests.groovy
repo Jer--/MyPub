@@ -4,9 +4,6 @@
  ******************************************************************************/
 package mypub
 
-
-
-import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUser
 import grails.plugins.springsecurity.SpringSecurityService
 import org.junit.*
 import grails.test.mixin.*
