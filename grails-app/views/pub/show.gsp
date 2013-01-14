@@ -47,6 +47,14 @@
         map.draw(data, {showTip: true});
       }
     </script>
+    <script type="text/javascript"><!--
+		function show(elem) {
+			document.getElementById(elem).style.display = 'block';
+		}
+		function hide(elem) {
+			document.getElementById(elem).style.display = 'none';
+		}
+	</script>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'pub.label', default: 'Pub')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
@@ -78,12 +86,26 @@
 				</g:else>
 				
 				<g:if test="${pubInstance?.name}">
-				<li class="fieldcontain">
+				<li class="fieldcontain" >
 					<span id="name-label" class="property-label"><g:message code="pub.name.label" default="Name" /></span>
-					
+					<div onMouseOver="show('modifName')" onmouseout="hide('modifName')">
 		            <span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${pubInstance}" field="name"/><g:link controller="modification" action="create" params="['pubId': pubInstance?.id,'about':'name','actualContent': pubInstance?.name]"><img style="vertical-align:middle" src="${resource(dir: 'images', file: 'modif.png')}"/></g:link></span>
-
+				</div>
 				</li>
+				<g:if test="${pubInstance?.modifications}">
+				<div id="modifName" style="display:none">
+				<li class="fieldcontain" >
+					<span id="modifications-label" class="property-label"><g:message code="pub.modifications.label" default="Modifications" /></span>
+					
+						<g:each in="${pubInstance.modifications}" var="m">
+						<g:if test="${m.about=='name'}">
+						<span class="property-value" aria-labelledby="modifications-label"><g:link controller="modification" action="show" id="${m.id}">${m.newContent}</g:link></span>
+						</g:if>
+						</g:each>
+					
+				</li>
+				</div>
+				</g:if>
 				</g:if>
 			
 				<g:if test="${pubInstance?.address}">
@@ -165,16 +187,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${pubInstance?.modifications}">
-				<li class="fieldcontain">
-					<span id="modifications-label" class="property-label"><g:message code="pub.modifications.label" default="Modifications" /></span>
-					
-						<g:each in="${pubInstance.modifications}" var="m">
-						<span class="property-value" aria-labelledby="modifications-label"><g:link controller="modification" action="show" id="${m.id}">${m?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
 			</br></br>
 				<g:if test="${pubInstance?.comments}">
 				<li class="fieldcontain">
