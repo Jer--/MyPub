@@ -15,6 +15,10 @@ class Role {
 	static constraints = {
 		authority blank: false, unique: true
 	}
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 
 	@Override
 	public int hashCode() {
@@ -25,5 +29,4 @@ class Role {
 	public boolean equals(Object obj) {
 		return super.equals(obj);
 	}
-	
 }

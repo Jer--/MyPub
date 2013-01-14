@@ -22,6 +22,14 @@ class Comment {
 		}
 	}
 
+	static constraints = {  text size: 1..160 }
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
 
-	static constraints = {  text size: 1..160 }
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
 }

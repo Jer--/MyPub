@@ -14,5 +14,14 @@ class Picture {
 	static constraints = {
 		name blank : false
 		data nullable : true, maxSize: 16777216 /* 16M */
+	}
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
 	}
 }

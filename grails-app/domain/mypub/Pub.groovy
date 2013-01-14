@@ -6,7 +6,6 @@ package mypub
 
 class Pub {
 	
-	// TODO Generated with new attribute idPub
 	String name
 	String address
 	String addressOptionnal
@@ -37,6 +36,14 @@ class Pub {
 		pictures nullable: true
 		modifications nullable:true
 		comments nullable: true
-		
-    }
+    }
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
 }
