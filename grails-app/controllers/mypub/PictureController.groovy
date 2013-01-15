@@ -181,7 +181,7 @@ class PictureController {
 		}
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'picture.label', default: 'Picture'), pictureInstance.name])
-		redirect(action: "showPub", id: pictureInstance.id)
+		redirect(action: "showPub", id: pictureInstance.id, params: [pubId: pubInstance.id])
 	}
 	
 	def enleverListForAPub(Long pubId) {
