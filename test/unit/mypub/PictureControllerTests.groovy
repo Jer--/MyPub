@@ -334,7 +334,7 @@ class PictureControllerTests {
         populateValidParams(params)
         controller.saveForAPub(pub.id)
 
-        assert response.redirectedUrl == '/picture/showPub/1'
+        assert response.redirectedUrl == '/picture/showPub/1?pubId=1'
         assert controller.flash.message != null
         assert Picture.count() == 1
     }
