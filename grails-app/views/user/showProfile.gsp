@@ -16,7 +16,11 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li> 
-				<li style="float : right"><g:link controller='Logout'>Logout</g:link></li>
+				<li><g:link controller='Picture' action='listPerso'>My Pictures</g:link></li>
+				<li><g:link controller='User' action='listFriends'>My Friends</g:link></li>
+				<li><g:link controller='Pub' action='listPubs'>My Pubs</g:link></li>
+				<li><g:link controller='Pub' action='list'>Pubs</g:link></li>
+				<li style="float : right"><g:link controller='Logout'><img src="${resource(dir: 'images', file: 'skin/logout.png')}" width="15"/> Logout</g:link></li>
 			</ul>
 		</div>
 		<div id="show-user" class="content scaffold-show" role="main">
