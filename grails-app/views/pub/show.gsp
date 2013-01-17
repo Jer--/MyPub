@@ -91,7 +91,6 @@
 		<ol class="property-list pub">
 			<div style="float: left;">
 				<div>
-
 					<g:if test="${pubInstance?.presentationPicture}">
 						<img class="Picture"
 							src="${createLink(controller:'Picture', action:'viewImage', id:pubInstance.presentationPicture.id)}"
@@ -104,9 +103,11 @@
 					</g:else>
 				</div>
 				<%--insert the MAP --%>
+				</br><p> Where is this pub ?</p></br>
 				<div id="map_div" style="width: 350px; height: 300px; align: left"></div>
+				</br>
 			</div>
-			<div style="align: right;">
+			<div style="float: left;width: 500px; ">
 				<g:if test="${pubInstance?.name}">
 					<li class="fieldcontain"><span id="name-label"
 						class="property-label"><g:message code="pub.name.label"
@@ -224,6 +225,7 @@
 						</g:each></li>
 				</g:if>
 			</div>
+			<div style="clear: both;">
 				<g:if test="${pubInstance?.comments}">
 					<li class="fieldcontain">
 						<table>
@@ -288,6 +290,6 @@
 				onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 		</fieldset>
 	</g:form>
-	
+	</div>
 </body>
 </html>
