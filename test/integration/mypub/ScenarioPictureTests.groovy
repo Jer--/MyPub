@@ -15,13 +15,12 @@ import org.junit.*
  * -> Steps:
  * - Add three users (A, B and C),
  * - User A creates a pub,
- * - Delete User C,
- * - Creating a friendship bond between users A and B,
- * - Add a bar with user A edit,
- * - Add a comment with user B,
- * - Delete comment with user B,
- * - Change the description of the bar with user B,
- * - User B removes his friend (the user A), 
+ * - Create one fake picture,
+ * - Create one real picture,
+ * - Add 2 pictures to user A,
+ * - Add the real picture as avatar to A,
+ * - Change the user A avatar, fake picture take place of real picture,
+ * - User A delete a picture.
  * - Delete the pub,
  * - Delete User A, B, C.
  */
@@ -83,7 +82,41 @@ class ScenarioPictureTests extends GroovyTestCase {
 	@Test
 	void testAddPictureToPubAndUser() {
 		log.info("[ScenarioPictureTests] Launch method: deleteUserC().")
-		println "[testAddPictureToPubAndUser()] Start "
+		println "[testAddPictureToPubAndUser()] Start."
+		
+        def imagesFolder = 'C:\\Users\\BenJ\\git\\MyPub\\web-app\\images\\pub\\TemplatePubBasic.jpg'
+        println "Chemin de l'image : " + imagesFolder
+        def imageList = new File(imagesFolder).list()
+		println "[testAddPictureToPubAndUser()] Convertion image en liste : " + imageList.toString()
+		println "[testAddPictureToPubAndUser()] Creation des images 'realPicture' et 'testPicture'."
+		Picture picture1 = new Picture(name:'realPicture', data: [1,2,3,4,5,6,7,8])
+		Picture picture2 = new Picture(name:'testPicture', data: [1,0,0,1, 1,0,0,1])
+		
+		println "[testAddPictureToPubAndUser()] Data de picture 1 : " + picture1.getData()
+		println "[testAddPictureToPubAndUser()] Data de picture 2 : " + picture2.getData()
+		
+		println "[testAddPictureToPubAndUser()] Sauvegarde de l'image dans la base de données du site."
+		assert picture1.save()
+		assert picture2.save()
+		println picture2.toString()
+		println "[testAddPictureToPubAndUser()] L'utilisateur A ajoute l'image 'realPicture' et 'testPicture' à sa galerie de photo."
+		assert userA.addToPictures(picture1)
+		assert userA.addToPictures(picture2)
+		assert 2 == userA.getPictures().size()
+		
+		println "[testAddPictureToPubAndUser()] L'utilisateur A ajoute l'image 'realPicture' comme avatar."
+		println "[testAddPictureToPubAndUser()] L'image reel : " + picture1.toString()
+		userA.setAvatar(picture1)
+		
+		println "[testAddPictureToPubAndUser()] L'utilisateur A change d'image d'avatar 'realPicture' -> 'testPicture'."
+		userA.setAvatar(picture2)
+		
+		println "[testAddPictureToPubAndUser()] L'utilisateur A supprime l'image 'realPicture'."
+		assert userA.getPictures().remove(picture1)
+		assert 1 == userA.getPictures().size()
+		
+		println "[testAddPictureToPubAndUser()] L'utilisateur A ajoute l'image ."
+		assert userA.getPictures().remove(picture2)
 	}
 
 	@After
