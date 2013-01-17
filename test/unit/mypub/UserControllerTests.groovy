@@ -340,31 +340,37 @@ class UserControllerTests {
 		assert response.redirectedUrl == '/user/listFriends'
 	}
 	
-//	void testRemoveFriend() {
-//		populateValidParams(params)
-//		def user = new User(params)
-//		assert user.save() != null
-//		
-//		controller.springSecurityService = setUpSpringSecurity(user)
-//		
-//		params["username"] = "user2"
-//		def user2 = new User(params)
-//		assert user2.save() != null
-//		
-//		user.addToFriends(user2)
-//		user2.addToFriends(user)
-//		assert user.friends.size() == 1
-//		assert user2.friends.size() == 1
-//		
-//		response.reset()
-//		
-//		params["id"] = user2.id
-//		controller.removeFriend()
-//		
-//		assert user.friends.size() == 0
-//		assert response.redirectedUrl == '/user/listFriends'
-//		
-//	}
+	void testRemoveFriend() {
+		
+		mockDomain(User)
+		
+		populateValidParams(params)
+		def user = new User(params)
+		assert user.save(flush: true) != null
+		
+		controller.springSecurityService = setUpSpringSecurity(user)
+		
+		params["username"] = "user2"
+		def user2 = new User(params)
+		assert user2.save(flush: true) != null
+		
+		params["id"] = user2.id
+		controller.addFriend()
+		
+		assert user.friends.size() == 1
+		assert user2.friends.size() == 1
+		assert response.redirectedUrl == '/user/listFriends'
+		
+		response.reset()
+		
+		params["id"] = user2.id
+		controller.removeFriend()
+		
+		assert user.friends.size() == 0
+		assert user2.friends.size() == 0
+		assert response.redirectedUrl == '/user/listFriends'
+		
+	}
 	
 	void testSearchUser() {
 		params["username"] = "noUser"

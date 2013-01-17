@@ -192,8 +192,10 @@ class UserController {
 		def courant = springSecurityService.currentUser
 		String username = courant.username
 		def userI = User.get(params.id)
-		User.findByUsername(username).removeFromFriends(User.findByUsername(userI.username))
-		User.findByUsername(userI.username).removeFromFriends(User.findByUsername(username))
+		User.findByUsername(username).friends.remove(User.findByUsername(userI.username))
+		userI.friends.remove(User.findByUsername(username))
+		//User.findByUsername(username).removeFromFRIENDS(User.findByUsername(userI.username))
+		//User.findByUsername(userI.username).removeFromFriends(User.findByUsername(username))
 		redirect(action: "listFriends")
 	}
 	
