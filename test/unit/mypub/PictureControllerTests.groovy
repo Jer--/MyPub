@@ -50,6 +50,12 @@ class PictureControllerTests {
 
         assert model.pictureInstanceList.size() == 0
         assert model.pictureInstanceTotal == 0
+		
+		params["max"] = 3
+		model = controller.list()
+		
+		assert model.pictureInstanceList.size() == 0
+		assert model.pictureInstanceTotal == 0
     }
 
     void testCreate() {
@@ -246,10 +252,15 @@ class PictureControllerTests {
 	   populateValidParams(params)
 	   user.addToPictures(new Picture(params))
 
-		def model = controller.listPerso()
-
-		assert model.pictureInstanceList.size() == 1
-		assert model.pictureInstanceTotal == 1
+	   def model = controller.listPerso()
+	   assert model.pictureInstanceList.size() == 1
+	   assert model.pictureInstanceTotal == 1
+	   
+	   params["max"] = 3
+	   model = controller.listPerso()
+	   
+	   assert model.pictureInstanceList.size() == 1
+	   assert model.pictureInstanceTotal == 1
 	}
 
 	void testListFriend() {
@@ -412,6 +423,51 @@ class PictureControllerTests {
 		 assert response.redirectedUrl == '/picture/showMyPub/1?pubId=1'
 		 
 		 
+	 }
+	 
+	 void testShowPubAdmin() {
+		 
+		 mockDomain(UserRole)
+		 mockDomain(Role)
+		 
+		 mockDomain(User)
+		 def user = new User(username: 'user1',
+			 password: 'pass1',
+			 firstName: 'alfred',
+			 lastName: 'alfredaussi',
+			 mail: 'alfred@john.fr')
+		assert user.validate()
+		assert user.save() != null
+		
+		def adminRole = new Role(authority: 'ROLE_ADMIN')
+		assert adminRole.save() != null
+		
+		def ur = new UserRole(user: user, role: adminRole)
+		assert ur.save() != null
+		
+		controller.springSecurityService = setUpSpringSecurity(user)
+
+		 mockDomain(Pub)
+		 def pub = new Pub(name: 'pub1', address: 'address', city: 'city', type: 'PUB')
+		 assert pub.save() != null
+		 
+		 populateValidParams(params)
+		 def picture = new Picture(params)
+		 assert picture.save() != null
+		 
+		 params["pubId"] = pub.id
+		 params["id"] = picture.id
+		 controller.showPub()
+		 
+		 assert response.redirectedUrl == '/picture/showMyPub/1?pubId=1'
+		 
+		 response.reset()
+		 pub.addToUsers(user)
+		 
+		 params["pubId"] = pub.id
+		 params["id"] = picture.id
+		 controller.showPub()
+		 assert response.redirectedUrl == '/picture/showMyPub/1?pubId=1'
 	 }
 	 
 	void testShowAPub() {

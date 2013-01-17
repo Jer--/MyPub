@@ -204,7 +204,7 @@ class PictureController {
 		def userInstance = User.findByUsername(usernameC)
 		def pubInstance = Pub.get(pubId)
 
-		if(!userInstance.getAuthorities().find {it.authority == 'ROLLE_ADMIN'} && !pubInstance.users.find {it.username == usernameC})
+		if(!userInstance.getAuthorities().find {it.authority == 'ROLE_ADMIN'} && !pubInstance.users.find {it.username == usernameC})
 			redirect(action: 'showAPub', id:params.id, params: [pubId: pubInstance.id])
 		else {
 			redirect(action: 'showMyPub',id: params.id, params: [pubId: pubInstance.id])
