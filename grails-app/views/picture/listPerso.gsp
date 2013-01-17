@@ -18,6 +18,9 @@
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link controller='User' action='showProfile'>My Profile</g:link></li>
 				<li><g:link class="create" action="create"><g:message code="Import new Picture" /></g:link></li>
+				<sec:ifAnyGranted roles='ROLE_ADMIN'>
+					<li><g:link controller='Picture' action="list"><g:message code="all pictures" /></g:link></li>
+				</sec:ifAnyGranted>
 				<li style="float : right"><g:link controller='Logout'><img src="${resource(dir: 'images', file: 'skin/logout.png')}" width="15"/> Logout</g:link></li>
 			</ul>
 		</div>

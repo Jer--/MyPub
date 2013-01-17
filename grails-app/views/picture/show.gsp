@@ -39,8 +39,11 @@
 			
 				<g:if test="${pictureInstance?.data}">
 				<li class="fieldcontain">
-					<span id="data-label" class="property-label"><g:message code="picture.data.label" default="Data" /></span>
-					
+					<span id="data-label" class="property-label">
+						<img class="Picture" src="${createLink(controller:'Picture', action:'viewImage', id:pictureInstance.id)}" width="500"/>
+						<%--<g:message code="picture.data.label" default="Data" />--%>
+					</span>
+				
 				</li>
 				</g:if>
 			

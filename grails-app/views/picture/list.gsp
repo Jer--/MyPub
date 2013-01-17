@@ -40,8 +40,7 @@
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
 						<td><g:link action="show" id="${pictureInstance.id}">${fieldValue(bean: pictureInstance, field: "name")}</g:link></td>
-					
-						<td>${fieldValue(bean: pictureInstance, field: "data")}</td>
+						<td><img class="Picture" src="${createLink(controller:'Picture', action:'viewImage', id:pictureInstance.id)}" width="100"/></td>
 					
 					</tr>
 				</g:each>
