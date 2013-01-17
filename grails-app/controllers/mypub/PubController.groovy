@@ -151,7 +151,6 @@ class PubController {
 	def listPubs() {
 		def courant = springSecurityService.currentUser
 		String username = courant.username
-		params.max = Math.min(params.max ? params.int('max') : 10, 100)
 		[pubInstanceList: User.findByUsername(username).pubs, pubInstanceTotal: User.findByUsername(username).pubs.size()]
 	}
 	

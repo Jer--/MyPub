@@ -326,10 +326,34 @@ class PubControllerTests {
 		assert model.pubInstanceTotal == 0
 	}
 	
-	//void testListPub(){
-		//controller.springSecurityService = setUpSpringSecurity()
-		//
-		//controller.listPubs()
-		//assert response.redirectedUrl == '/pub/listPubs'
-	//}
+	void testListPubs(){
+		mockDomain(User)
+		
+		def user = new User(username: 'user1',
+									password: 'pass1',
+									firstName: 'alfred',
+									lastName: 'alfredaussi',
+									mail: 'alfred@john.fr')
+	   assert user.save() != null
+	   
+	   controller.springSecurityService =setUpSpringSecurity(user)
+	   
+	   populateValidParams(params)
+	   def pub = new Pub(params)
+	   assert pub.save() != null
+	   
+	   params.id = pub.id
+	   controller.addPub()
+	   
+	   assert flash.message == null
+	   assert response.redirectedUrl == '/pub/listPubs'
+	   assert user.pubs.size() == 1
+	   assert pub.users.size() == 1
+	   
+	   response.reset()
+		
+	   def model = controller.listPubs()
+	   assert model.pubInstanceList.size() == 1
+	   assert model.pubInstanceTotal == 1
+	}
 }
