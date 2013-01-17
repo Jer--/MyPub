@@ -128,12 +128,9 @@ class UserTests {
 		 
 		 // Max DDN shall be new Date().minus(3650).
 		 Date dateTest = new Date().minus(2650)
-		 user = new User(username:"userTest12", password:"passwordTest", firstName:"Bayrou", lastName:"Francois", mail:"testmail@test.com", birthday: "ZE")
-		 // assert !user.validate()
-		 // assert "max" == user.errors["birthday"]
+		 user = new User(username:"userTest12", password:"passwordTest", firstName:"Bayrou", lastName:"Francois", mail:"testmail@test.com", birthday: dateTest)
+		  assert !user.validate()
+		  assert "max" == user.errors["birthday"]
 	}
 	
-	void testEncodePassword() {
-		
-	}
 }
