@@ -32,7 +32,7 @@ class ScenarioPubTests extends GroovyTestCase {
 		log.info("[ScenarioPubTests] setUp(): Start integration test for MyPub App.")
 
 		log.info("[ScenarioPubTests] setUp(): Flush the session (delete a pub and 3 Users if existed.")
-
+		
 		println "[setUp()] Nombre de pubs avant suppression du pub test : " + Pub.count()
 		Pub.findByName("Pub des tests")?.delete()
 		println "[setUp()] Nombre de pubs apres suppession du pub test : " + Pub.count()
@@ -45,6 +45,7 @@ class ScenarioPubTests extends GroovyTestCase {
 
 		int nbUsers = User.count()
 		int nbPubs = Pub.count()
+		
 		print "[setUp()] Nombre d'utilisateurs avant ajout des users tests : " + nbUsers
 		println ", et de pubs : " + nbPubs
 
@@ -124,19 +125,38 @@ class ScenarioPubTests extends GroovyTestCase {
 		
 		println "[testAddPubToUsersWithModifications()] Ajout modification sur le pub par l'utilisateur A."
 		Modification modificationA = new Modification(about:"type", author:"userA", newContent:"CLUB")
-//		assert modificationA.addToUsersOk(userA)
-//		assert pub.addToModifications(modificationA)
-//		assert 1 == pub.getModifications().size()
-
+		// assert modificationA.addToUsersOk(userA)
+		// assert modificationA.setBelongsTo(pub)
+		
+		println "[testAddPubToUsersWithModifications()] Configuration de la modification sur le pub par l'utilisateur A."
+		// assert 1 == modificationA.getUsersOk()
+		// assert modificationA.getBelongsTo()
+		
+		assert pub.addToModifications(modificationA)
+		assert 1 == pub.getModifications().size()
+		
+		// TODO setBelongsTo failed!
+		// assert modificationA.save()
+		
 		println "[testAddPubToUsersWithModifications()] Ajout modification sur le pub par l'utilisateur B."
-//		Modification modificationB = new Modification(about:"type", author:"userB", newContent:"RESTO")
-//		assert modificationB.addToUsersOk(userA)
-//		assert modificationA.addToUsersOk(userB)
-//		assert pub.addToModifications(modificationB)
-//		
-//		println "[testAddPubToUsersWithModifications()] Ajout des modifications des utilisateurs A et B sur le pub."
-//		assert 2 == pub.getModifications().size()
-//		
+		Modification modificationB = new Modification(about:"type", author:"userB", newContent:"RESTO")
+		// assert modificationB.addToUsersOk(userA)
+		// assert modificationB.addToUsersOk(userB)
+		assert pub.addToModifications(modificationB)
+		
+		println "[testAddPubToUsersWithModifications()] Ajout des modifications des utilisateurs A et B sur le pub."
+		assert 2 == pub.getModifications().size()
+		
+		println "[testAddPubToUsersWithModifications()] Suppression des modifications des utilisateurs A et B sur le pub."
+		// assert modificationA.getUsersOk().remove(userA)
+		// assert modificationB.getUsersOk().remove(userA)
+		// assert modificationB.getUsersOk().remove(userB)
+		
+		// assert modificationA.delete()
+		// assert modificationB.delete()
+		
+		assert pub.getModifications().remove(modificationA)
+		assert pub.getModifications().remove(modificationB)
 		
 		log.info("[ScenarioPubTests] testAddPubToUsersWithModifications end.")
 	}
