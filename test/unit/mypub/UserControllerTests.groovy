@@ -58,6 +58,12 @@ class UserControllerTests {
 		
 		assert model.userInstanceList.size() == 0
 		assert model.userInstanceTotal == 0
+		
+		params["max"] = 3
+		model = controller.list()
+		
+		assert model.userInstanceList.size() == 0
+		assert model.userInstanceTotal == 0
 	}
 
 	void testCreate() {

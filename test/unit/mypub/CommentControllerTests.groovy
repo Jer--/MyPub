@@ -56,6 +56,12 @@ class CommentControllerTests {
 
 		assert model.commentInstanceList.size() == 0
 		assert model.commentInstanceTotal == 0
+		
+		params["max"] = 3
+		model = controller.list()
+		
+		assert model.commentInstanceList.size() == 0
+		assert model.commentInstanceTotal == 0
 	}
 
 	void testCreate() {
