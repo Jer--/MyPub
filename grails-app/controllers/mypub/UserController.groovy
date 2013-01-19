@@ -100,7 +100,8 @@ class UserController {
 
         try {
 			userInstance.friends.each {
-				it.removeFromFriends(userInstance)
+				it.friends.remove(userInstance)
+				//it.removeFromFriends(userInstance)
 			}
 			def userRoleInstances = UserRole.findAllByUser(userInstance)
 			userRoleInstances.each {
