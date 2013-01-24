@@ -285,38 +285,38 @@ class PubControllerTests {
 	   
 	}
 	
-//	void testRemovePub() {
-//		
-//		mockDomain(User)
-//		
-//		def user = new User(username: 'user1',
-//									password: 'pass1',
-//									firstName: 'alfred',
-//									lastName: 'alfredaussi',
-//									mail: 'alfred@john.fr')
-//	   assert user.save() != null
-//	   
-//	   controller.springSecurityService =setUpSpringSecurity(user)
-//	   
-//	   populateValidParams(params)
-//	   def pub = new Pub(params)
-//	   assert pub.save() != null
-//	   
-//	   params.id = pub.id
-//	   controller.addPub()
-//	   
-//	   assert flash.message == null
-//	   assert response.redirectedUrl == '/pub/listPubs'
-//	   assert user.pubs.size() == 1
-//	   assert pub.users.size() == 1
-//	   
-//	   response.reset()
-//	   
-//	   controller.removePub()
-//	   assert response.redirectedUrl == '/pub/listPubs'
-//	   assert user.pubs.size() == 0
-//	   assert pub.users.size() == 0
-//	}
+	void testRemovePub() {
+		
+		mockDomain(User)
+		
+		def user = new User(username: 'user1',
+									password: 'pass1',
+									firstName: 'alfred',
+									lastName: 'alfredaussi',
+									mail: 'alfred@john.fr')
+	   assert user.save() != null
+	   
+	   controller.springSecurityService =setUpSpringSecurity(user)
+	   
+	   populateValidParams(params)
+	   def pub = new Pub(params)
+	   assert pub.save() != null
+	   
+	   params.id = pub.id
+	   controller.addPub()
+	   
+	   assert flash.message == null
+	   assert response.redirectedUrl == '/pub/listPubs'
+	   assert user.pubs.size() == 1
+	   assert pub.users.size() == 1
+	   
+	   response.reset()
+	   
+	   controller.removePub()
+	   assert response.redirectedUrl == '/pub/listPubs'
+	   assert user.pubs.size() == 0
+	   assert pub.users == null
+	}
 	
 	void testList2() {
 		params["max"] = 3
