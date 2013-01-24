@@ -25,6 +25,7 @@ import org.junit.*
 class ScenarioUserTests extends GroovyTestCase {
 	Pub pub
 	User userA, userB, userC
+	
 	@Before
 	void setUp() {
 		log.info("[ScenarioUserTests] setUp(): Start integration test for MyPub App.")
