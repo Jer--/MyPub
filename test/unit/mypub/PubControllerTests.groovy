@@ -1,3 +1,4 @@
+
 /*******************************************************************************
  *  Author : Group BBHC
  *  License : AGPL v3
@@ -5,7 +6,9 @@
 package mypub
 
 import grails.plugins.springsecurity.SpringSecurityService
+import org.codehaus.groovy.grails.web.servlet.mvc.exceptions.ControllerExecutionException;
 import org.junit.*
+import org.springframework.dao.DataIntegrityViolationException
 import grails.test.mixin.*
 
 @TestFor(PubController)
@@ -355,5 +358,39 @@ class PubControllerTests {
 	   def model = controller.listPubs()
 	   assert model.pubInstanceList.size() == 1
 	   assert model.pubInstanceTotal == 1
+	}
+	
+	void testDeleteCatch() {
+
+		populateValidParams(params)
+		def pub = new Pub(params)
+
+		assert pub.save() != null
+		assert Pub.count() == 1
+		
+		mockDomain(User)
+		
+		def user = new User(username: 'user1',
+									password: 'pass1',
+									firstName: 'alfred',
+									lastName: 'alfredaussi',
+									mail: 'alfred@john.fr')
+	   assert user.save() != null
+	   
+	   controller.springSecurityService =setUpSpringSecurity(user)
+
+		params.id = pub.id
+		
+		controller.addPub()
+		
+		response.reset()
+
+		Pub.metaClass.delete = { Map params -> 
+		throw new DataIntegrityViolationException("...")
+		}
+		
+		controller.delete()
+
+		assert response.redirectedUrl == '/pub/show/1'
 	}
 }
