@@ -142,9 +142,11 @@ class PubController {
 	def removePub() {
 		def courant = springSecurityService.currentUser
 		String username = courant.username
+		def user = User.findByUsername(username)
 		def pubInstance = Pub.get(params.id)
+		pubInstance.users.remove(user)
 		User.findByUsername(username).removeFromPubs(Pub.findByName(pubInstance.name))
-		Pub.findByName(pubInstance.name).removeFromUsers(User.findByUsername(username))
+//		Pub.findByName(pubInstance.name).removeFromUsers(User.findByUsername(username))
 		redirect(action: "listPubs")
 	}
 	

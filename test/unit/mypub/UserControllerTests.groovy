@@ -447,30 +447,33 @@ class UserControllerTests {
 		assert response.redirectedUrl == '/logout'
 	}
 	
-//	void testDeleteClos1() {
-//		
-//		populateValidParams(params)
-//		def user = new User(params)
-//		assert user.save() != null
-//
-//		params["username"] = 'user2'
-//		def user2 = new User(params)
-//		assert user2.save() != null
-//
-//		controller.springSecurityService = setUpSpringSecurity(user)
-//		
-//		params["id"] = user2.id
-//		controller.addFriend()
-//		
-//		assert user.friends.size() == 1
-//		assert response.redirectedUrl == '/user/listFriends'
-//		
-//		response.reset()
-//
-//		controller.delete()
-//
-//		assert User.count() == 0
-//		assert User.get(user.id) == null
-//		assert response.redirectedUrl == '/logout'
-//	}
+	void testDeleteClos1() {
+		
+		mockDomain(UserRole)
+		populateValidParams(params)
+		def user = new User(params)
+		assert user.save() != null
+
+		params["username"] = 'user2'
+		params["firstName"] = 'user2'
+		def user2 = new User(params)
+		assert user2.save() != null
+
+		controller.springSecurityService = setUpSpringSecurity(user)
+		
+		params["id"] = user2.id
+		controller.addFriend()
+		
+		assert User.count() == 2
+		assert user.friends.size() == 1
+		assert user2.friends.size() == 1
+		assert response.redirectedUrl == '/user/listFriends'
+		
+		response.reset()
+
+		controller.delete()
+
+		assert User.count() == 1
+		assert response.redirectedUrl == '/logout'
+	}
 }
