@@ -5,6 +5,7 @@
 package mypub
 
 import org.junit.*
+import org.springframework.dao.DataIntegrityViolationException
 import grails.test.mixin.*
 
 import grails.plugins.springsecurity.SpringSecurityService
@@ -475,5 +476,27 @@ class UserControllerTests {
 
 		assert User.count() == 1
 		assert response.redirectedUrl == '/logout'
+	}
+	
+	void testDeleteCatch() {
+		
+		mockDomain(UserRole)
+
+		populateValidParams(params)
+		def user = new User(params)
+
+		assert user.save() != null
+		assert User.count() == 1
+
+		params.id = user.id
+		
+		User.metaClass.delete = { Map params -> 
+		throw new DataIntegrityViolationException("...")
+		}
+
+		controller.delete()
+
+		assert User.count() == 1
+		assert response.redirectedUrl == '/user/show/1'
 	}
 }
