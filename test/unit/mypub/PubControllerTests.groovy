@@ -6,7 +6,6 @@
 package mypub
 
 import grails.plugins.springsecurity.SpringSecurityService
-import org.codehaus.groovy.grails.web.servlet.mvc.exceptions.ControllerExecutionException;
 import org.junit.*
 import org.springframework.dao.DataIntegrityViolationException
 import grails.test.mixin.*
