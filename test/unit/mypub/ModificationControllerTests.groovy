@@ -6,6 +6,7 @@ package mypub
 
 import grails.plugins.springsecurity.SpringSecurityService
 import org.junit.*
+import org.springframework.dao.DataIntegrityViolationException
 import grails.test.mixin.*
 
 @TestFor(ModificationController)
@@ -182,5 +183,27 @@ class ModificationControllerTests {
 		assert Modification.count() == 0
 		assert Modification.get(modification.id) == null
 		assert response.redirectedUrl == '/modification/list'
+	}
+	
+	// Non -generated test ///////////////////////////////////////////////
+	
+	void testDeleteCatch() {
+
+		populateValidParams(params)
+		def modification = new Modification(params)
+
+		assert modification.save() != null
+		assert Modification.count() == 1
+
+		params.id = modification.id
+		
+		Modification.metaClass.delete = { Map params -> 
+		throw new DataIntegrityViolationException("...")
+		}
+
+		controller.delete()
+
+		assert Modification.count() == 1l
+		assert response.redirectedUrl == '/modification/show/1'
 	}
 }
