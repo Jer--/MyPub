@@ -6,6 +6,7 @@ package mypub
 
 import grails.plugins.springsecurity.SpringSecurityService
 import org.junit.*
+import org.springframework.dao.DataIntegrityViolationException
 import grails.test.mixin.*
 
 @TestFor(PictureController)
@@ -556,6 +557,26 @@ class PictureControllerTests {
 	   controller.viewImageId()
 	   assert response.contentType == "image/jpeg"
 	   
+	}
+	
+	void testDeleteCatch() {
+
+		populateValidParams(params)
+		def picture = new Picture(params)
+
+		assert picture.save() != null
+		assert Picture.count() == 1
+
+		params.id = picture.id
+		
+		Picture.metaClass.delete = { Map params -> 
+		throw new DataIntegrityViolationException("...")
+		}
+
+		controller.delete()
+
+		assert Picture.count() == 1
+		assert response.redirectedUrl == '/picture/show/1'
 	}
 	
 }
