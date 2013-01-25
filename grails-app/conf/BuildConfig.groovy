@@ -36,7 +36,8 @@ grails.project.dependency.resolution = {
 		//mavenRepo "http://repository.jboss.com/maven2/"
 	}
 	dependencies { // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-		runtime 'mysql:mysql-connector-java:5.1.20' }
+		runtime 'mysql:mysql-connector-java:5.1.20'
+	}	
 
 	plugins {
 		runtime ":hibernate:$grailsVersion"
@@ -53,6 +54,8 @@ grails.project.dependency.resolution = {
 		runtime ":database-migration:1.1"
 		
 		compile ':cache:1.0.0'
+		
+		test ':spock:0.7'
 	}
 }
 
@@ -75,4 +78,4 @@ coverage {
 			'mypub/UserRole*.class']
 		xml = true
 		enabledByDefault = false
-	}
+}
