@@ -9,6 +9,7 @@ import grails.plugins.springsecurity.SpringSecurityService
 import grails.test.mixin.*
 
 import org.junit.*
+import org.springframework.dao.DataIntegrityViolationException
 
 @TestFor(CommentController)
 @TestMixin(Pub)
@@ -284,5 +285,24 @@ class CommentControllerTests {
 		
 		assert model.commentInstanceList.size() == 2
 		assert model.commentInstanceTotal == 2
+	}
+	
+	void testDeleteCatch() {
+		populateValidParams(params)
+		def comment = new Comment(params)
+
+		assert comment.save() != null
+		assert Comment.count() == 1
+
+		params.id = comment.id
+		
+		Comment.metaClass.delete = { Map params -> 
+		throw new DataIntegrityViolationException("...")
+		}
+
+		controller.delete()
+
+		assert Comment.count() == 1
+		assert response.redirectedUrl == '/comment/showcomment/1'
 	}
 }
