@@ -195,17 +195,17 @@ class ScenarioPubTests extends GroovyTestCase {
 		log.info("[ScenarioPubTests] Tear down end.")
 	}
 
-	private Object save(Object object ) {
-		validateAndPrintErrors( object )
-		Object result = object .save(flush: true )
-		assertNotNull( "Object not created: " + object , result)
-		return result
-	}
-
-	private void validateAndPrintErrors(Object object ) {
-		if (! object.validate()) {
-			object.errors.allErrors.each { error -> println error }
-			fail( "failed to save object ${object}" )
-		}
-	}
+//	private Object save(Object object ) {
+//		validateAndPrintErrors( object )
+//		Object result = object .save(flush: true )
+//		assertNotNull( "Object not created: " + object , result)
+//		return result
+//	}
+//
+//	private void validateAndPrintErrors(Object object ) {
+//		if (! object.validate()) {
+//			object.errors.allErrors.each { error -> println error }
+//			fail( "failed to save object ${object}" )
+//		}
+//	}
 }
