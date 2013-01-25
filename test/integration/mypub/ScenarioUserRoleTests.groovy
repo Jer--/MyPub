@@ -2,8 +2,7 @@ package mypub
 
 import static org.junit.Assert.*
 
-import mypub.Role;
-import mypub.User;
+import mypub.*
 
 import org.junit.*
 
