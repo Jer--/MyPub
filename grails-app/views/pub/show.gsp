@@ -94,12 +94,12 @@
 					<g:if test="${pubInstance?.presentationPicture}">
 						<img class="Picture"
 							src="${createLink(controller:'Picture', action:'viewImage', id:pubInstance.presentationPicture.id)}"
-							width="300" />
+							width="350" />
 					</g:if>
 					<g:else>
 						<img
 							src="${resource(dir: 'images', file: 'pub/TemplatePubBasic.jpg')}"
-							width="300" />
+							width="350" />
 					</g:else>
 				</div>
 				<%--insert the MAP --%>
