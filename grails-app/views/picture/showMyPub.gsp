@@ -17,7 +17,6 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link controller='User' action='showProfile'>My Profile</g:link></li>
-				<li><g:link action="listPerso"><g:message code="My Pictures" /></g:link></li>
 				<li style="float : right"><g:link controller='Logout'><img src="${resource(dir: 'images', file: 'skin/logout.png')}" width="15"/> Logout</g:link></li>
 			</ul>
 		</div>
@@ -51,9 +50,8 @@
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${pictureInstance?.id}" />
-					<g:link class="edit" action="edit" id="${pictureInstance?.id}" style="display:none; visibility:hidden"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="enleverListForAPub" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
+					<g:hiddenField name="pubId" value="${params.pub}" />
+					<g:actionSubmit class="delete" action="enleverListForAPub" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />				</fieldset>
 			</g:form>
 		</div>
 	</body>

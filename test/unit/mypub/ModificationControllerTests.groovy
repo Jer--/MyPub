@@ -74,9 +74,14 @@ class ModificationControllerTests {
 		assert view == '/modification/create'
 
 		response.reset()
-		populateValidParams(params)
+		
+//		populateValidParams(params)
+//		params["actualContent"] = "Paris"
 //		controller.save()
-//
+//		def modification = new Modification(params)
+//		modification.save()
+//		
+//		assert view != '/modification/create'
 //		assert response.redirectedUrl == '/modification/show/1'
 //		assert controller.flash.message != null
 //		assert Modification.count() == 1
@@ -205,5 +210,13 @@ class ModificationControllerTests {
 
 		assert Modification.count() == 1l
 		assert response.redirectedUrl == '/modification/show/1'
+	}
+	
+	void testList2() {
+		params["max"] = 3;
+		def model = controller.list()
+
+		assert model.modificationInstanceList.size() == 0
+		assert model.modificationInstanceTotal == 0
 	}
 }

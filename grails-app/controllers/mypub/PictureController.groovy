@@ -195,7 +195,7 @@ class PictureController {
 			pubInstance.removeFromPictures(pictureInstance)
 			Picture.findById(pictureInstance.id).delete(flush: true)
 		}
-		redirect(controller:'Pub', action: "show", id: 1)
+		redirect(controller:'Pub', action: "show", id: pubId)
 	}
 	
 	def showPub(Long pubId) {
