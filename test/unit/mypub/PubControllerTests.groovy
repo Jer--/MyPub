@@ -392,4 +392,18 @@ class PubControllerTests {
 
 		assert response.redirectedUrl == '/pub/show/1'
 	}
+	
+	void testUpdate2() {
+		populateValidParams(params)
+		def pub = new Pub(params)
+
+		assert pub.save() != null
+		
+		params.id = pub.id
+		params.version = 15
+		controller.update()
+
+		assert response.redirectedUrl == "/pub/show/$pub.id"
+		assert flash.message != null
+	}
 }

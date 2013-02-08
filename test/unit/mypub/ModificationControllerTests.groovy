@@ -219,4 +219,19 @@ class ModificationControllerTests {
 		assert model.modificationInstanceList.size() == 0
 		assert model.modificationInstanceTotal == 0
 	}
+	
+	void testUpdate2() {
+
+		populateValidParams(params)
+		def modification = new Modification(params)
+
+		assert modification.save() != null
+
+		params.id = modification.id
+		params.version = 15
+		controller.update()
+		
+		assert response.redirectedUrl == "/modification/show/$modification.id"
+		assert flash.message != null
+	}
 }

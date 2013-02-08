@@ -499,4 +499,18 @@ class UserControllerTests {
 		assert User.count() == 1
 		assert response.redirectedUrl == '/user/show/1'
 	}
+	
+	void testUpdate2() {
+		populateValidParams(params)
+		def user = new User(params)
+
+		assert user.save() != null
+
+		params.id = user.id
+		params.version = -1
+		controller.update()
+
+		assert response.redirectedUrl == "/user/showProfile"
+		assert flash.message != null
+	}
 }

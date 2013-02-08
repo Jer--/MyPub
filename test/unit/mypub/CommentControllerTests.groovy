@@ -305,4 +305,19 @@ class CommentControllerTests {
 		assert Comment.count() == 1
 		assert response.redirectedUrl == '/comment/showcomment/1'
 	}
+	
+	void testUpdate2() {
+
+		populateValidParams(params)
+		def comment = new Comment(params)
+
+		assert comment.save() != null
+
+		params.id = comment.id
+		params.version = 15
+		controller.update()
+
+		assert response.redirectedUrl == "/comment/show/$comment.id"
+		assert flash.message != null
+	}
 }

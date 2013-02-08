@@ -579,4 +579,19 @@ class PictureControllerTests {
 		assert response.redirectedUrl == '/picture/show/1'
 	}
 	
+	void testUpdate2() {
+		populateValidParams(params)
+		def picture = new Picture(params)
+
+		assert picture.save() != null
+
+		populateValidParams(params)
+		params.id = picture.id
+		params.version = 15
+		controller.update()
+
+		assert response.redirectedUrl == "/picture/show/$picture.id"
+		assert flash.message != null
+	}
+	
 }
