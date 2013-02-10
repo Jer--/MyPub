@@ -15,7 +15,7 @@
 		<a href="#list-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+				<li><a class="home" href="${createLink(uri: '/')}" name='home'><g:message code="default.home.label"/></a></li>
 				<li><g:link controller='User' action='showProfile'>My Profile</g:link></li>
 				<li>
 					<g:form action="searchUser" >
@@ -72,7 +72,7 @@
 					
 						<td>${fieldValue(bean: userInstance, field: "mail")}</td>
 						
-						<td><g:link action="removeFriend" id="${userInstance.id}">Remove</g:link></td>
+						<td><g:link action="removeFriend" id="${userInstance.id}" name="remove${userInstance.id}" >Remove</g:link></td>
 										
 					</tr>
 				</g:each>

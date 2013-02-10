@@ -73,7 +73,7 @@
 					
 						<td>${fieldValue(bean: userInstance, field: "mail")}</td>
 						
-						<td><g:link action="addFriend" id="${userInstance.id}">Add</g:link></td>
+						<td><g:link action="addFriend" id="${userInstance.id}" name="addFriend${userInstance.id}">Add</g:link></td>
 										
 					</tr>
 				</g:each>

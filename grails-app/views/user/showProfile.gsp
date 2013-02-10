@@ -110,7 +110,7 @@
 						<table style="width: 45%;" >
 							<th>
 							Friends
-							<g:link controller='User' action='listFriends' style="float: right">Manage Friends</g:link>
+							<g:link controller='User' action='listFriends' style="float: right" name='manageFriends'>Manage Friends</g:link>
 							</th>
 							<g:each in="${userInstance.friends.sort{a,b -> a.username <=> b.username}}" var="f">
 							<tr>

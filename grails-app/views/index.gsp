@@ -115,12 +115,12 @@
 				code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 	<sec:ifLoggedIn>
 			<fieldset class="buttons"> Welcome Back  <sec:username />   
-				<g:link controller='User' action='showProfile'>My Profile</g:link>
-				<g:link controller='Picture' action='listPerso'>My Pictures</g:link>
-				<g:link controller='User' action='listFriends'>My Friends</g:link>
+				<g:link controller='User' action='showProfile' name='profil'>My Profile</g:link>
+				<g:link controller='Picture' action='listPerso' >My Pictures</g:link>
+				<g:link controller='User' action='listFriends' name='friends'>My Friends</g:link>
 				<g:link controller='Pub' action='listPubs'>My Pubs</g:link>
 				<g:link controller='Pub' action='list'>Pubs</g:link>
-				<g:link controller='Logout'style="float : right"><img src="${resource(dir: 'images', file: 'skin/logout.png')}" width="15"/> Logout</g:link>
+				<g:link controller='Logout'style="float : right" name='logout'><img src="${resource(dir: 'images', file: 'skin/logout.png')}" width="15"/> Logout</g:link>
 			</fieldset>
 		 
 		
@@ -148,7 +148,7 @@
 
 	<sec:ifNotLoggedIn>
 	<fieldset class="buttons">
-	<div style="margin-left : 20px;">You are already a member? Log you !<g:link controller='login' action='auth'><h3>Login</h3></g:link></div>
+	<div style="margin-left : 20px;">You are already a member? Log you !<g:link controller='login' action='auth' name='log'><h3>Login</h3></g:link></div>
 	</fieldset>
 	<div id="page-body" role="main">
 			<h1 style="margin : 15px;">Welcome to My Pub</h1>
