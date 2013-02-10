@@ -108,7 +108,7 @@ class CommentController {
         }
         catch (DataIntegrityViolationException e) {
             flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'comment.label', default: 'comment'), id])
-            redirect(action: "showcomment", id: id)
+            redirect(action: "showComment", id: id)
         }
     }
 	

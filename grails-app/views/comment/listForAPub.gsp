@@ -50,7 +50,7 @@
 					
 						<td><g:link controller="pub" action="show" id="${commentInstance?.pub?.id}">${fieldValue(bean: commentInstance, field: "pub")}</g:link></td>
 					
-						<td><g:link action="showcomment" id="${commentInstance.id}">${fieldValue(bean: commentInstance, field: "text")}</g:link></td>
+						<td><g:link action="showComment" id="${commentInstance.id}">${fieldValue(bean: commentInstance, field: "text")}</g:link></td>
 					
 					</tr>
 				</g:each>

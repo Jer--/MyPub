@@ -303,7 +303,7 @@ class CommentControllerTests {
 		controller.delete()
 
 		assert Comment.count() == 1
-		assert response.redirectedUrl == '/comment/showcomment/1'
+		assert response.redirectedUrl == '/comment/showComment/1'
 	}
 	
 	void testUpdate2() {

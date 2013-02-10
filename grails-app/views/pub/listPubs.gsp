@@ -15,7 +15,7 @@
 		<a href="#list-pub" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+				<li><a class="home" href="${createLink(uri: '/')}" name='home'><g:message code="default.home.label"/></a></li>
 				<li><g:link controller='User' action='showProfile'>My Profile</g:link></li>
 				<li><g:link controller='Pub' action='list'>Pubs</g:link></li>	
 				<li>
@@ -64,7 +64,7 @@
 							<td><img src="${resource(dir: 'images', file: 'pub/TemplatePubBasic.jpg')}" width="100"/></td>
 						</g:else>
 					
-						<td><g:link action="show" id="${pubInstance.id}">${fieldValue(bean: pubInstance, field: "name")}</g:link></td>
+						<td><g:link action="show" id="${pubInstance.id}" name='show${pubInstance.id}'>${fieldValue(bean: pubInstance, field: "name")}</g:link></td>
 					
 						<td>${fieldValue(bean: pubInstance, field: "address")}</td>
 					
@@ -77,7 +77,7 @@
 						<td>${fieldValue(bean: pubInstance, field: "zip")}</td>
 					
 						
-						<td><g:link action="removePub" id="${pubInstance.id}">Remove</g:link></td>
+						<td><g:link action="removePub" id="${pubInstance.id}" name='remove${pubInstance.id}'>Remove</g:link></td>
 										
 					</tr>
 				</g:each>

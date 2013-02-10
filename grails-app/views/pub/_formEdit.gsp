@@ -111,7 +111,7 @@
 	
 <ul class="one-to-many">
 <g:each in="${pubInstance?.comments?.sort{a,b -> b.postDate <=> a.postDate}.take(10)}" var="c">
-    <li><g:link controller="comment" action="showcomment" id="${c.id}">${c?.encodeAsHTML()}</g:link></li>
+    <li><g:link controller="comment" action="showComment" id="${c.id}">${c?.encodeAsHTML()}</g:link></li>
 </g:each>
 <li class="add">
 <g:link controller="comment" action="create" params="['pub.id': pubInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'comment.label', default: 'comment')])}</g:link>

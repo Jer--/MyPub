@@ -52,7 +52,7 @@
 				<g:each in="${pubInstanceList}" status="i" var="pubInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${pubInstance.id}">${fieldValue(bean: pubInstance, field: "name")}</g:link></td>
+						<td><g:link action="show" id="${pubInstance.id}" >${fieldValue(bean: pubInstance, field: "name")}</g:link></td>
 					
 						<td>${fieldValue(bean: pubInstance, field: "address")}</td>
 					
@@ -64,7 +64,7 @@
 					
 						<td>${fieldValue(bean: pubInstance, field: "zip")}</td>
 						
-						<td><g:link action="addPub" id="${pubInstance.id}">Add</g:link></td>
+						<td><g:link action="addPub" id="${pubInstance.id}" name='add${pubInstance.id}'>Add</g:link></td>
 						
 					
 					</tr>

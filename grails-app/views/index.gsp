@@ -118,7 +118,7 @@
 				<g:link controller='User' action='showProfile' name='profil'>My Profile</g:link>
 				<g:link controller='Picture' action='listPerso' >My Pictures</g:link>
 				<g:link controller='User' action='listFriends' name='friends'>My Friends</g:link>
-				<g:link controller='Pub' action='listPubs'>My Pubs</g:link>
+				<g:link controller='Pub' action='listPubs' name='myPub'>My Pubs</g:link>
 				<g:link controller='Pub' action='list'>Pubs</g:link>
 				<g:link controller='Logout'style="float : right" name='logout'><img src="${resource(dir: 'images', file: 'skin/logout.png')}" width="15"/> Logout</g:link>
 			</fieldset>

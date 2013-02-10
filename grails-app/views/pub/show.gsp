@@ -65,7 +65,7 @@
 			code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 	<div class="nav" role="navigation">
 		<ul>
-			<li><a class="home" href="${createLink(uri: '/')}"><g:message
+			<li><a class="home" href="${createLink(uri: '/')}" name='home'><g:message
 						code="default.home.label" /></a></li>
 			<li><g:link class="list" action="list">
 					<g:message code="default.list.label" args="[entityName]" />
@@ -232,7 +232,7 @@
 							<th>
 								<li>Lastest Comments <g:link controller="comment"
 										action="create" params="['pub.id': pubInstance?.id]"
-										style="float: right">
+										style="float: right" name='addComment'>
 										${message(code: 'default.add.label', args: [message(code: 'comment.label', default: 'comment')])}
 									</g:link></li>
 							</th>
@@ -261,7 +261,7 @@
 				<g:else>
 					<p align=justify style="margin: 15px;">No comments for this Pub</p>
 					<g:link style="margin : 15px;" controller="comment" action="create"
-						params="['pub.id': pubInstance?.id]">
+						params="['pub.id': pubInstance?.id]" name='addComment'>
 						${message(code: 'default.add.label', args: [message(code: 'comment.label', default: 'comment')])}
 					</g:link>
 				</g:else>
