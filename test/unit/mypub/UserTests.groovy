@@ -133,11 +133,12 @@ class UserTests {
 		  assert "max" == user.errors["birthday"]
 	}
 	
-//	void testBeforeUpdate() {
-//		def user = new User(username:"userTest", password:"password", firstName:"Delon", lastName:"Alain", sex:'M', mail:"testmail@test.com")
-//		assert user.save() != null
-//		user.password = "hu(hj^y"
-//		user.beforeUpdate()
-//	}
+	void testBeforeUpdate() {
+		User.metaClass.isDirty = { String fieldName -> return true}
+		def user = new User(username:"userTest", password:"password", firstName:"Delon", lastName:"Alain", sex:'M', mail:"testmail@test.com")
+		assert user.save() != null
+		user.password = "otherPass"
+		user.beforeUpdate()
+	}
 	
 }
